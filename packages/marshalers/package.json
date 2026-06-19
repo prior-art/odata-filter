@@ -13,11 +13,11 @@
     "test:mutation": "stryker run"
   },
   "devDependencies": {
-    "@prior-art/odata-filter-core": "^2.0.0",
+    "@prior-art/odata-filter-core": "^1.0.0",
     "@types/mongodb": "^4.0.7"
   },
   "peerDependencies": {
-    "@prior-art/odata-filter-core": "^2.0.0"
+    "@prior-art/odata-filter-core": "^1.0.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
