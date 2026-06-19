@@ -1,8 +1,22 @@
 {
   "name": "@odata-filter/core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
+  "keywords": [
+    "odata",
+    "rest-api",
+    "nodejs",
+    "typescript"
+  ],
   "description": "A query filter parser implementing the OData standard",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prior-art/odata-filter.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/prior-art/odata-filter/issues"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
