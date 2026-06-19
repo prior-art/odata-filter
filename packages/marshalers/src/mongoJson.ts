@@ -1,5 +1,5 @@
-import { NodeType, TokenType } from '@prior-art/odata-filter-core';
-import type { Node } from '@prior-art/odata-filter-core';
+import { NodeType, TokenType } from '@odata-filter/core';
+import type { Node } from '@odata-filter/core';
 import { mongoOperatorLookup } from './lookups';
 import { Filter } from 'mongodb';
 

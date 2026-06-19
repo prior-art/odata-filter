@@ -1,4 +1,4 @@
-import { Node, NodeType } from '@prior-art/odata-filter-core';
+import { Node, NodeType } from '@odata-filter/core';
 import { Comparison } from './types';
 import { ValidationException } from './exceptions';
 

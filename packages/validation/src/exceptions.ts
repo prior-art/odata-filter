@@ -1,4 +1,4 @@
-import { FilterQueryParserException } from '@prior-art/odata-filter-core';
+import { FilterQueryParserException } from '@odata-filter/core';
 
 export class ValidationException extends FilterQueryParserException {
   constructor(message?: string) {

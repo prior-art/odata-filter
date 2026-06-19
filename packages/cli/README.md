@@ -15,8 +15,8 @@ See [INSTALL.md](../../INSTALL.md) for full instructions.
 ### Package Installation
 
 ```sh
-npm i @prior-art/odata-filter-core --save
-npm i @prior-art/odata-filter-cli --save-dev
+npm i @odata-filter/core --save
+npm i @odata-filter/cli --save-dev
 ```
 
 ### Basic Example

@@ -1,4 +1,4 @@
-import { TokenType } from '@prior-art/odata-filter-core';
+import { TokenType } from '@odata-filter/core';
 import { MongoOperators } from './types';
 
 export const mongoOperatorLookup: Record<TokenType, MongoOperators> = {
