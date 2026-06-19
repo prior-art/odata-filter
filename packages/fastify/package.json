@@ -1,8 +1,24 @@
 {
   "name": "@odata-filter/fastify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "license": "MIT",
+  "keywords": [
+    "odata",
+    "rest-api",
+    "nodejs",
+    "typescript",
+    "fastify"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prior-art/odata-filter.git",
+    "directory": "packages/fastify"
+  },
+  "bugs": {
+    "url": "https://github.com/prior-art/odata-filter/issues"
+  },
+  "description": "Fastify plugin for parsing and validating OData filter expressions for comprehensive OData support in Fastify applications.",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",

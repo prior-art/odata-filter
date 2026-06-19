@@ -1,7 +1,23 @@
 {
   "name": "@odata-filter/marshalers",
-  "version": "1.0.0",
-  "description": "A query filter parser implementing the OData standard",
+  "version": "1.0.1",
+  "keywords": [
+    "odata",
+    "rest-api",
+    "nodejs",
+    "typescript",
+    "mikro-orm",
+    "mongo-query"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prior-art/odata-filter.git",
+    "directory": "packages/marshalers"
+  },
+  "bugs": {
+    "url": "https://github.com/prior-art/odata-filter/issues"
+  },
+  "description": "Marshaler utilities for OData filter expressions, including a MongoDB query generator for MikroORM usage.",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

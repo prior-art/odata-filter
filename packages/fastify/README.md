@@ -8,7 +8,7 @@
 
 ## Installation
 
-See [INSTALL.md](../../INSTALL.md) for full instructions.
+See [INSTALL.md](https://github.com/prior-art/odata-filter/blob/main/INSTALL.md) for full instructions.
 
 ## Usage
 
@@ -81,11 +81,11 @@ fastify.register(async (instance) => {
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for full instructions.
+See [CONTRIBUTING.md](https://github.com/prior-art/odata-filter/blob/main/CONTRIBUTING.md) for full instructions.
 
 ## License
 
-See [LICENSE](/../../LICENSE) for licensing information.
+See [LICENSE](https://github.com/prior-art/odata-filter/blob/main/LICENSE) for licensing information.
 
 ## Documentation
 
