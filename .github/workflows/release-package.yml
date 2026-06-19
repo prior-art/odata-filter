@@ -21,8 +21,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@prior-art'
+          scope: '@odata-filter'
 
       - name: Install NPM Dependencies
         run: npm ci
@@ -41,12 +40,14 @@ jobs:
 
       - name: Publish Pre-Release
         if: ${{ github.event.release.prerelease }}
-        run: npm publish --workspace=packages/$PACKAGE_NAME --tag next
+        run: npm publish --workspace=packages/$PACKAGE_NAME --tag next --access public
         env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Release
         if: ${{ ! github.event.release.prerelease }}
-        run: npm publish --workspace=packages/$PACKAGE_NAME
+        run: npm publish --workspace=packages/$PACKAGE_NAME --access public
         env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

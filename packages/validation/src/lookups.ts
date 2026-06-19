@@ -1,4 +1,4 @@
-import { NodeType, TokenValue } from '@prior-art/odata-filter-core';
+import { NodeType, TokenValue } from '@odata-filter/core';
 
 export const jsonTypeLookup: Record<string, TokenValue> = {
   [NodeType.STRING_LITERAL]: 'string',

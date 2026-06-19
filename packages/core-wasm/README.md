@@ -15,7 +15,7 @@ See [INSTALL.md](../../INSTALL.md) for full instructions.
 ### Package Installation
 
 ```sh
-npm i @prior-art/odata-filter-core-wasm --save
+npm i @odata-filter/core-wasm --save
 ```
 
 ### Basic Example
@@ -25,7 +25,7 @@ Note: The output of the 'parse' function differs from the [TypeScript version](.
 ```ts
 (async () => {
     // AssemblyScript WebAssembly modules return a Promise that resolves to the module's exports when imported.
-    const { tokenize, parse } = await import('@prior-art/odata-filter-core-wasm');
+    const { tokenize, parse } = await import('@odata-filter/core-wasm');
 
     const tokens = tokenize("country/name eq 'US' and age gte 21");
 
@@ -130,7 +130,7 @@ Note: The output of the 'parse' function differs from the [TypeScript version](.
 
 ```ts
 (async () => {
-    const { iterate, tokenize, parse } = await import('@prior-art/odata-filter-core-wasm');
+    const { iterate, tokenize, parse } = await import('@odata-filter/core-wasm');
 
     const tokens = tokenize("country eq 'US' and age gte 21");
     const ast = parse(tokens);

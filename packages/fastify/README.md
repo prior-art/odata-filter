@@ -15,14 +15,14 @@ See [INSTALL.md](../../INSTALL.md) for full instructions.
 ### Package Installation
 
 ```sh
-npm i @prior-art/odata-filter-core @prior-art/odata-filter-validation @prior-art/odata-filter-fastify --save
+npm i @odata-filter/core @odata-filter/validation @odata-filter/fastify --save
 ```
 
 ### Basic Example
 
 ```ts
 import Fastify from 'fastify';
-import { fastifyPlugin } from '@prior-art/odata-filter-fastify';
+import { fastifyPlugin } from '@odata-filter/fastify';
 
 const fastify = Fastify();
 

@@ -1,7 +1,8 @@
 {
-  "name": "@prior-art/odata-filter-cli",
+  "name": "@odata-filter/cli",
   "version": "1.0.0",
   "description": "A query filter parser implementing the OData standard",
+  "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
@@ -20,16 +21,13 @@
     "commander": "^14.0.3"
   },
   "devDependencies": {
-    "@prior-art/odata-filter-core": "^1.0.0",
-    "@prior-art/odata-filter-marshalers": "^1.0.0",
-    "@prior-art/odata-filter-validation": "^1.0.0"
+    "@odata-filter/core": "^1.0.0",
+    "@odata-filter/marshalers": "^1.0.0",
+    "@odata-filter/validation": "^1.0.0"
   },
   "peerDependencies": {
-    "@prior-art/odata-filter-core": "^1.0.0",
-    "@prior-art/odata-filter-marshalers": "^1.0.0",
-    "@prior-art/odata-filter-validation": "^1.0.0"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "@odata-filter/core": "^1.0.0",
+    "@odata-filter/marshalers": "^1.0.0",
+    "@odata-filter/validation": "^1.0.0"
   }
 }

@@ -1,6 +1,7 @@
 {
-  "name": "@prior-art/odata-filter-core",
-  "version": "1.0.1",
+  "name": "@odata-filter/core",
+  "version": "1.0.2",
+  "license": "MIT",
   "description": "A query filter parser implementing the OData standard",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,8 +12,5 @@
     "lint:fix": "eslint . --fix",
     "test": "jest",
     "test:mutation": "stryker run"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   }
 }

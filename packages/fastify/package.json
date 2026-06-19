@@ -1,7 +1,8 @@
 {
-  "name": "@prior-art/odata-filter-fastify",
+  "name": "@odata-filter/fastify",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "license": "MIT",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
@@ -13,15 +14,15 @@
     "test:mutation": "stryker run"
   },
   "devDependencies": {
-    "@prior-art/odata-filter-core": "^1.0.0",
-    "@prior-art/odata-filter-marshalers": "^1.0.0",
-    "@prior-art/odata-filter-validation": "^1.0.0",
+    "@odata-filter/core": "^1.0.0",
+    "@odata-filter/marshalers": "^1.0.0",
+    "@odata-filter/validation": "^1.0.0",
     "fastify": "^5.8.5"
   },
   "peerDependencies": {
-    "@prior-art/odata-filter-core": "^1.0.0",
-    "@prior-art/odata-filter-marshalers": "^1.0.0",
-    "@prior-art/odata-filter-validation": "^1.0.0"
+    "@odata-filter/core": "^1.0.0",
+    "@odata-filter/marshalers": "^1.0.0",
+    "@odata-filter/validation": "^1.0.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

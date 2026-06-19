@@ -5,10 +5,10 @@ import type {
   FastifyPluginOptions,
   HookHandlerDoneFunction,
 } from 'fastify';
-import { tokenize, parse } from '@prior-art/odata-filter-core';
-import { type JsonSchema, validate } from '@prior-art/odata-filter-validation';
+import { tokenize, parse } from '@odata-filter/core';
+import { type JsonSchema, validate } from '@odata-filter/validation';
 import { queryHasFilter } from './predicates';
-import { toMongoJson } from '@prior-art/odata-filter-marshalers';
+import { toMongoJson } from '@odata-filter/marshalers';
 
 const parser = (
   fastify: FastifyInstance,

@@ -1,4 +1,4 @@
-import type { Node } from '@prior-art/odata-filter-core';
+import type { Node } from '@odata-filter/core';
 import type { Filter } from 'mongodb';
 
 export type QueryFilter = {

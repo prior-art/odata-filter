@@ -15,13 +15,13 @@ See [INSTALL.md](../../INSTALL.md) for full instructions.
 ### Package Installation
 
 ```sh
-npm i @prior-art/odata-filter-core --save
+npm i @odata-filter/core --save
 ```
 
 ### Basic Example
 
 ```ts
-import { tokenize, parse } from '@prior-art/odata-filter-core';
+import { tokenize, parse } from '@odata-filter/core';
 
 const tokens = tokenize("country/name eq 'US' and age gte 21");
 
@@ -48,7 +48,7 @@ parse(tokens);
 ### Traverse Results
 
 ```ts
-import { tokenize, parse, iterate } from '@prior-art/odata-filter-core';
+import { tokenize, parse, iterate } from '@odata-filter/core';
 
 const tokens = tokenize("country eq 'US' and age gte 21");
 const ast = parse(tokens);

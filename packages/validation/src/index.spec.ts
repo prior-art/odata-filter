@@ -1,5 +1,5 @@
 import { validate } from '.';
-import { NodeType, FilterQueryParserException } from '@prior-art/odata-filter-core';
+import { NodeType, FilterQueryParserException } from '@odata-filter/core';
 import { JsonSchema } from './types';
 import { ValidationException } from './exceptions';
 
