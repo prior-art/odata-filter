@@ -1,0 +1,48 @@
+import { TokenType } from './types';
+import {
+  stringFormatter,
+  numberFormatter,
+  booleanFormatter,
+  nullFormatter,
+  tupleFormatter,
+  defaultFormatter,
+} from './formatters';
+
+export const valueFormatterLookup: Record<TokenType, Function> = {
+  [TokenType.STRING]: stringFormatter,
+  [TokenType.NUMBER]: numberFormatter,
+  [TokenType.TRUE]: booleanFormatter,
+  [TokenType.FALSE]: booleanFormatter,
+  [TokenType.NULL]: nullFormatter,
+  [TokenType.TUPLE]: tupleFormatter,
+  [TokenType.WHITESPACE]: defaultFormatter,
+  [TokenType.SYMBOL]: defaultFormatter,
+  [TokenType.OPEN_PAREN]: defaultFormatter,
+  [TokenType.CLOSE_PAREN]: defaultFormatter,
+  [TokenType.IN]: defaultFormatter,
+  [TokenType.GT]: defaultFormatter,
+  [TokenType.GTE]: defaultFormatter,
+  [TokenType.LT]: defaultFormatter,
+  [TokenType.LTE]: defaultFormatter,
+  [TokenType.EQ]: defaultFormatter,
+  [TokenType.NE]: defaultFormatter,
+  [TokenType.NOT]: defaultFormatter,
+  [TokenType.AND]: defaultFormatter,
+  [TokenType.OR]: defaultFormatter,
+};
+
+export const reservedKeywordLookup: Record<string, TokenType> = {
+  in: TokenType.IN,
+  eq: TokenType.EQ,
+  ne: TokenType.NE,
+  gt: TokenType.GT,
+  gte: TokenType.GTE,
+  lt: TokenType.LT,
+  lte: TokenType.LTE,
+  not: TokenType.NOT,
+  and: TokenType.AND,
+  or: TokenType.OR,
+  true: TokenType.TRUE,
+  false: TokenType.FALSE,
+  null: TokenType.NULL,
+};

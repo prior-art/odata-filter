@@ -1,0 +1,46 @@
+name: Node.js Package
+
+on:
+  release:
+    types: [created]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  npm-publish:
+    name: Publish NPM Artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@prior-art'
+
+      - name: Install NPM Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Set Package Name
+        env:
+          TAG_NAME: ${{ github.ref_name }}
+        run: |
+          PACKAGE_NAME=$(echo "$TAG_NAME" | cut -d'@' -f1)
+          echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
+
+      - name: Publish Pre-Release
+        if: ${{ github.event.release.prerelease }}
+        run: npm publish --workspace=packages/$PACKAGE_NAME --tag next
+
+      - name: Publish Release
+        if: ${{ ! github.event.release.prerelease }}
+        run: npm publish --workspace=packages/$PACKAGE_NAME

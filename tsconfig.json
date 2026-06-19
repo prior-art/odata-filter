@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictBindCallApply": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "baseUrl": "./src",
+    "downlevelIteration": true,
+    "resolveJsonModule": true
+  },
+  "include": ["./packages/*/src/**/*.ts"]
+}

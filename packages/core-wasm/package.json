@@ -1,0 +1,27 @@
+{
+  "name": "@prior-art/odata-filter-core-wasm",
+  "version": "1.0.0",
+  "description": "OData Filter Core",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "asc assembly/index.ts --disableWarning",
+    "clean": "rimraf dist node_modules coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "as-test",
+    "test:mutation": ""
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.28.9",
+    "@prior-art/assemblyscript-regex": "^1.0.0",
+    "assemblyscript-unittest-framework": "^2.1.0",
+    "eslint-plugin-jsonc": "^2.21.0",
+    "typescript-eslint": "^8.50.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

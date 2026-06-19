@@ -1,0 +1,7 @@
+.vscode/
+.DS_Store
+node_modules
+packages/*/dist/
+packages/*/coverage/
+packages/*/.stryker-tmp/
+packages/*/reports/

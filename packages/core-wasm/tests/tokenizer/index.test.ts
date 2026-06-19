@@ -1,0 +1,121 @@
+import { test, expect } from "assemblyscript-unittest-framework/assembly";
+import * as app from "../../assembly/index";
+
+test("should tokenize empty string", () => {
+  const actual = app.tokenize("");
+  expect(actual.length).equal(0);
+});
+
+test("should tokenize whitespace only", () => {
+  const actual = app.tokenize("     ");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[0].value.raw).equal("     ");
+  expect(actual[0].value.stringValue).equal("     ");
+  expect(actual[0].position).equal(0);
+});
+
+test("should tokenize single symbol", () => {
+  const actual = app.tokenize("country");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("country");
+  expect(actual[0].value.stringValue).equal("country");
+});
+
+test("should tokenize single number", () => {
+  const actual = app.tokenize("12345");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.NUMBER);
+  expect(actual[0].value.raw).equal("12345");
+  expect(actual[0].value.intValue).equal(12345);
+});
+
+test("should tokenize single string", () => {
+  const actual = app.tokenize("'Hello World'");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.STRING);
+  expect(actual[0].value.raw).equal("'Hello World'");
+  expect(actual[0].value.stringValue).equal("Hello World");
+});
+
+test("should tokenize single boolean", () => {
+  const actual = app.tokenize("true");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.BOOLEAN);
+  expect(actual[0].value.raw).equal("true");
+  expect(actual[0].value.boolValue).equal(true);
+});
+
+test("should tokenize single null", () => {
+  const actual = app.tokenize("null");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.NULL);
+  expect(actual[0].value.raw).equal("null");
+});
+
+test("should tokenize single operator", () => {
+  const actual = app.tokenize("eq");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.EQ);
+  expect(actual[0].value.raw).equal("eq");
+});
+
+test("should tokenize single tuple", () => {
+  const actual = app.tokenize("('USA', 'CAN', 'MEX')");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.TUPLE);
+  expect(actual[0].value.raw).equal("('USA', 'CAN', 'MEX')");
+  expect(actual[0].value.arrayValue.length).equal(3);
+  expect(actual[0].value.arrayValue[0].stringValue).equal("USA");
+  expect(actual[0].value.arrayValue[1].stringValue).equal("CAN");
+  expect(actual[0].value.arrayValue[2].stringValue).equal("MEX");
+});
+
+test("should tokenize single open parenthesis", () => {
+  const actual = app.tokenize("(");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.OPEN_PAREN);
+  expect(actual[0].value.raw).equal("(");
+});
+
+test("should tokenize single close parenthesis", () => {
+  const actual = app.tokenize(")");
+  expect(actual.length).equal(1);
+  expect(actual[0].type).equal(app.TokenType.CLOSE_PAREN);
+  expect(actual[0].value.raw).equal(")");
+});
+
+test("should tokenize complex expression", () => {
+  const actual = app.tokenize("(country eq 'USA' and age gt 21)");
+  expect(actual.length).equal(15);
+  expect(actual[0].type).equal(app.TokenType.OPEN_PAREN);
+  expect(actual[0].value.raw).equal("(");
+  expect(actual[1].type).equal(app.TokenType.SYMBOL);
+  expect(actual[1].value.raw).equal("country");
+  expect(actual[2].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.EQ);
+  expect(actual[4].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[5].value.raw).equal("'USA'");
+  expect(actual[5].type).equal(app.TokenType.STRING);
+  expect(actual[6].value.raw).equal(" ");
+  expect(actual[6].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[7].value.raw).equal("and");
+  expect(actual[7].type).equal(app.TokenType.AND);
+  expect(actual[8].value.raw).equal(" ");
+  expect(actual[8].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[9].value.raw).equal("age");
+  expect(actual[9].type).equal(app.TokenType.SYMBOL);
+  expect(actual[10].value.raw).equal(" ");
+  expect(actual[10].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[11].value.raw).equal("gt");
+  expect(actual[11].type).equal(app.TokenType.GT);
+  expect(actual[12].value.raw).equal(" ");
+  expect(actual[12].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[13].value.raw).equal("21");
+  expect(actual[13].type).equal(app.TokenType.NUMBER);
+  expect(actual[14].value.raw).equal(")");
+  expect(actual[14].type).equal(app.TokenType.CLOSE_PAREN);
+});

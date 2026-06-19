@@ -1,0 +1,79 @@
+name: Continuous Integration Checks
+
+on:
+  workflow_call:
+    inputs:
+      package:
+        required: true
+        type: string
+      mutation:
+        required: false
+        type: boolean
+        default: true
+      coverage:
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@prior-art'
+          cache: 'npm'
+
+      - name: Install NPM Dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Audit
+        run: npm audit --workspace=packages/${{ inputs.package }} --omit=dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Lint
+        run: npm run lint --workspace=packages/${{ inputs.package }}
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test --workspace=packages/${{ inputs.package }}
+
+      - name: Create Mutation Test Cache Key
+        if: ${{ inputs.mutation }}
+        run: echo "CACHE_KEY=stryker-mutation-${{ inputs.package }}-${{ hashFiles('**/stryker-incremental.json') }}" >> $GITHUB_ENV
+
+      - name: Restore Mutation Test Cache
+        if: ${{ inputs.mutation }}
+        id: restore-cache
+        uses: actions/cache@v4
+        with:
+          path: packages/${{ inputs.package }}/reports/stryker-incremental.json
+          key: ${{ env.CACHE_KEY }}
+          restore-keys: |
+            ${{ env.CACHE_KEY }}
+
+      - name: Mutation Test
+        if: ${{ inputs.mutation }}
+        run: npm run test:mutation --workspace=packages/${{ inputs.package }}
+
+      - name: Cache Mutation Test Results
+        if: ${{ inputs.mutation }}
+        uses: actions/cache@v4
+        with:
+          path: packages/${{ inputs.package }}/reports/stryker-incremental.json
+          key: ${{ env.CACHE_KEY }}
+
+      - name: Codacy Coverage Reporter
+        if: ${{ inputs.coverage }}
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: packages/${{ inputs.package }}/coverage/lcov.info
