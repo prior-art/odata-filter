@@ -20,12 +20,12 @@
     "commander": "^14.0.3"
   },
   "devDependencies": {
-    "@prior-art/odata-filter-core": "^2.0.0",
+    "@prior-art/odata-filter-core": "^1.0.0",
     "@prior-art/odata-filter-marshalers": "^1.0.0",
     "@prior-art/odata-filter-validation": "^1.0.0"
   },
   "peerDependencies": {
-    "@prior-art/odata-filter-core": "^2.0.0",
+    "@prior-art/odata-filter-core": "^1.0.0",
     "@prior-art/odata-filter-marshalers": "^1.0.0",
     "@prior-art/odata-filter-validation": "^1.0.0"
   },
