@@ -1,6 +1,6 @@
 {
   "name": "@prior-art/odata-filter-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A query filter parser implementing the OData standard",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
