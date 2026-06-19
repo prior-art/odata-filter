@@ -33,8 +33,6 @@ jobs:
               - 'eslint.config.js'
             core:
               - 'packages/core/**'
-            assemblyscript_regex:
-              - 'packages/assemblyscript-regex/**'
             core_wasm:
               - 'packages/core-wasm/**'
             fastify:
@@ -53,16 +51,6 @@ jobs:
     secrets: inherit
     with:
       package: 'core'
-
-  assemblyscript-regex:
-    needs: run-diff
-    if: needs.run-diff.outputs.assemblyscript_regex == 'true' || needs.run-diff.outputs.project_root == 'true'
-    uses: prior-art/odata-filter/.github/workflows/ci-checks.yml@main
-    secrets: inherit
-    with:
-      package: 'assemblyscript-regex'
-      mutation: false
-      coverage: false
 
   core-wasm:
     needs: run-diff
