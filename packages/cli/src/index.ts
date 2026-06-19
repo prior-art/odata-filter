@@ -2,9 +2,9 @@
 
 import { program, Option } from 'commander';
 import { inspect } from 'util';
-import { tokenize, parse } from '@prior-art/odata-filter-core';
-import { type JsonSchema, validate } from '@prior-art/odata-filter-validation';
-import { toMongoJson } from '@prior-art/odata-filter-marshalers';
+import { tokenize, parse } from '@odata-filter/core';
+import { type JsonSchema, validate } from '@odata-filter/validation';
+import { toMongoJson } from '@odata-filter/marshalers';
 import { name, description, version } from '../package.json';
 
 program.name(name).description(description).version(version);

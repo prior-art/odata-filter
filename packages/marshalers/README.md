@@ -15,14 +15,14 @@ See [INSTALL.md](../../INSTALL.md) for full instructions.
 ### Package Installation
 
 ```sh
-npm i @prior-art/odata-filter-marshalers --save
+npm i @odata-filter/marshalers --save
 ```
 
 ### Basic Example
 
 ```ts
-import { tokenize, parse } from '@prior-art/odata-filter-core';
-import { toMongoJson } from '@prior-art/odata-filter-marshalers';
+import { tokenize, parse } from '@odata-filter/core';
+import { toMongoJson } from '@odata-filter/marshalers';
 
 const tokens = tokenize("country/name eq 'US' and age gte 21");
 

@@ -1,5 +1,5 @@
 import { toMongoJson } from './index';
-import type { Node } from '@prior-art/odata-filter-core';
+import type { Node } from '@odata-filter/core';
 
 describe('mongoJson', () => {
   test('it transforms an AST node into a JSON object', () => {

@@ -1,5 +1,5 @@
 import { isComparison } from './predicates';
-import { NodeType } from '@prior-art/odata-filter-core';
+import { NodeType } from '@odata-filter/core';
 import { ValidationException } from './exceptions';
 
 describe('#isComparison', () => {

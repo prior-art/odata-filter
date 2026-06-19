@@ -1,7 +1,8 @@
 {
-  "name": "@prior-art/odata-filter-marshalers",
+  "name": "@odata-filter/marshalers",
   "version": "1.0.0",
   "description": "A query filter parser implementing the OData standard",
+  "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -13,13 +14,10 @@
     "test:mutation": "stryker run"
   },
   "devDependencies": {
-    "@prior-art/odata-filter-core": "^1.0.0",
+    "@odata-filter/core": "^1.0.0",
     "@types/mongodb": "^4.0.7"
   },
   "peerDependencies": {
-    "@prior-art/odata-filter-core": "^1.0.0"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "@odata-filter/core": "^1.0.0"
   }
 }

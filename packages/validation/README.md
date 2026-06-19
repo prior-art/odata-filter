@@ -15,13 +15,13 @@ See [INSTALL.md](../../INSTALL.md) for full instructions.
 ### Package Installation
 
 ```sh
-npm i @prior-art/odata-filter-validation --save
+npm i @odata-filter/validation --save
 ```
 
 ### Basic Example
 
 ```ts
-import { validate } from '@prior-art/odata-filter-validation';
+import { validate } from '@odata-filter/validation';
 
 const ast = {
     type: 'comparison_operator',
