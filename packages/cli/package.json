@@ -1,7 +1,21 @@
 {
   "name": "@odata-filter/cli",
-  "version": "1.0.0",
-  "description": "A query filter parser implementing the OData standard",
+  "version": "1.0.1",
+  "keywords": [
+    "odata",
+    "rest-api",
+    "nodejs",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prior-art/odata-filter.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/prior-art/odata-filter/issues"
+  },
+  "description": "Command-line interface for parsing, validating, and transforming OData filter expressions, providing a convenient tool for developers to work with OData filters in various formats.",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

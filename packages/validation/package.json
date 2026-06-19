@@ -1,12 +1,12 @@
 {
   "name": "@odata-filter/validation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "odata",
     "rest-api",
     "nodejs",
     "typescript",
-    "openapi"
+    "json-schema"
   ],
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/prior-art/odata-filter/issues"
   },
-  "description": "A query filter parser implementing the OData standard",
+  "description": "JSON Schema based validation utilities for OData filter expressions.",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

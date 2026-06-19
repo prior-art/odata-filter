@@ -8,7 +8,7 @@
 
 ## Installation
 
-See [INSTALL.md](../../INSTALL.md) for full instructions.
+See [INSTALL.md](https://github.com/prior-art/odata-filter/blob/main/INSTALL.md) for full instructions.
 
 ## Usage
 
@@ -57,13 +57,12 @@ toMongoJson(ast);
 
 ## Contributing
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for full instructions.
+See [CONTRIBUTING.md](https://github.com/prior-art/odata-filter/blob/main/CONTRIBUTING.md) for full instructions.
 
 ## License
 
-See [LICENSE](../../LICENSE) for licensing information.
+See [LICENSE](https://github.com/prior-art/odata-filter/blob/main/LICENSE) for licensing information.
 
 ## Documentation
 
 * [OData Standard v4](https://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html)
-* [JSONSchema](https://json-schema.org/)

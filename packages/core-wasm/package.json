@@ -1,7 +1,20 @@
 {
   "name": "@odata-filter/core-wasm",
-  "version": "1.0.0",
-  "description": "OData Filter Core",
+  "version": "1.0.1",
+  "keywords": [
+    "odata",
+    "rest-api",
+    "wasm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prior-art/odata-filter.git",
+    "directory": "packages/core-wasm"
+  },
+  "bugs": {
+    "url": "https://github.com/prior-art/odata-filter/issues"
+  },
+  "description": "WebAssembly module for OData filter expression parsing and validation, providing high-performance utilities for OData filter processing in various environments.",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
