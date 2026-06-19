@@ -26,6 +26,8 @@ jobs:
 
       - name: Install NPM Dependencies
         run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: npm run build
@@ -40,7 +42,11 @@ jobs:
       - name: Publish Pre-Release
         if: ${{ github.event.release.prerelease }}
         run: npm publish --workspace=packages/$PACKAGE_NAME --tag next
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Release
         if: ${{ ! github.event.release.prerelease }}
         run: npm publish --workspace=packages/$PACKAGE_NAME
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
