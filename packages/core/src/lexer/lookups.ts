@@ -6,6 +6,10 @@ import {
   nullFormatter,
   tupleFormatter,
   defaultFormatter,
+  dateFormatter,
+  timeFormatter,
+  datetimeFormatter,
+  durationFormatter,
 } from './formatters';
 
 export const valueFormatterLookup: Record<TokenType, Function> = {
@@ -29,6 +33,10 @@ export const valueFormatterLookup: Record<TokenType, Function> = {
   [TokenType.NOT]: defaultFormatter,
   [TokenType.AND]: defaultFormatter,
   [TokenType.OR]: defaultFormatter,
+  [TokenType.DATE]: dateFormatter,
+  [TokenType.TIME]: timeFormatter,
+  [TokenType.DATETIME]: datetimeFormatter,
+  [TokenType.DURATION]: durationFormatter,
 };
 
 export const reservedKeywordLookup: Record<string, TokenType> = {

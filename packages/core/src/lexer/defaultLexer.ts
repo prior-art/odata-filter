@@ -31,12 +31,28 @@ const defaultLexer: Lexer = {
       type: TokenType.FALSE,
     },
     {
+      regex: /P(?=\d|T\d)(\d+Y)?(\d+M)?(\d+D)?(T(\d+H)?(\d+M)?(\d+(\.\d+)?S)?)?/,
+      type: TokenType.DURATION,
+    },
+    {
       regex: /[a-zA-Z_](\/{0,1}[a-zA-Z-1-9_])*/,
       type: TokenType.SYMBOL,
     },
     {
       regex: /('[^'\\]*(?:\\.[^'\\]*)*')/,
       type: TokenType.STRING,
+    },
+    {
+      type: TokenType.DATETIME,
+      regex: /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})/,
+    },
+    {
+      type: TokenType.DATE,
+      regex: /\d{4}-\d{2}-\d{2}$/,
+    },
+    {
+      type: TokenType.TIME,
+      regex: /\d{2}:\d{2}:\d{2}(\.\d+)?/,
     },
     /*
      * This regex matches numbers in scientific notation, such as:

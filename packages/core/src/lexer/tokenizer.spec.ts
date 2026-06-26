@@ -1,6 +1,7 @@
 import { tokenize } from './tokenizer';
 import { LexerException } from './exceptions';
 import { FilterQueryParserException } from '../exceptions';
+import { Temporal } from '@js-temporal/polyfill';
 
 describe('#tokenizer', () => {
   test('it transforms a string of syntax into tokens', () => {
@@ -217,6 +218,152 @@ describe('#tokenizer', () => {
       expect(e).toBeInstanceOf(FilterQueryParserException);
       expect(e.name).toBe('LexerException');
       expect(e.message).toEqual(`Unexpected token near ${invalidSyntax}`);
+    }
+  });
+
+  it.each([
+    '2023-06-15',
+    '2023-12-31',
+    '2024-02-29',
+  ])('it supports date format: %s', (dateValue) => {
+    const result = tokenize(`date eq ${dateValue}`);
+
+    expect(result).toEqual([
+      { value: 'date', type: 'symbol', pos: 0 },
+      { value: 'eq', type: 'eq_operator', pos: 5 },
+      { value: expect.any(Temporal.PlainDate), type: 'date', pos: 8 },
+    ]);
+  });
+
+  it.each([
+    '2023-06-15T12:30:45Z',
+    '2023-12-31T23:59:59Z',
+    '2024-02-29T00:00:00Z',
+    '2024-02-28T00:00:00+05:30',
+    '2024-02-28T00:00:00-08:00',
+  ])('it supports datetime format: %s', (datetimeValue) => {
+    const result = tokenize(`datetime eq ${datetimeValue}`);
+
+    expect(result).toEqual([
+      { value: 'datetime', type: 'symbol', pos: 0 },
+      { value: 'eq', type: 'eq_operator', pos: 9 },
+      { value: expect.any(Temporal.Instant), type: 'datetime', pos: 12 },
+    ]);
+  });
+
+  it.each([
+    '2023-00-15T12:30:45.123456789Z',
+  ])('it catches invalid datetime formats: %s', (invalidDatetime) => {
+    expect.hasAssertions();
+
+    try {
+      const res = tokenize(`datetime eq ${invalidDatetime}`);
+    } catch (e) {
+      expect(e).toBeInstanceOf(LexerException);
+      expect(e).toBeInstanceOf(FilterQueryParserException);
+      expect(e.name).toBe('LexerException');
+      expect(e.message).toEqual(`Invalid datetime format: ${invalidDatetime}`);
+    }
+  });
+
+  it.each([
+    '12:30:45',
+    '23:59:59',
+    '00:00:00',
+    '01:02:03.123456789',
+  ])('it supports time format: %s', (timeValue) => {
+    const result = tokenize(`time eq ${timeValue}`);
+
+    expect(result).toEqual([
+      { value: 'time', type: 'symbol', pos: 0 },
+      { value: 'eq', type: 'eq_operator', pos: 5 },
+      { value: expect.any(Temporal.PlainTime), type: 'time', pos: 8 },
+    ]);
+  });
+
+  it.each([
+    '26:00:00',
+    '12:60:00',
+    '12:30:70',
+    '24:00:00',
+    '01:02:03.123456789123',
+  ])('it throws an error for invalid time formats: %s', (invalidTime) => {
+    expect.hasAssertions();
+
+    try {
+      const res = tokenize(`time eq ${invalidTime}`);
+    } catch (e) {
+      expect(e).toBeInstanceOf(LexerException);
+      expect(e).toBeInstanceOf(FilterQueryParserException);
+      expect(e.name).toBe('LexerException');
+      expect(e.message).toEqual(`Invalid time format: ${invalidTime}`);
+    }
+  });
+
+  it.each([
+    '2023-12-00',
+    '2023-13-01',
+    '0000-00-00',
+  ])('it throws an error for invalid date formats: %s', (invalidDate) => {
+    expect.hasAssertions();
+
+    try {
+      const res = tokenize(`date eq ${invalidDate}`);
+    } catch (e) {
+      expect(e).toBeInstanceOf(LexerException);
+      expect(e).toBeInstanceOf(FilterQueryParserException);
+      expect(e.name).toBe('LexerException');
+      expect(e.message).toEqual(`Invalid date format: ${invalidDate}`);
+    }
+  });
+
+  it.each([
+    ['2026-12-31T00:00:00.text', '-31T00:00:00.text'],
+    ['2020-02-30T12:00:00', '-30T12:00:00'],
+  ])('it throws an error for invalid datetime formats: %s', (invalidDatetime, invalidPart) => {
+    expect.hasAssertions();
+
+    try {
+      const res = tokenize(`datetime eq ${invalidDatetime}`);
+    } catch (e) {
+      expect(e).toBeInstanceOf(LexerException);
+      expect(e).toBeInstanceOf(FilterQueryParserException);
+      expect(e.name).toBe('LexerException');
+      expect(e.message).toEqual(`Unexpected token near ${invalidPart}`);
+    }
+  });
+
+  it.each([
+    'P10Y20M30DT40H50M60.70S',
+    'P1Y',
+    'P2M',
+    'P3D',
+    'PT4H',
+    'PT5M',
+    'PT6S',
+    'PT6.7S',
+  ])('it supports duration format: %s', (durationValue) => {
+    const result = tokenize(`duration eq ${durationValue}`);
+
+    expect(result).toEqual([
+      { value: 'duration', type: 'symbol', pos: 0 },
+      { value: 'eq', type: 'eq_operator', pos: 9 },
+      { value: expect.any(Temporal.Duration), type: 'duration', pos: 12 },
+    ]);
+  });
+
+  it.each([
+    ['P0', 'P'],
+  ])('it throws an error for invalid duration formats: %s', (invalidDuration, invalidPart) => {
+    expect.hasAssertions();
+
+    try {
+      const res = tokenize(`duration eq ${invalidDuration}`);
+    } catch (e) {
+      expect(e).toBeInstanceOf(LexerException);
+      expect(e).toBeInstanceOf(FilterQueryParserException);
+      expect(e.name).toBe('LexerException');
+      expect(e.message).toEqual(`Invalid duration format: ${invalidPart}`);
     }
   });
 });

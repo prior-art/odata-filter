@@ -27,5 +27,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:mutation": "stryker run"
+  },
+  "dependencies": {
+    "@js-temporal/polyfill": "^0.5.1"
   }
 }
