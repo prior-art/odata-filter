@@ -1,4 +1,5 @@
 export { parse } from './parser';
+export { unparse } from './unparser';
 export { iterate } from './iterator';
 export { FilterQueryParserException } from './exceptions';
 export { NodeType } from './parser/types';
