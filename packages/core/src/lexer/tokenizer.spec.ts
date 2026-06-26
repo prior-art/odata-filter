@@ -140,6 +140,66 @@ describe('#tokenizer', () => {
     ]);
   });
 
+  it.each([
+    'temperature eq -21',
+    'temperature eq +21',
+    'temperature eq 21',
+  ])('it supports signed integers', (sourceStub) => {
+    const result = tokenize(sourceStub);
+
+    expect(result).toEqual([
+      { value: 'temperature', type: 'symbol', pos: 0 },
+      { value: 'eq', type: 'eq_operator', pos: 12 },
+      { value: parseInt(sourceStub.split(' ')[2]), type: 'number', pos: 15 },
+    ]);
+  });
+
+  it.each([
+    '-21.50',
+    '+21.50',
+    '21.50',
+    '-0.0001',
+    '100.123456789',
+    '1.7976931348623157E+308',
+    '14.7e+3',
+    Number.MAX_VALUE.toString(),
+    '.01',
+    '.0000000000000000000000000000000000000000000000000000000001',
+    '1.23e-10',
+    '5.67E-8',
+    '9.10e+11',
+    '3.14E0',
+    '1.23e4',
+    '5.67E-8',
+    '9.10e+11',
+    '3.14E0',
+    '1.23e4',
+    '5.67E-8',
+    '9.10e+11',
+    '3.14E0',
+    '1.23e4',
+    '6.022e23',
+    '-1.6E-19',
+    '3e8',
+    '-3e8',
+    '+4.5e12',
+    '3.123e-4',
+    '1.0e4',
+    '0.01e+2',
+    '.4',
+    '6e23',
+    '6e+23',
+    '1e5',
+  ])('it supports signed floats: %s', (floatValue) => {
+    const result = tokenize(`rate eq ${floatValue}`);
+
+    expect(result).toEqual([
+      { value: 'rate', type: 'symbol', pos: 0 },
+      { value: 'eq', type: 'eq_operator', pos: 5 },
+      { value: parseFloat(floatValue), type: 'number', pos: 8 },
+    ]);
+  });
+
   test.each([
     ["name eq 'O'Neal'", "'"],
     ['something;', ';'],
