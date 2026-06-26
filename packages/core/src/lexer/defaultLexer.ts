@@ -38,8 +38,17 @@ const defaultLexer: Lexer = {
       regex: /('[^'\\]*(?:\\.[^'\\]*)*')/,
       type: TokenType.STRING,
     },
+    /*
+     * This regex matches numbers in scientific notation, such as:
+     * 1.23e4
+     * -5.67E-8
+     * +9.10e+11
+     * 3.14E0
+     *
+     * @author Elizabeth B. Clouser-Kuhn <clouser.elizabeth@protonmail.com>
+     */
     {
-      regex: /\b\d+\b/,
+      regex: /[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d*)?\b/,
       type: TokenType.NUMBER,
     },
   ],

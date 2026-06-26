@@ -7,7 +7,7 @@ export const stringFormatter = (value: string): string => {
 };
 
 export const numberFormatter = (value: string): number => {
-  return parseInt(value);
+  return parseFloat(value);
 };
 
 export const booleanFormatter = (value: string): boolean => {
