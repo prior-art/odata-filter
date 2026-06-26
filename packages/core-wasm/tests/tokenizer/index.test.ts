@@ -119,3 +119,83 @@ test("should tokenize complex expression", () => {
   expect(actual[14].value.raw).equal(")");
   expect(actual[14].type).equal(app.TokenType.CLOSE_PAREN);
 });
+
+test("should tokenize signed numbers", () => {
+  const actual = app.tokenize("rate gte -123");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("rate");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.GTE);
+  expect(actual[2].value.raw).equal("gte");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.NUMBER);
+  expect(actual[4].value.raw).equal("-123");
+  expect(actual[4].value.intValue).equal(-123);
+});
+
+test("should tokenize decimal numbers", () => {
+  const actual = app.tokenize("price lt 19.99");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("price");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.LT);
+  expect(actual[2].value.raw).equal("lt");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.NUMBER);
+  expect(actual[4].value.raw).equal("19.99");
+  expect(actual[4].value.floatValue).equal(19.99);
+});
+
+test("should tokenize scientific notation numbers", () => {
+  const actual = app.tokenize("value eq 1.23e4");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("value");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.NUMBER);
+  expect(actual[4].value.raw).equal("1.23e4");
+  expect(actual[4].value.intValue).equal(12300);
+});
+
+test("should tokenize scientific notation numbers with negative exponent", () => {
+  const actual = app.tokenize("value eq 5.67E-8");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("value");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.NUMBER);
+  expect(actual[4].value.raw).equal("5.67E-8");
+  expect(actual[4].value.floatValue).equal(5.67e-8);
+});
+
+test("should tokenize numbers with explicit positive sign", () => {
+  const actual = app.tokenize("value eq +42");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("value");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.NUMBER);
+  expect(actual[4].value.raw).equal("+42");
+  expect(actual[4].value.intValue).equal(42);
+});

@@ -75,7 +75,16 @@ patterns.push({
   type: TokenType.STRING,
   regex: new RegExp("('[^']*(?:.[^']*)*')", ''),
 });
+/*
+ * This regex matches numbers in scientific notation, such as:
+ * 1.23e4
+ * -5.67E-8
+ * +9.10e+11
+ * 3.14E0
+ *
+ * @author Elizabeth B. Clouser-Kuhn <clouser.elizabeth@protonmail.com>
+ */
 patterns.push({
   type: TokenType.NUMBER,
-  regex: new RegExp('\\d+(?:\\.\\d+)?', ''),
+  regex: new RegExp('^[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[eE][+-]?\\d*)?'),
 });
