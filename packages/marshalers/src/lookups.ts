@@ -23,4 +23,8 @@ export const mongoOperatorLookup: Record<TokenType, MongoOperators> = {
   [TokenType.TRUE]: MongoOperators.UNKNOWN,
   [TokenType.FALSE]: MongoOperators.UNKNOWN,
   [TokenType.NULL]: MongoOperators.UNKNOWN,
+  [TokenType.DATE]: MongoOperators.UNKNOWN,
+  [TokenType.DATETIME]: MongoOperators.UNKNOWN,
+  [TokenType.TIME]: MongoOperators.UNKNOWN,
+  [TokenType.DURATION]: MongoOperators.UNKNOWN,
 };

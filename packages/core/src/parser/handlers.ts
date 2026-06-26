@@ -5,6 +5,14 @@ import { validateParens } from './validation';
 import { NodeType } from '../parser/types';
 import { ParserException } from './exceptions';
 
+const allowedComparisonValues = new Set<NodeType>([
+  NodeType.NUMBER_LITERAL,
+  NodeType.DATE_OBJECT,
+  NodeType.TIME_OBJECT,
+  NodeType.DATETIME_OBJECT,
+  NodeType.DURATION_OBJECT,
+]);
+
 const nudHandler = (parser: Parser): Node => {
   const { type, nodeType, parseStrategy, value } = parser.getCurrentToken();
 
@@ -65,9 +73,9 @@ const ledHandler = (parser: Parser, left: Node): Node => {
     case TokenType.GT:
     case TokenType.LT:
     case TokenType.LTE:
-      if (right.type !== NodeType.NUMBER_LITERAL) {
+      if (!allowedComparisonValues.has(right.type as NodeType)) {
         throw new ParserException(
-          `Operator of type ${value} expects ${NodeType.NUMBER_LITERAL}, received ${right.type}`,
+          `Operator of type ${value} expects type of ${[...allowedComparisonValues].join(', ')}, received ${right.type}`,
         );
       }
       return {

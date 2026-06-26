@@ -20,6 +20,12 @@ This project supports the following OData v4 primitive data types:
 - Int64
 - Single
 - String
+- Date
+- DateTimeOffset
+- TimeOfDay
+- Duration
+
+Date/Time values are expected to be in ISO 8601 format. The [Temporal API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) is used for parsing and formatting date/time values.
 
 See [OData v4 Primitive Types](https://docs.oasis-open.org/odata/odata/v4.0/csprd02/part3-csdl/odata-v4.0-csprd02-part3-csdl.html#_Toc360208768) for more information.
 
