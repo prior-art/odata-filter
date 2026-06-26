@@ -119,19 +119,42 @@ describe('#parse', () => {
     expect(result.right?.value?.toString()).toEqual('P1D');
   });
 
-  test('it does not supports nested groupings', () => {
-    const tokenStub = [
-      { value: '(', type: TokenType.OPEN_PAREN, pos: 0 },
-      { value: '(', type: TokenType.OPEN_PAREN, pos: 1 },
-      { value: true, type: TokenType.TRUE, pos: 2 },
-      { value: 'eq', type: TokenType.EQ, pos: 7 },
-      { value: false, type: TokenType.FALSE, pos: 10 },
-      { value: ')', type: TokenType.CLOSE_PAREN, pos: 15 },
-      { value: ')', type: TokenType.CLOSE_PAREN, pos: 16 },
-    ];
+  test('it throws an error for empty expressions', () => {
+    const tokens = tokenize('()');
+    const result = () => parse(tokens);
 
-    const result = () => parse(tokenStub);
+    expect(result).toThrow('Empty parentheses are not allowed.');
+  });
 
-    expect(result).toThrow('NUD handler expected for token )');
+  test('it supports nested groupings', () => {
+    const tokens = tokenize('(((true eq true) and (false eq false)) or (true eq false))');
+    const result = parse(tokens);
+
+    expect(result).toEqual({
+      type: 'logical_operator',
+      value: 'or',
+      left: {
+        type: 'logical_operator',
+        value: 'and',
+        left: {
+          type: 'comparison_operator',
+          value: 'eq',
+          left: { type: 'boolean_value', value: true },
+          right: { type: 'boolean_value', value: true },
+        },
+        right: {
+          type: 'comparison_operator',
+          value: 'eq',
+          left: { type: 'boolean_value', value: false },
+          right: { type: 'boolean_value', value: false },
+        },
+      },
+      right: {
+        type: 'comparison_operator',
+        value: 'eq',
+        left: { type: 'boolean_value', value: true },
+        right: { type: 'boolean_value', value: false },
+      },
+    });
   });
 });

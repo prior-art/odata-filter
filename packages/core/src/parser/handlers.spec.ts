@@ -183,4 +183,25 @@ describe('#handler', () => {
       expect(e).toBeInstanceOf(FilterQueryParserException);
     }
   });
+
+  test('it throws an error for empty parentheses', () => {
+    expect.hasAssertions();
+
+    const parserStub = {
+      ...defaultParser,
+      tokens: [
+        { value: '(', type: TokenType.OPEN_PAREN, pos: 0 },
+        { value: ')', type: TokenType.CLOSE_PAREN, pos: 1 },
+      ],
+    };
+
+    try {
+      handler(parserStub);
+    } catch (e) {
+      expect(e.message).toEqual('Empty parentheses are not allowed.');
+      expect(e).toBeInstanceOf(ParserException);
+      expect(e.name).toBe('ParserException');
+      expect(e).toBeInstanceOf(FilterQueryParserException);
+    }
+  });
 });

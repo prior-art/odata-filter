@@ -1,7 +1,6 @@
 import { Node, Parser, ParseStrategy, BindingPower } from './types';
 import { bindingPowerLookup, parseStrategyLookup } from './lookups';
 import { TokenType } from '../lexer/types';
-import { validateParens } from './validation';
 import { NodeType } from '../parser/types';
 import { ParserException } from './exceptions';
 
@@ -32,7 +31,10 @@ const nudHandler = (parser: Parser): Node => {
         left,
       };
     case TokenType.OPEN_PAREN:
-      validateParens(parser);
+      if (parser.getCurrentToken().type === TokenType.CLOSE_PAREN) {
+        throw new ParserException('Empty parentheses are not allowed.');
+      }
+
       return handler(parser, BindingPower.DEFAULT);
     default:
       return {
@@ -117,7 +119,7 @@ export const handler = (
   }
 
   const { value, bindingPower } = parser.getCurrentToken();
-  while (bindingPower > bp && parser.pos < parser.tokens.length) {
+  while (bindingPower > bp && parser.pos !== parser.tokens.length) {
     const atEnd = parser.getCurrentToken().type === TokenType.CLOSE_PAREN;
 
     if (atEnd) {
