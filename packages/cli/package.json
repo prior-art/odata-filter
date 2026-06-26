@@ -32,7 +32,7 @@
     "test:mutation": "stryker run"
   },
   "dependencies": {
-    "commander": "^14.0.3"
+    "commander": "^15.0.0"
   },
   "devDependencies": {
     "@odata-filter/core": "^1.0.0",
