@@ -65,9 +65,10 @@ const ledHandler = (parser: Parser, left: Node): Node => {
     case TokenType.GT:
     case TokenType.LT:
     case TokenType.LTE:
-      if (right.type !== NodeType.NUMBER_LITERAL) {
+      const allowedSet = new Set<NodeType>([NodeType.NUMBER_LITERAL, NodeType.DATE_LITERAL]);
+      if (!allowedSet.has(right.type as NodeType)) {
         throw new ParserException(
-          `Operator of type ${value} expects ${NodeType.NUMBER_LITERAL}, received ${right.type}`,
+          `Operator of type ${value} expects ${NodeType.NUMBER_LITERAL} or ${NodeType.DATE_LITERAL}, received ${right.type}`,
         );
       }
       return {

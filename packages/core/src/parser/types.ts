@@ -17,6 +17,7 @@ export enum NodeType {
   BOOLEAN_LITERAL = 'boolean_value',
   NULL = 'null',
   ARRAY = 'array',
+  DATE_LITERAL = 'date_value',
 }
 
 type TokenMeta = {

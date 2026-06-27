@@ -1,3 +1,5 @@
+import { Temporal } from '@js-temporal/polyfill';
+
 export enum TokenType {
   WHITESPACE = 'whitespace',
   STRING = 'string',
@@ -19,9 +21,17 @@ export enum TokenType {
   TRUE = 'boolean_true',
   FALSE = 'boolean_false',
   NULL = 'null',
+  DATE = 'date',
+  TIME = 'time',
+  DATETIME = 'datetime',
+  DURATION = 'duration',
 }
 
 export type TokenValue =
+  | Temporal.PlainDate
+  | Temporal.PlainTime
+  | Temporal.ZonedDateTime
+  | Temporal.Duration
   | string
   | number
   | boolean
