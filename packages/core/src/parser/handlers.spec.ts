@@ -108,7 +108,7 @@ describe('#handler', () => {
       handler(parserStub);
     } catch (e) {
       expect(e.message).toEqual(
-        'Operator of type gte expects number_value, received string_value',
+        'Operator of type gte expects type of number_value, date_value, time_value, datetime_value, duration_value, received string_value',
       );
       expect(e).toBeInstanceOf(ParserException);
       expect(e.name).toBe('ParserException');

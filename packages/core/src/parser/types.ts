@@ -17,6 +17,10 @@ export enum NodeType {
   BOOLEAN_LITERAL = 'boolean_value',
   NULL = 'null',
   ARRAY = 'array',
+  DATE_OBJECT = 'date_value',
+  TIME_OBJECT = 'time_value',
+  DATETIME_OBJECT = 'datetime_value',
+  DURATION_OBJECT = 'duration_value',
 }
 
 type TokenMeta = {

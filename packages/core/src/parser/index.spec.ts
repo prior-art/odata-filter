@@ -1,5 +1,7 @@
 import { TokenType } from '../lexer/types';
 import { parse } from '.';
+import { tokenize } from '..';
+import { Temporal } from '@js-temporal/polyfill';
 
 describe('#parse', () => {
   test('it transforms tokens into an abstract syntax tree', () => {
@@ -63,6 +65,58 @@ describe('#parse', () => {
         },
       },
     });
+  });
+
+  test('it supports date/time formats', () => {
+    const tokens = tokenize('createdAt gte 2023-01-01T00:00:00Z');
+    const result = parse(tokens);
+
+    expect(result).toEqual({
+      type: 'comparison_operator',
+      value: 'gte',
+      left: { type: 'field', value: 'createdAt' },
+      right: { type: 'datetime_value', value: expect.any(Temporal.Instant) },
+    });
+    expect(result.right?.value?.toString()).toEqual('2023-01-01T00:00:00Z');
+  });
+
+  test('it supports date values', () => {
+    const tokens = tokenize('createdAt gte 2023-01-01');
+    const result = parse(tokens);
+
+    expect(result).toEqual({
+      type: 'comparison_operator',
+      value: 'gte',
+      left: { type: 'field', value: 'createdAt' },
+      right: { type: 'date_value', value: expect.any(Temporal.PlainDate) },
+    });
+    expect(result.right?.value?.toString()).toEqual('2023-01-01');
+  });
+
+  test('it supports time values', () => {
+    const tokens = tokenize('createdAt gte 00:00:00');
+    const result = parse(tokens);
+
+    expect(result).toEqual({
+      type: 'comparison_operator',
+      value: 'gte',
+      left: { type: 'field', value: 'createdAt' },
+      right: { type: 'time_value', value: expect.any(Temporal.PlainTime) },
+    });
+    expect(result.right?.value?.toString()).toEqual('00:00:00');
+  });
+
+  test('it supports duration values', () => {
+    const tokens = tokenize('createdAt gte P1D');
+    const result = parse(tokens);
+
+    expect(result).toEqual({
+      type: 'comparison_operator',
+      value: 'gte',
+      left: { type: 'field', value: 'createdAt' },
+      right: { type: 'duration_value', value: expect.any(Temporal.Duration) },
+    });
+    expect(result.right?.value?.toString()).toEqual('P1D');
   });
 
   test('it does not supports nested groupings', () => {
