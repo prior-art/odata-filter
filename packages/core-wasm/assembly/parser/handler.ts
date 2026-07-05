@@ -3,6 +3,13 @@ import { NodeType, ParseStrategy, BindingPower, AST } from './types';
 import { TokenType } from '../tokenizer/types';
 import { validateParens } from './validation';
 
+const allowedComparisonValues = new Set<NodeType>();
+allowedComparisonValues.add(NodeType.NUMBER_LITERAL);
+allowedComparisonValues.add(NodeType.DATE_LITERAL);
+allowedComparisonValues.add(NodeType.TIME_LITERAL);
+allowedComparisonValues.add(NodeType.DATETIME_LITERAL);
+allowedComparisonValues.add(NodeType.DURATION_LITERAL);
+
 function nudHandler(parser: Parser): AST {
   const token = parser.getCurrentToken();
 
@@ -72,7 +79,7 @@ function ledHandler(parser: Parser, left: AST): AST {
     case TokenType.GT:
     case TokenType.LT:
     case TokenType.LTE: {
-      if (right.type !== NodeType.NUMBER_LITERAL) {
+      if (!allowedComparisonValues.has(right.type)) {
         throw new Error(
           `Operator of type ${token.value.raw} expects ${NodeType.NUMBER_LITERAL}, received ${right.type}.`,
         );

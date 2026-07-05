@@ -20,6 +20,10 @@ export enum TokenType {
   GT,
   GTE,
   NOT,
+  DURATION,
+  DATETIME,
+  DATE,
+  TIME,
 }
 
 export class TokenPattern {

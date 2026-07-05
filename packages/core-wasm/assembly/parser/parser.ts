@@ -41,6 +41,10 @@ export class Parser {
     lookup.set(TokenType.BOOLEAN, NodeType.BOOLEAN_LITERAL);
     lookup.set(TokenType.NULL, NodeType.NULL);
     lookup.set(TokenType.TUPLE, NodeType.ARRAY);
+    lookup.set(TokenType.DURATION, NodeType.DURATION_LITERAL);
+    lookup.set(TokenType.DATETIME, NodeType.DATETIME_LITERAL);
+    lookup.set(TokenType.DATE, NodeType.DATE_LITERAL);
+    lookup.set(TokenType.TIME, NodeType.TIME_LITERAL);
 
     return lookup[current.type];
   }
@@ -67,6 +71,10 @@ export class Parser {
     lookup.set(TokenType.NULL, ParseStrategy.NUD);
     lookup.set(TokenType.TUPLE, ParseStrategy.NUD);
     lookup.set(TokenType.OPEN_PAREN, ParseStrategy.NUD);
+    lookup.set(TokenType.DURATION, ParseStrategy.NUD);
+    lookup.set(TokenType.DATETIME, ParseStrategy.NUD);
+    lookup.set(TokenType.DATE, ParseStrategy.NUD);
+    lookup.set(TokenType.TIME, ParseStrategy.NUD);
 
     lookup.set(TokenType.CLOSE_PAREN, ParseStrategy.DEFAULT);
     lookup.set(TokenType.WHITESPACE, ParseStrategy.DEFAULT);
@@ -97,6 +105,10 @@ export class Parser {
     lookup.set(TokenType.NUMBER, BindingPower.LITERAL);
     lookup.set(TokenType.NULL, BindingPower.LITERAL);
     lookup.set(TokenType.TUPLE, BindingPower.LITERAL);
+    lookup.set(TokenType.DURATION, BindingPower.LITERAL);
+    lookup.set(TokenType.DATETIME, BindingPower.LITERAL);
+    lookup.set(TokenType.DATE, BindingPower.LITERAL);
+    lookup.set(TokenType.TIME, BindingPower.LITERAL);
 
     lookup.set(TokenType.WHITESPACE, BindingPower.DEFAULT);
     lookup.set(TokenType.OPEN_PAREN, BindingPower.DEFAULT);
