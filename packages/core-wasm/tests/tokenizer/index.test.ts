@@ -199,3 +199,106 @@ test("should tokenize numbers with explicit positive sign", () => {
   expect(actual[4].value.raw).equal("+42");
   expect(actual[4].value.intValue).equal(42);
 });
+
+test("should tokenize date values", () => {
+  const actual = app.tokenize("date eq 2023-06-15");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("date");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.DATE);
+  expect(actual[4].value.raw).equal("2023-06-15");
+  expect(actual[4].value.stringValue).equal("2023-06-15");
+});
+
+test("should tokenize datetime values", () => {
+  const actual = app.tokenize("datetime eq 2023-06-15T12:34:56Z");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("datetime");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.DATETIME);
+  expect(actual[4].value.raw).equal("2023-06-15T12:34:56Z");
+  expect(actual[4].value.stringValue).equal("2023-06-15T12:34:56Z");
+});
+
+test("should tokenize time values", () => {
+  const actual = app.tokenize("time eq 12:34:56");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("time");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.TIME);
+  expect(actual[4].value.raw).equal("12:34:56");
+  expect(actual[4].value.stringValue).equal("12:34:56");
+});
+
+test("should tokenize duration values", () => {
+  const actual = app.tokenize("duration eq P1Y2M3DT4H5M6S");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("duration");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.DURATION);
+  expect(actual[4].value.raw).equal("P1Y2M3DT4H5M6S");
+  expect(actual[4].value.stringValue).equal("P1Y2M3DT4H5M6S");
+});
+
+test("should tokenize time-based duration values", () => {
+  const actual = app.tokenize("duration eq PT4H5M6S");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("duration");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.DURATION);
+  expect(actual[4].value.raw).equal("PT4H5M6S");
+  expect(actual[4].value.stringValue).equal("PT4H5M6S");
+});
+
+test("should tokenize time-based duration values with only seconds", () => {
+  const actual = app.tokenize("duration eq PT6.002S");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("duration");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.DURATION);
+  expect(actual[4].value.raw).equal("PT6.002S");
+  expect(actual[4].value.stringValue).equal("PT6.002S");
+});
+
+test("should not tokenize symbols starting with P as durations", () => {
+  const actual = app.tokenize("Price eq 1");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("Price");
+});

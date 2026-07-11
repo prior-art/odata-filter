@@ -68,12 +68,34 @@ patterns.push({
   regex: new RegExp('^(true|false)', 'i'),
 });
 patterns.push({
+  type: TokenType.DURATION,
+  regex: new RegExp(
+    '^P(?:\\d+Y(?:\\d+M)?(?:\\d+D)?(?:T(?:\\d+H(?:\\d+M)?(?:\\d+(?:\\.\\d+)?S)?|\\d+M(?:\\d+(?:\\.\\d+)?S)?|\\d+(?:\\.\\d+)?S))?|\\d+M(?:\\d+D)?(?:T(?:\\d+H(?:\\d+M)?(?:\\d+(?:\\.\\d+)?S)?|\\d+M(?:\\d+(?:\\.\\d+)?S)?|\\d+(?:\\.\\d+)?S))?|\\d+D(?:T(?:\\d+H(?:\\d+M)?(?:\\d+(?:\\.\\d+)?S)?|\\d+M(?:\\d+(?:\\.\\d+)?S)?|\\d+(?:\\.\\d+)?S))?|T(?:\\d+H(?:\\d+M)?(?:\\d+(?:\\.\\d+)?S)?|\\d+M(?:\\d+(?:\\.\\d+)?S)?|\\d+(?:\\.\\d+)?S))',
+    '',
+  ),
+});
+patterns.push({
   type: TokenType.SYMBOL,
   regex: new RegExp('[a-zA-Z_](\\/{0,1}[a-zA-Z1-9_])*', ''),
 });
 patterns.push({
   type: TokenType.STRING,
   regex: new RegExp("('[^']*(?:.[^']*)*')", ''),
+});
+patterns.push({
+  type: TokenType.DATETIME,
+  regex: new RegExp(
+    '\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})',
+    '',
+  ),
+});
+patterns.push({
+  type: TokenType.DATE,
+  regex: new RegExp('\\d{4}-\\d{2}-\\d{2}', ''),
+});
+patterns.push({
+  type: TokenType.TIME,
+  regex: new RegExp('\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?', ''),
 });
 /*
  * This regex matches numbers in scientific notation, such as:

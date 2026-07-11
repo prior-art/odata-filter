@@ -19,7 +19,7 @@ jobs:
       fastify: ${{ steps.diffs.outputs.fastify_any_changed }}
       project_root: ${{ steps.diffs.outputs.project_root_any_changed }}
       cli: ${{ steps.diffs.outputs.cli_any_changed }}
-      core-wasm: ${{ steps.diffs.outputs.core_wasm_any_changed }}
+      core_wasm: ${{ steps.diffs.outputs.core_wasm_any_changed }}
     steps:
       - uses: actions/checkout@v4
       - uses: tj-actions/changed-files@8c4da285a3cb8b621b4a5cc251d6282b4b0a67a5
