@@ -5,12 +5,36 @@ import { inspect } from 'util';
 import { tokenize, parse } from '@odata-filter/core';
 import { type JsonSchema, validate } from '@odata-filter/validation';
 import { toMongoJson } from '@odata-filter/marshalers';
-import { name, description, version } from '../package.json';
+import packageJson from '../package.json' with { type: 'json' };
 
-program.name(name).description(description).version(version);
+const nodeRuntime = (filter: string): any => {
+  const tokens = tokenize(filter);
+  return parse(tokens);
+};
+
+const wasmRuntime = async (filter: string): Promise<any> => {
+  const { tokenize, parse } = await import('@odata-filter/core-wasm');
+  const tokens = tokenize(filter);
+
+  return parse(tokens);
+}
+
+const runtimeMap: Record<string, Function> = {
+  node: nodeRuntime,
+  wasm: await wasmRuntime,
+};
+
+program.name(packageJson.name).description(packageJson.description).version(packageJson.version);
 
 // Stryker disable next-line StringLiteral: The mutant effects documentation only
 program.argument('<filter>', 'OData filter query string');
+//
+// Stryker disable StringLiteral: The mutant effects documentation only
+program.addOption(
+  new Option('-r, --runtime <type>', 'Runtime to use')
+    .choices(['node', 'wasm'])
+    .default('node', 'use Node.js runtime'),
+);
 
 // Stryker disable next-line StringLiteral: The mutant effects documentation only
 program.option('-s, --schema <string>', 'path to schema json file');
@@ -19,18 +43,32 @@ program.option('-s, --schema <string>', 'path to schema json file');
 program.addOption(
     new Option('-f, --format <type>', 'output format')
       .choices(['ast', 'json'])
-      .default('ast', 'output as AST'),
+      .default('ast', 'output as AST')
   );
 
-program.action((filter, { schema, format }) => {
-  const schemaSpec = schema ? require(schema) : null;
-  const tokens = tokenize(filter);
-  const ast = parse(tokens);
+const validateOptions = (options: any) => {
+  if (options.runtime === 'node') return;
 
-  if (schemaSpec) {
-    validate(ast, schemaSpec as JsonSchema);
+  if (options.format === 'json') {
+    throw new Error('WASM runtime does not currently support JSON output format');
   }
 
+  if (options.schema) {
+    throw new Error('WASM runtime does not currently support schema validation');
+  }
+};
+
+program.action(async (filter, options) => {
+  validateOptions(options);
+
+  const { schema, format, runtime } = options;
+
+  const ast = await runtimeMap[runtime](filter);
+
+  const schemaSpec = schema ? import(schema) : null;
+  if (schemaSpec) {
+    validate(ast, schemaSpec as unknown as JsonSchema);
+  }
   const formatting = format === "json" ? toMongoJson(ast) : ast;
 
   console.log(
