@@ -46,7 +46,7 @@ program.addOption(
       .default('ast', 'output as AST')
   );
 
-const validateOptions = (options: any) => {
+const validateOptions = (options: { runtime: string, format: string, schema: string }) => {
   if (options.runtime === 'node') return;
 
   if (options.format === 'json') {
