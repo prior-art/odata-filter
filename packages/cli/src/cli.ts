@@ -19,7 +19,7 @@ const wasmRuntime = async (filter: string) => {
 
 const runtimeMap: Record<string, Function> = {
   node: nodeRuntime,
-  wasm: await wasmRuntime,
+  wasm: wasmRuntime,
 };
 
 const validateOptions = (runtime?: string, format?: string, schema?: string) => {
