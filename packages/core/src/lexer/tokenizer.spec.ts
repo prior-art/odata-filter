@@ -2,6 +2,7 @@ import { tokenize } from './tokenizer';
 import { LexerException } from './exceptions';
 import { FilterQueryParserException } from '../exceptions';
 import { Temporal } from '@js-temporal/polyfill';
+import { randomUUID } from 'crypto';
 
 describe('#tokenizer', () => {
   test('it transforms a string of syntax into tokens', () => {
@@ -381,5 +382,20 @@ describe('#tokenizer', () => {
       expect(e.name).toBe('LexerException');
       expect(e.message).toEqual(`Invalid duration format: ${invalidPart}`);
     }
+  });
+
+  it('supports guid format', () => {
+    const guidValue = randomUUID();
+    const result = tokenize(`guid eq ${guidValue} and true eq true`);
+
+    expect(result).toEqual([
+      { value: 'guid', type: 'symbol', pos: 0 },
+      { value: 'eq', type: 'eq_operator', pos: 5 },
+      { value: guidValue, type: 'guid', pos: 8 },
+      { value: 'and', type: 'and_operator', pos: expect.any(Number) },
+      { value: true, type: 'boolean_true', pos: expect.any(Number) },
+      { value: 'eq', type: 'eq_operator', pos: expect.any(Number) },
+      { value: true, type: 'boolean_true', pos: expect.any(Number) },
+    ]);
   });
 });
