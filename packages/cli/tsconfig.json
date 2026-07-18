@@ -5,7 +5,11 @@
     "allowJs": false,
     "rootDir": "./src",
     "outDir": "./dist",
-    "sourceMap": true
+    "sourceMap": true,
+    "module": "nodenext",
+    "target": "esnext",
+    "esModuleInterop": true,
+    "isolatedModules": true
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["./src/**/*.spec.ts"]
