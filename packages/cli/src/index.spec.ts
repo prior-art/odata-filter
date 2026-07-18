@@ -1,8 +1,20 @@
-describe('index', () => {
-  test('it executes the command', async () => {
-    process.argv = ['', '', "price lt 10"];
-    const result = async () => await import('./index.js');
+import { describe, test, vi } from 'vitest';
+import { createCommand } from './cli.js';
 
-    await expect(result).not.toThrow();
+vi.mock('./cli.js');
+
+describe('index', () => {
+  test('it initializes the command', async () => {
+    const mockParse = vi.fn();
+    createCommand.mockReturnValue({
+      parse: mockParse,
+    });
+
+    await import('./index.js');
+
+    expect(createCommand).toHaveBeenCalledTimes(1);
+    expect(createCommand).toHaveBeenCalledWith();
+    expect(mockParse).toHaveBeenCalledWith(process.argv);
+    expect(mockParse).toHaveBeenCalledTimes(1);
   });
 });
