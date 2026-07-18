@@ -29,9 +29,6 @@ export default defineConfig([
       files: ['src/**/*.ts', 'assembly/**/*.ts'],
       languageOptions: {
         parser: typescriptEslintParser,
-        // parserOptions: {
-        //   project: ['./tsconfig.json'],
-        // },
         globals: {
           browser: true,
           es2020: true,

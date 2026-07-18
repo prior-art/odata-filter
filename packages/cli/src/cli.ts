@@ -1,4 +1,4 @@
-import { Command, Option } from '@commander-js/extra-typings';
+import { Command, Option, InvalidArgumentError } from '@commander-js/extra-typings';
 import { inspect } from 'util';
 import { tokenize, parse } from '@odata-filter/core';
 import { type JsonSchema, validate } from '@odata-filter/validation';
@@ -26,11 +26,11 @@ const validateOptions = (runtime?: string, format?: string, schema?: string) => 
   if (runtime && runtime === 'node') return;
 
   if (format && format === 'json') {
-    throw new Error('WASM runtime does not currently support JSON output format');
+    throw new InvalidArgumentError('WASM runtime does not currently support JSON output format');
   }
 
   if (schema) {
-    throw new Error('WASM runtime does not currently support schema validation');
+    throw new InvalidArgumentError('WASM runtime does not currently support schema validation');
   }
 };
 
@@ -52,7 +52,7 @@ export const createCommand = () => {
     .default('ast', 'output as AST')
   )
   .action(async (filter, { schema, format, runtime }) => {
-    validateOptions(runtime?.toString(), format?.toString(), schema?.toString());
+    validateOptions(runtime.toString(), format.toString(), schema?.toString());
 
     const ast = await runtimeMap[runtime.toString()](filter);
 

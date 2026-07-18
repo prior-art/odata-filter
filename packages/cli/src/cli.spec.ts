@@ -31,26 +31,26 @@ describe('cli', () => {
     const program = createCommand().exitOverride()
     const result = await program.parseAsync(['', '', "price lt 10"]);
 
-    const filterArg = result.registeredArguments.find((arg: any) => arg.name() === 'filter');
+    const filterArg = result.registeredArguments.find((arg) => arg.name() === 'filter');
     expect(filterArg.required).toEqual(true);
     expect(filterArg.variadic).toEqual(false);
     expect(filterArg.description).toEqual('OData filter query string');
 
-    const runtimeOpt = result.options.find((opt: any) => opt.long === '--runtime');
+    const runtimeOpt = result.options.find((opt) => opt.long === '--runtime');
     expect(runtimeOpt.flags).toEqual('-r, --runtime <type>');
     expect(runtimeOpt.defaultValue).toEqual('node');
     expect(runtimeOpt.defaultValueDescription).toEqual('use Node.js runtime');
     expect(runtimeOpt.description).toEqual('Runtime to use');
     expect(runtimeOpt.argChoices).toEqual(['node', 'wasm']);
 
-    const formatOpt = result.options.find((opt: any) => opt.long === '--format');
+    const formatOpt = result.options.find((opt) => opt.long === '--format');
     expect(formatOpt.flags).toEqual('-f, --format <type>');
     expect(formatOpt.defaultValue).toEqual('ast');
     expect(formatOpt.defaultValueDescription).toEqual('output as AST');
     expect(formatOpt.description).toEqual('output format');
     expect(formatOpt.argChoices).toEqual(['ast', 'json']);
 
-    const schemaOpt = result.options.find((opt: any) => opt.long === '--schema');
+    const schemaOpt = result.options.find((opt) => opt.long === '--schema');
     expect(schemaOpt.flags).toEqual('-s, --schema <string>');
     expect(schemaOpt.defaultValue).toBeUndefined();
     expect(schemaOpt.description).toEqual('path to schema json file');
