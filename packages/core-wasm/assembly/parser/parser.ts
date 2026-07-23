@@ -37,6 +37,7 @@ export class Parser {
     lookup.set(TokenType.SYMBOL, NodeType.FIELD);
 
     lookup.set(TokenType.STRING, NodeType.STRING_LITERAL);
+    lookup.set(TokenType.GUID, NodeType.STRING_LITERAL);
     lookup.set(TokenType.NUMBER, NodeType.NUMBER_LITERAL);
     lookup.set(TokenType.BOOLEAN, NodeType.BOOLEAN_LITERAL);
     lookup.set(TokenType.NULL, NodeType.NULL);
@@ -65,6 +66,7 @@ export class Parser {
 
     lookup.set(TokenType.NOT, ParseStrategy.NUD);
     lookup.set(TokenType.STRING, ParseStrategy.NUD);
+    lookup.set(TokenType.GUID, ParseStrategy.NUD);
     lookup.set(TokenType.NUMBER, ParseStrategy.NUD);
     lookup.set(TokenType.BOOLEAN, ParseStrategy.NUD);
     lookup.set(TokenType.SYMBOL, ParseStrategy.NUD);
@@ -101,6 +103,7 @@ export class Parser {
     lookup.set(TokenType.SYMBOL, BindingPower.FIELD);
 
     lookup.set(TokenType.STRING, BindingPower.LITERAL);
+    lookup.set(TokenType.GUID, BindingPower.LITERAL);
     lookup.set(TokenType.BOOLEAN, BindingPower.LITERAL);
     lookup.set(TokenType.NUMBER, BindingPower.LITERAL);
     lookup.set(TokenType.NULL, BindingPower.LITERAL);

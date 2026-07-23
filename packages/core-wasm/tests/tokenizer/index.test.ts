@@ -302,3 +302,37 @@ test("should not tokenize symbols starting with P as durations", () => {
   expect(actual[0].type).equal(app.TokenType.SYMBOL);
   expect(actual[0].value.raw).equal("Price");
 });
+
+test("should tokenize guid values", () => {
+  const actual = app.tokenize("id eq 286568be-bc2d-4af3-ac3a-b99906b61c0e and true eq true");
+  expect(actual.length).equal(13);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("id");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.GUID);
+  expect(actual[4].value.raw).equal("286568be-bc2d-4af3-ac3a-b99906b61c0e");
+  expect(actual[4].value.stringValue).equal("286568be-bc2d-4af3-ac3a-b99906b61c0e");
+  expect(actual[5].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[5].value.raw).equal(" ");
+  expect(actual[6].type).equal(app.TokenType.AND);
+  expect(actual[6].value.raw).equal("and");
+  expect(actual[7].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[7].value.raw).equal(" ");
+  expect(actual[8].type).equal(app.TokenType.BOOLEAN);
+  expect(actual[8].value.raw).equal("true");
+  expect(actual[8].value.boolValue).equal(true);
+  expect(actual[9].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[9].value.raw).equal(" ");
+  expect(actual[10].type).equal(app.TokenType.EQ);
+  expect(actual[10].value.raw).equal("eq");
+  expect(actual[11].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[11].value.raw).equal(" ");
+  expect(actual[12].type).equal(app.TokenType.BOOLEAN);
+  expect(actual[12].value.raw).equal("true");
+  expect(actual[12].value.boolValue).equal(true);
+});

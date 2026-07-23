@@ -24,6 +24,7 @@ export enum TokenType {
   DATETIME,
   DATE,
   TIME,
+  GUID,
 }
 
 export class TokenPattern {
@@ -38,6 +39,7 @@ export enum TokenFormat {
   FLOAT,
   BOOLEAN,
   TUPLE,
+  GUID,
 }
 
 export class TokenValue {

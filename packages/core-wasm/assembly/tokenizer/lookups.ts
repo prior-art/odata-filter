@@ -3,6 +3,13 @@ import { RegExp } from '@prior-art/assemblyscript-regex/assembly/regexp';
 
 export const patterns = new Array<TokenPattern>();
 patterns.push({
+  type: TokenType.GUID,
+  regex: new RegExp(
+    '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+    '',
+  ),
+});
+patterns.push({
   type: TokenType.AND,
   regex: new RegExp('^and', ''),
 });
