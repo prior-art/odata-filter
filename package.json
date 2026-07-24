@@ -19,7 +19,7 @@
     "@stryker-mutator/vitest-runner": "^9.6.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.0.0",
-    "@typescript-eslint/parser": "^8.63.0",
+    "@typescript-eslint/parser": "^8.65.0",
     "eslint": "^10.7.0",
     "@vitest/coverage-v8": "^4.1.10",
     "eslint-config-prettier": "^10.1.8",
