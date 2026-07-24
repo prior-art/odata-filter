@@ -3,6 +3,10 @@ import { TokenType, Lexer } from './types';
 const defaultLexer: Lexer = {
   patterns: [
     {
+      regex: /now\(\)/,
+      type: TokenType.FUNCTION,
+    },
+    {
       regex: /\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b/,
       type: TokenType.GUID,
     },
