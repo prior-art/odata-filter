@@ -65,6 +65,10 @@ export default defineConfig([
         'package-json/valid-version': 'error',
         'package-json/require-license': 'off',
         'package-json/require-type': 'off',
+        'package-json/require-exports': 'off',
+        'package-json/require-files': 'off',
+        'package-json/require-sideEffects': 'off',
+        'package-json/require-attribution': 'off',
       },
     },
 ]);
