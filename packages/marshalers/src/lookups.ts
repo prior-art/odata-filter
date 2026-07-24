@@ -28,4 +28,5 @@ export const mongoOperatorLookup: Record<TokenType, MongoOperators> = {
   [TokenType.TIME]: MongoOperators.UNKNOWN,
   [TokenType.DURATION]: MongoOperators.UNKNOWN,
   [TokenType.GUID]: MongoOperators.UNKNOWN,
+  [TokenType.FUNCTION]: MongoOperators.UNKNOWN,
 };
