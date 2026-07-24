@@ -46,6 +46,7 @@ export class Parser {
     lookup.set(TokenType.DATETIME, NodeType.DATETIME_LITERAL);
     lookup.set(TokenType.DATE, NodeType.DATE_LITERAL);
     lookup.set(TokenType.TIME, NodeType.TIME_LITERAL);
+    lookup.set(TokenType.FUNCTION, NodeType.DEFAULT);
 
     return lookup[current.type];
   }
@@ -80,6 +81,7 @@ export class Parser {
 
     lookup.set(TokenType.CLOSE_PAREN, ParseStrategy.DEFAULT);
     lookup.set(TokenType.WHITESPACE, ParseStrategy.DEFAULT);
+    lookup.set(TokenType.FUNCTION, ParseStrategy.DEFAULT);
 
     return lookup[current.type];
   }
@@ -116,6 +118,7 @@ export class Parser {
     lookup.set(TokenType.WHITESPACE, BindingPower.DEFAULT);
     lookup.set(TokenType.OPEN_PAREN, BindingPower.DEFAULT);
     lookup.set(TokenType.CLOSE_PAREN, BindingPower.DEFAULT);
+    lookup.set(TokenType.FUNCTION, BindingPower.DEFAULT);
 
     return lookup[current.type];
   }

@@ -1,5 +1,5 @@
 import { Token } from './types';
-import { patterns } from './lookups';
+import { patterns, reservedKeywordLookup } from './lookups';
 import { Match } from '@prior-art/assemblyscript-regex/assembly/regexp';
 import { format } from './formatter';
 
@@ -19,7 +19,7 @@ export function tokenize(input: string): Array<Token> {
         const firstMatch = match.matches[0];
         const formattedValue = format(pattern.type, firstMatch);
         const token = {
-          type: pattern.type,
+          type: reservedKeywordLookup.has(firstMatch) ? reservedKeywordLookup.get(firstMatch) : pattern.type,
           value: formattedValue,
           position: tokenPos,
         } as Token;

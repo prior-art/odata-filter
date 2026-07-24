@@ -25,6 +25,7 @@ export enum TokenType {
   DATE,
   TIME,
   GUID,
+  FUNCTION,
 }
 
 export class TokenPattern {

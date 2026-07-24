@@ -1,5 +1,8 @@
 import { TokenFormat, TokenType, TokenValue } from './types';
 
+@external("env", "Date.now")
+declare function dateNow(): f64;
+
 export function format(type: TokenType, value: string): TokenValue {
   switch (type) {
     case TokenType.BOOLEAN: {
@@ -54,6 +57,20 @@ export function format(type: TokenType, value: string): TokenValue {
           return format(TokenType.STRING, t);
         }),
       };
+    }
+    case TokenType.FUNCTION: {
+      switch (value) {
+        case 'now()': {
+          const timestamp = <i64> dateNow();
+          return {
+            format: TokenFormat.STRING,
+            raw: value,
+            stringValue: new Date(timestamp).toISOString(),
+          };
+        }
+        default:
+          throw new Error(`Unsupported function: ${value}`);
+      }
     }
     default: {
       return { format: TokenFormat.STRING, raw: value, stringValue: value };

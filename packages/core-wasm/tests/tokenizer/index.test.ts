@@ -336,3 +336,20 @@ test("should tokenize guid values", () => {
   expect(actual[12].value.raw).equal("true");
   expect(actual[12].value.boolValue).equal(true);
 });
+
+test("should tokenize function calls", () => {
+  const actual = app.tokenize("createdAt eq now()");
+  expect(actual.length).equal(5);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("createdAt");
+  expect(actual[1].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[1].value.raw).equal(" ");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[2].value.raw).equal("eq");
+  expect(actual[3].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[3].value.raw).equal(" ");
+  expect(actual[4].type).equal(app.TokenType.DATETIME);
+  expect(actual[4].value.raw).equal("now()");
+  expect(actual[4].value.stringValue).equal("1970-01-01T00:00:00.000Z");
+  expect(actual[4].value.format).equal(app.TokenFormat.STRING);
+});

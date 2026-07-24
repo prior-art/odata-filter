@@ -1,7 +1,14 @@
 import { TokenPattern, TokenType } from './types.ts';
 import { RegExp } from '@prior-art/assemblyscript-regex/assembly/regexp';
 
+const symbolPattern = `[a-zA-Z_](\\/{0,1}[a-zA-Z1-9_])*`;
+
 export const patterns = new Array<TokenPattern>();
+
+patterns.push({
+  type: TokenType.FUNCTION,
+  regex: new RegExp(`^${symbolPattern}\\(\\)`, ''),
+});
 patterns.push({
   type: TokenType.GUID,
   regex: new RegExp(
@@ -83,7 +90,7 @@ patterns.push({
 });
 patterns.push({
   type: TokenType.SYMBOL,
-  regex: new RegExp('[a-zA-Z_](\\/{0,1}[a-zA-Z1-9_])*', ''),
+  regex: new RegExp(symbolPattern, ''),
 });
 patterns.push({
   type: TokenType.STRING,
@@ -117,3 +124,6 @@ patterns.push({
   type: TokenType.NUMBER,
   regex: new RegExp('^[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[eE][+-]?\\d*)?'),
 });
+
+export const reservedKeywordLookup = new Map<string, TokenType>();
+reservedKeywordLookup.set('now()', TokenType.DATETIME);
