@@ -27,6 +27,7 @@ export const nodeTypeLookup: Record<TokenType, NodeType> = {
   [TokenType.DATETIME]: NodeType.DATETIME_OBJECT,
   [TokenType.DURATION]: NodeType.DURATION_OBJECT,
   [TokenType.GUID]: NodeType.STRING_LITERAL,
+  [TokenType.FUNCTION]: NodeType.DEFAULT,
 };
 
 export const bindingPowerLookup: Record<TokenType, BindingPower> = {
@@ -55,6 +56,7 @@ export const bindingPowerLookup: Record<TokenType, BindingPower> = {
   [TokenType.DATETIME]: BindingPower.LITERAL,
   [TokenType.DURATION]: BindingPower.LITERAL,
   [TokenType.GUID]: BindingPower.LITERAL,
+  [TokenType.FUNCTION]: BindingPower.DEFAULT,
 };
 
 export const parseStrategyLookup: Record<TokenType, ParseStrategy> = {
@@ -83,4 +85,5 @@ export const parseStrategyLookup: Record<TokenType, ParseStrategy> = {
   [TokenType.DATETIME]: ParseStrategy.NUD,
   [TokenType.DURATION]: ParseStrategy.NUD,
   [TokenType.GUID]: ParseStrategy.NUD,
+  [TokenType.FUNCTION]: ParseStrategy.DEFAULT,
 };
