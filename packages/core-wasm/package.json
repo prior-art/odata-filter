@@ -29,7 +29,7 @@
     "test:mutation": ""
   },
   "devDependencies": {
-    "assemblyscript": "^0.28.9",
+    "assemblyscript": "^0.28.20",
     "@prior-art/assemblyscript-regex": "^1.0.0",
     "assemblyscript-unittest-framework": "^2.1.0",
     "eslint-plugin-jsonc": "^2.21.0",
