@@ -37,6 +37,7 @@ export const valueFormatterLookup: Record<TokenType, Function> = {
   [TokenType.TIME]: timeFormatter,
   [TokenType.DATETIME]: datetimeFormatter,
   [TokenType.DURATION]: durationFormatter,
+  [TokenType.GUID]: defaultFormatter,
 };
 
 export const reservedKeywordLookup: Record<string, TokenType> = {

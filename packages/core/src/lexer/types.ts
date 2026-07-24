@@ -25,6 +25,7 @@ export enum TokenType {
   TIME = 'time',
   DATETIME = 'datetime',
   DURATION = 'duration',
+  GUID = 'guid',
 }
 
 export type TokenValue =

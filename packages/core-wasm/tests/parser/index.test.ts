@@ -181,3 +181,17 @@ test('should parse a complex expression', () => {
 
   expect(ast.right).isNull();
 });
+
+test('should parse an expression containing a guid', () => {
+  const tokens = app.tokenize("userId eq 123e4567-e89b-12d3-a456-426614174000");
+  const ast = app.parse(tokens);
+
+  expect(ast.type).equal(app.NodeType.COMPARISON_OPERATOR);
+  expect(ast.value.raw).equal("eq");
+  expect(ast.left).not.isNull();
+  expect(ast.left!.type).equal(app.NodeType.FIELD);
+  expect(ast.left!.value.raw).equal("userId");
+  expect(ast.right).not.isNull();
+  expect(ast.right!.type).equal(app.NodeType.STRING_LITERAL);
+  expect(ast.right!.value.raw).equal("123e4567-e89b-12d3-a456-426614174000");
+});
