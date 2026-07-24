@@ -29,11 +29,16 @@ Date/Time values are expected to be in ISO 8601 format. The [Temporal API](https
 
 See [OData v4 Primitive Types](https://docs.oasis-open.org/odata/odata/v4.0/csprd02/part3-csdl/odata-v4.0-csprd02-part3-csdl.html#_Toc360208768) for more information.
 
+### Functions
+
+The following functions are supported by this project:
+
+- `now()`
+
 ## Unsupported Features
 
 The following OData v4 features are not currently supported by this project:
 
-- functions
 - the `has` operator
 - arithmetic operators
 - parameter aliasing
