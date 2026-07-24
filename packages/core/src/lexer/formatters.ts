@@ -76,3 +76,12 @@ export const durationFormatter = (value: string): Temporal.Duration => {
     throw error;
   }
 };
+
+export const functionFormatter = (value: string): unknown => {
+  switch (value) {
+    case 'now()':
+      return Temporal.Now.instant();
+    default:
+      throw new LexerException(`Unsupported function: ${value}`);
+  }
+};

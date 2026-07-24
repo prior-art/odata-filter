@@ -1,7 +1,13 @@
 import { TokenType, Lexer } from './types';
 
+const symbolPattern = `[a-zA-Z_](\\/{0,1}[a-zA-Z-1-9_])*`;
+
 const defaultLexer: Lexer = {
   patterns: [
+    {
+      regex: new RegExp(`${symbolPattern}\\(\\)`),
+      type: TokenType.FUNCTION,
+    },
     {
       regex: /\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b/,
       type: TokenType.GUID,
@@ -39,7 +45,7 @@ const defaultLexer: Lexer = {
       type: TokenType.DURATION,
     },
     {
-      regex: /[a-zA-Z_](\/{0,1}[a-zA-Z-1-9_])*/,
+      regex: new RegExp(symbolPattern),
       type: TokenType.SYMBOL,
     },
     {

@@ -398,4 +398,31 @@ describe('#tokenizer', () => {
       { value: true, type: 'boolean_true', pos: expect.any(Number) },
     ]);
   });
+
+  it('supports function format', () => {
+    const result = tokenize(`time lt now() and time gt now()`);
+
+    expect(result).toEqual([
+      { value: 'time', type: 'symbol', pos: 0 },
+      { value: 'lt', type: 'lt_operator', pos: 5 },
+      { value: expect.any(Temporal.Instant), type: 'datetime', pos: 8 },
+      { value: 'and', type: 'and_operator', pos: expect.any(Number) },
+      { value: 'time', type: 'symbol', pos: expect.any(Number) },
+      { value: 'gt', type: 'gt_operator', pos: expect.any(Number) },
+      { value: expect.any(Temporal.Instant), type: 'datetime', pos: expect.any(Number) },
+    ]);
+  });
+
+  it('throws an error for invalid function format', () => {
+    expect.assertions(4);
+
+    try {
+      tokenize(`time lt later()`);
+    } catch (e) {
+      expect(e).toBeInstanceOf(LexerException);
+      expect(e).toBeInstanceOf(FilterQueryParserException);
+      expect(e.name).toBe('LexerException');
+      expect(e.message).toEqual('Unsupported function: later()');
+    }
+  });
 });
