@@ -2,7 +2,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import prettier from "eslint-plugin-prettier";
 import packageJson from "eslint-plugin-package-json";
 import markdownlintConfig from '../../.markdownlint.json' with { type: 'json' };
-import jsoncEslintParser from 'jsonc-eslint-parser';
+import * as jsoncEslintParser from 'jsonc-eslint-parser';
 import typescriptEslintParser from '@typescript-eslint/parser';
 import eslintPluginMarkdownlintParser from 'eslint-plugin-markdownlint/parser';
 
