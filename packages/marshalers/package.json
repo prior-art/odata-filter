@@ -27,8 +27,8 @@
     "lint": "eslint -c ../../eslint.config.js",
     "lint:fix": "eslint -c ../../eslint.config.js --fix",
     "test": "vitest -c ../../vitest.config.ts run",
-    "test:watch": "vitest -c ../../vitest.config.ts",
-    "test:mutation": "stryker run ../../stryker.config.json"
+    "test:mutation": "stryker run ../../stryker.config.json",
+    "test:watch": "vitest -c ../../vitest.config.ts"
   },
   "devDependencies": {
     "@odata-filter/core": "^1.4.0",

@@ -23,10 +23,10 @@
     "build": "tsc",
     "clean": "rimraf dist node_modules reports coverage",
     "lint": "eslint -c ../../eslint.config.js",
-    "lint:fix": "eslint ../../eslint.config.js --fix",
+    "lint:fix": "eslint -c ../../eslint.config.js --fix",
     "test": "vitest -c ../../vitest.config.ts run",
-    "test:watch": "vitest -c ../../vitest.config.ts",
-    "test:mutation": "stryker run ../../stryker.config.json"
+    "test:mutation": "stryker run ../../stryker.config.json",
+    "test:watch": "vitest -c ../../vitest.config.ts"
   },
   "dependencies": {
     "@js-temporal/polyfill": "^0.5.1"

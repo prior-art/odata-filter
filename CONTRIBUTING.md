@@ -8,7 +8,7 @@
 
 ## Reporting Issues
 
-What can you do as a open-source contributor to report a bug? 
+What can you do as a open-source contributor to report a bug?
 
 A good bug report should keep others from chasing you down for more information. Therefore, we ask you to investigate carefully, collect information, and describe the issue in detail in your report. Please complete the following steps in advance to help us fix any potential bugs quickly.
 
@@ -42,4 +42,3 @@ Once you have finished the installation process and run the application describe
 ## Code Review Process
 
 All pull requests will undergo code review. We review contributions promptly and provide constructive feedback. Please be open to feedback and responsive to any changes or suggestions. Once your pull request is approved, it will be merged.
-
