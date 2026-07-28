@@ -4,13 +4,15 @@ const packageJson = require("eslint-plugin-package-json");
 const markdownlintConfig = require('./.markdownlint.json');
 const jsoncEslintParser = require('jsonc-eslint-parser');
 const typescriptEslintParser = require('@typescript-eslint/parser');
-const eslintPluginMarkdownlintParser = require('eslint-plugin-markdownlint/parser');
+const eslintPluginMarkdownlintParser = require('eslint-plugin-markdownlint/parser').default;
 
 module.exports = defineConfig([
-    globalIgnores(['**.js', 'node_modules/**/*', 'dist/**/*', 'coverage/**/*']),
+    globalIgnores(['node_modules/**/*', 'dist/**/*', 'coverage/**/*', '.stryker-tmp/**/*']),
     {
       files: ['**.md'],
-      parser: eslintPluginMarkdownlintParser,
+      languageOptions: {
+        parser: eslintPluginMarkdownlintParser,
+      },
       /**
        * eslint-plugin-markdownlint currently does not support configuration files. We currently
        * configure markdownlint using the markdownlint.json file.
@@ -23,17 +25,15 @@ module.exports = defineConfig([
       }, {})
     },
     {
-      env: {
-        browser: true,
-        es2020: true,
-        jest: true,
-      },
       plugins: {prettier},
       files: ['src/**/*.ts', 'assembly/**/*.ts'],
-      parser: typescriptEslintParser,
-      parserOptions: {
-        project: ['./tsconfig.json'],
-        extraFileExtensions: ['.ts'],
+      languageOptions: {
+        parser: typescriptEslintParser,
+        globals: {
+          browser: true,
+          es2020: true,
+          jest: true,
+        },
       },
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
@@ -51,18 +51,24 @@ module.exports = defineConfig([
       },
     },
     {
-      parserOptions: {
-        extraFileExtensions: ['.json'],
-      },
       extends: [packageJson.configs.recommended],
       files: ['package.json'],
-      parser: jsoncEslintParser,
+      languageOptions: {
+        parser: jsoncEslintParser,
+        parserOptions: {
+          extraFileExtensions: ['.json'],
+        },
+      },
       plugins: {packageJson},
       rules: {
         'package-json/require-description': 'off',
         'package-json/valid-version': 'error',
         'package-json/require-license': 'off',
         'package-json/require-type': 'off',
+        'package-json/require-exports': 'off',
+        'package-json/require-files': 'off',
+        'package-json/require-sideEffects': 'off',
+        'package-json/require-attribution': 'off',
       },
     },
 ]);

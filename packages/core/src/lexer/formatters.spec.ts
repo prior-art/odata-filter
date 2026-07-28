@@ -1,11 +1,11 @@
 import { dateFormatter, timeFormatter, datetimeFormatter, durationFormatter } from './formatters';
 import { Temporal } from '@js-temporal/polyfill';
 
-jest.mock('@js-temporal/polyfill');
+vi.mock('@js-temporal/polyfill');
 
 beforeEach(() => {
-  jest.clearAllMocks();
-  jest.resetAllMocks();
+  vi.clearAllMocks();
+  vi.resetAllMocks();
 });
 
 describe('formatters', () => {
@@ -14,7 +14,7 @@ describe('formatters', () => {
       expect.assertions(2);
 
       const invalidDate = 'invalid-date';
-      Temporal.PlainDate.from = jest.fn().mockImplementation(() => {
+      Temporal.PlainDate.from = vi.fn().mockImplementation(() => {
         throw new Error('date error');
       });
 
@@ -32,7 +32,7 @@ describe('formatters', () => {
       expect.assertions(2);
 
       const invalidDatetime = 'invalid-datetime';
-      Temporal.Instant.from = jest.fn().mockImplementation(() => {
+      Temporal.Instant.from = vi.fn().mockImplementation(() => {
         throw new Error('datetime error');
       });
 
@@ -50,7 +50,7 @@ describe('formatters', () => {
       expect.assertions(2);
 
       const invalidTime = 'invalid-time';
-      Temporal.PlainTime.from = jest.fn().mockImplementation(() => {
+      Temporal.PlainTime.from = vi.fn().mockImplementation(() => {
         throw new Error('time error');
       });
 
@@ -68,7 +68,7 @@ describe('formatters', () => {
       expect.assertions(2);
 
       const invalidDuration = 'invalid-duration';
-      Temporal.Duration.from = jest.fn().mockImplementation(() => {
+      Temporal.Duration.from = vi.fn().mockImplementation(() => {
         throw new Error('duration error');
       });
 

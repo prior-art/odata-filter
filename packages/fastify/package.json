@@ -24,10 +24,11 @@
     "build": "tsc",
     "clean": "rimraf dist node_modules reports coverage",
     "dev": "ts-node ./src/cli.ts",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test": "jest",
-    "test:mutation": "stryker run"
+    "lint": "eslint -c ../../eslint.config.js",
+    "lint:fix": "eslint -c ../../eslint.config.js --fix",
+    "test": "vitest -c ../../vitest.config.ts run",
+    "test:mutation": "stryker run ../../stryker.config.json",
+    "test:watch": "vitest -c ../../vitest.config.ts"
   },
   "devDependencies": {
     "@odata-filter/core": "^1.0.0",
