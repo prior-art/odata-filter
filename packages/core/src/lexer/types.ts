@@ -27,6 +27,7 @@ export enum TokenType {
   DURATION = 'duration',
   GUID = 'guid',
   FUNCTION = 'function',
+  CONTAINS = 'contains_operator',
 }
 
 export type TokenValue =

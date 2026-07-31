@@ -9,5 +9,6 @@ export enum MongoOperators {
   GT = '$gt',
   GTE = '$gte',
   NOT = '$not',
+  CONTAINS = '$regex',
   UNKNOWN = 'unknown',
 }

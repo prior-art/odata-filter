@@ -1,11 +1,16 @@
 import { TokenType, Lexer } from './types';
 
-const symbolPattern = `[a-zA-Z_](\\/{0,1}[a-zA-Z-1-9_])*`;
+const symbolPattern = `[a-zA-Z_](?:\\/{0,1}[a-zA-Z-1-9_])*`;
+const stringPattern = `'[^'\\\\]*(?:\\\\.[^'\\\\]*)*'`;
+
+const singleParamFunctionPattern = `\\s*(${stringPattern})\\s*`;
+const doubleParamFunctionPattern = `\\s*(${symbolPattern})\\s*,\\s*(${stringPattern})\\s*`;
+const noParamFunctionPattern = `\\s*`;
 
 const defaultLexer: Lexer = {
   patterns: [
     {
-      regex: new RegExp(`${symbolPattern}\\(\\)`),
+      regex: new RegExp(`(${symbolPattern})\\s*\\((?:${noParamFunctionPattern}|${singleParamFunctionPattern}|${doubleParamFunctionPattern})\\)`),
       type: TokenType.FUNCTION,
     },
     {
@@ -49,7 +54,7 @@ const defaultLexer: Lexer = {
       type: TokenType.SYMBOL,
     },
     {
-      regex: /('[^'\\]*(?:\\.[^'\\]*)*')/,
+      regex: new RegExp(stringPattern),
       type: TokenType.STRING,
     },
     {
