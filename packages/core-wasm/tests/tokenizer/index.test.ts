@@ -353,3 +353,27 @@ test("should tokenize function calls", () => {
   expect(actual[4].value.stringValue).equal("1970-01-01T00:00:00.000Z");
   expect(actual[4].value.format).equal(app.TokenFormat.STRING);
 });
+
+test("should tokenize contains() function", () => {
+  const actual = app.tokenize("contains(name, 'Alice')");
+  expect(actual.length).equal(3);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("name");
+  expect(actual[0].value.stringValue).equal("name");
+  expect(actual[1].type).equal(app.TokenType.CONTAINS);
+  expect(actual[1].value.raw).equal("contains");
+  expect(actual[2].type).equal(app.TokenType.STRING);
+  expect(actual[2].value.raw).equal("'Alice'");
+  expect(actual[2].value.stringValue).equal("Alice");
+});
+
+test("should tokenize contains() as part of larger expression", () => {
+  const actual = app.tokenize("contains(name, 'Alice') and active eq true");
+  expect(actual.length).equal(11);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("name");
+  expect(actual[1].type).equal(app.TokenType.CONTAINS);
+  expect(actual[1].value.raw).equal("contains");
+  expect(actual[2].type).equal(app.TokenType.STRING);
+  expect(actual[2].value.raw).equal("'Alice'");
+});

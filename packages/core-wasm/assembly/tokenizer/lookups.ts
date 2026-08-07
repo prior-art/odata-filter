@@ -2,12 +2,13 @@ import { TokenPattern, TokenType } from './types.ts';
 import { RegExp } from '@prior-art/assemblyscript-regex/assembly/regexp';
 
 const symbolPattern = `[a-zA-Z_](\\/{0,1}[a-zA-Z1-9_])*`;
+const stringPattern = `'[^']*(?:.[^']*)*'`;
 
 export const patterns = new Array<TokenPattern>();
 
 patterns.push({
   type: TokenType.FUNCTION,
-  regex: new RegExp(`^${symbolPattern}\\(\\)`, ''),
+  regex: new RegExp(`^${symbolPattern}\\(\\s*(?:${symbolPattern}\\s*,\\s*${stringPattern}\\s*)?\\)`, ''),
 });
 patterns.push({
   type: TokenType.GUID,

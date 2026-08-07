@@ -108,6 +108,21 @@ function ledHandler(parser: Parser, left: AST): AST {
       };
     }
 
+    case TokenType.CONTAINS: {
+      if (right.type !== NodeType.STRING_LITERAL) {
+        throw new Error(
+          `Operator of type ${token.value.raw} expects ${NodeType.STRING_LITERAL}, received ${right.type}.`,
+        );
+      }
+
+      return {
+        type: nodeType,
+        value: token.value,
+        left: left,
+        right: right,
+      };
+    }
+
     default: {
       return {
         type: nodeType,

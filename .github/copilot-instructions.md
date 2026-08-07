@@ -93,3 +93,8 @@ npm test --workspace=packages/core         # scope any script to one package
   the linked issue. Branch format: `<type>/issues-<number>` (e.g. `chore/issues-39`). Commit
   format: `<type>: [Issues: <number>] <description>` (e.g.
   `chore: [Issues: 39] add justfile with npm script wrappers`).
+- Prefer early returns over `else` branches: when an `if` block ends with a `return`/`break`, use
+  an early return/break and omit the `else`.
+- When completing work on a package, increment the package's `version` field in its `package.json`
+  using semantic versioning: patch for bug fixes, minor for new features, major for breaking
+  changes.
