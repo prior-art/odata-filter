@@ -34,6 +34,14 @@ const validateOptions = (runtime?: string, format?: string, schema?: string) => 
   }
 };
 
+const formatOutput = (format: string, ast: unknown) => {
+  switch (format) {
+    case 'json': return toMongoJson(ast as Parameters<typeof toMongoJson>[0]);
+    case 'sql': return toSqlWhere(ast as Parameters<typeof toSqlWhere>[0]);
+    default: return ast;
+  }
+};
+
 export const createCommand = () => {
   const program = new Command()
   .name(packageJson.name)
@@ -60,7 +68,7 @@ export const createCommand = () => {
     if (schemaSpec) {
       validate(ast, schemaSpec as unknown as JsonSchema);
     }
-    const formatting = format === "json" ? toMongoJson(ast) : format === "sql" ? toSqlWhere(ast) : ast;
+    const formatting = formatOutput(format.toString(), ast);
 
     console.log(
       format.toString().toUpperCase(),
