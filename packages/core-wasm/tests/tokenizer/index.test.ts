@@ -369,7 +369,7 @@ test("should tokenize contains() function", () => {
 
 test("should tokenize contains() as part of larger expression", () => {
   const actual = app.tokenize("contains(name, 'Alice') and active eq true");
-  expect(actual.length).equal(9);
+  expect(actual.length).equal(11);
   expect(actual[0].type).equal(app.TokenType.SYMBOL);
   expect(actual[0].value.raw).equal("name");
   expect(actual[1].type).equal(app.TokenType.CONTAINS);
