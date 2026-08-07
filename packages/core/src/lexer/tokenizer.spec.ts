@@ -400,16 +400,30 @@ describe('#tokenizer', () => {
   });
 
   it('supports function format', () => {
-    const result = tokenize(`time lt now() and time gt now()`);
+    const result = tokenize(`time lt now() and contains(timezone, 'Europe/')`);
 
     expect(result).toEqual([
       { value: 'time', type: 'symbol', pos: 0 },
       { value: 'lt', type: 'lt_operator', pos: 5 },
       { value: expect.any(Temporal.Instant), type: 'datetime', pos: 8 },
-      { value: 'and', type: 'and_operator', pos: expect.any(Number) },
-      { value: 'time', type: 'symbol', pos: expect.any(Number) },
-      { value: 'gt', type: 'gt_operator', pos: expect.any(Number) },
-      { value: expect.any(Temporal.Instant), type: 'datetime', pos: expect.any(Number) },
+      { value: 'and', type: 'and_operator', pos: 14 },
+      { value: 'timezone', type: 'symbol', pos: 18 },
+      { value: 'contains', type: 'contains_operator', pos: 26 },
+      { value: 'Europe/', type: 'string', pos: 34 },
+    ]);
+  });
+
+  it('supports function format with spaces', () => {
+    const result = tokenize(`time lt now( ) and contains ( timezone , 'Europe/' )`);
+
+    expect(result).toEqual([
+      { value: 'time', type: 'symbol', pos: 0 },
+      { value: 'lt', type: 'lt_operator', pos: 5 },
+      { value: expect.any(Temporal.Instant), type: 'datetime', pos: 8 },
+      { value: 'and', type: 'and_operator', pos: 15 },
+      { value: 'timezone', type: 'symbol', pos: 19 },
+      { value: 'contains', type: 'contains_operator', pos: 27 },
+      { value: 'Europe/', type: 'string', pos: 35 },
     ]);
   });
 

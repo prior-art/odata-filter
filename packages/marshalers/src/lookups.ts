@@ -12,6 +12,7 @@ export const mongoOperatorLookup: Record<TokenType, MongoOperators> = {
   [TokenType.GT]: MongoOperators.GT,
   [TokenType.GTE]: MongoOperators.GTE,
   [TokenType.NOT]: MongoOperators.NOT,
+  [TokenType.CONTAINS]: MongoOperators.CONTAINS,
 
   [TokenType.WHITESPACE]: MongoOperators.UNKNOWN,
   [TokenType.STRING]: MongoOperators.UNKNOWN,

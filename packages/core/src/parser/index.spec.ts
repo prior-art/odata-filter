@@ -134,4 +134,16 @@ describe('#parse', () => {
 
     expect(result).toThrow('NUD handler expected for token )');
   });
+
+  test('it supports the "contains" function', () => {
+    const tokens = tokenize("contains(name, 'Sally')");
+    const result = parse(tokens);
+
+    expect(result).toEqual({
+      type: 'comparison_operator',
+      value: 'contains',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: 'Sally' },
+    });
+  });
 });

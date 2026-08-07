@@ -34,6 +34,7 @@ See [OData v4 Primitive Types](https://docs.oasis-open.org/odata/odata/v4.0/cspr
 The following functions are supported by this project:
 
 - `now()`
+- `contains(fieldName, 'value')`
 
 ## Unsupported Features
 

@@ -10,7 +10,6 @@ import {
   timeFormatter,
   datetimeFormatter,
   durationFormatter,
-  functionFormatter,
 } from './formatters';
 
 export const valueFormatterLookup: Record<TokenType, Function> = {
@@ -39,7 +38,8 @@ export const valueFormatterLookup: Record<TokenType, Function> = {
   [TokenType.DATETIME]: datetimeFormatter,
   [TokenType.DURATION]: durationFormatter,
   [TokenType.GUID]: defaultFormatter,
-  [TokenType.FUNCTION]: functionFormatter,
+  [TokenType.FUNCTION]: defaultFormatter,
+  [TokenType.CONTAINS]: defaultFormatter,
 };
 
 export const reservedKeywordLookup: Record<string, TokenType> = {
@@ -56,5 +56,4 @@ export const reservedKeywordLookup: Record<string, TokenType> = {
   true: TokenType.TRUE,
   false: TokenType.FALSE,
   null: TokenType.NULL,
-  ['now()']: TokenType.DATETIME,
 };
