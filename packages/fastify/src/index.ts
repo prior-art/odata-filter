@@ -39,7 +39,7 @@ const parser = (
             request.query.filterParsed = json;
             break;
           }
-          case 'sql-where': {
+          case 'sql': {
             const sql = toSqlWhere(results);
             request.query.filterParsed = sql;
             break;

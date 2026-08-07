@@ -130,7 +130,7 @@ describe('#parser', () => {
     fastify.register(async (instance) => {
       fastifyPlugin(instance, {
         schemaId: 'qs2',
-        format: 'sql-where',
+        format: 'sql',
       });
 
       instance.get('/', async ({ query }: FastifyRequest) => {
