@@ -104,5 +104,5 @@ jobs:
   docs:
     needs: run-diff
     if: needs.run-diff.outputs.docs == 'true'
-    uses: prior-art/odata-filter/.github/workflows/build-docs.yml@docs/issues-64
+    uses: prior-art/odata-filter/.github/workflows/build-docs.yml@main
     secrets: inherit
