@@ -33,6 +33,6 @@
     "@prior-art/assemblyscript-regex": "^1.0.0",
     "assemblyscript-unittest-framework": "^2.1.0",
     "eslint-plugin-jsonc": "^3.3.0",
-    "typescript-eslint": "^8.50.0"
+    "typescript-eslint": "^8.66.0"
   }
 }
