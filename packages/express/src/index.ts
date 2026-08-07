@@ -34,7 +34,7 @@ const middleware = (
 
     return next();
   } catch (err) {
-    res.status(400).send(err instanceof Error ? err.message : String(err));
+    res.status(400).json({ message: err instanceof Error ? err.message : String(err) });
   }
 };
 
