@@ -195,3 +195,18 @@ test('should parse an expression containing a guid', () => {
   expect(ast.right!.type).equal(app.NodeType.STRING_LITERAL);
   expect(ast.right!.value.raw).equal("123e4567-e89b-12d3-a456-426614174000");
 });
+
+test('should parse a contains() expression', () => {
+  const tokens = app.tokenize("contains(name, 'Alice')");
+  const ast = app.parse(tokens);
+
+  expect(ast.type).equal(app.NodeType.COMPARISON_OPERATOR);
+  expect(ast.value.raw).equal("contains");
+  expect(ast.left).not.isNull();
+  expect(ast.left!.type).equal(app.NodeType.FIELD);
+  expect(ast.left!.value.raw).equal("name");
+  expect(ast.right).not.isNull();
+  expect(ast.right!.type).equal(app.NodeType.STRING_LITERAL);
+  expect(ast.right!.value.raw).equal("'Alice'");
+  expect(ast.right!.value.stringValue).equal("Alice");
+});
