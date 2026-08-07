@@ -1,5 +1,5 @@
 import { TokenType } from '@odata-filter/core';
-import { MongoOperators } from './types';
+import { MongoOperators, SqlOperators } from './types';
 
 export const mongoOperatorLookup: Record<TokenType, MongoOperators> = {
   [TokenType.AND]: MongoOperators.AND,
@@ -30,4 +30,35 @@ export const mongoOperatorLookup: Record<TokenType, MongoOperators> = {
   [TokenType.DURATION]: MongoOperators.UNKNOWN,
   [TokenType.GUID]: MongoOperators.UNKNOWN,
   [TokenType.FUNCTION]: MongoOperators.UNKNOWN,
+};
+
+export const sqlOperatorLookup: Record<TokenType, SqlOperators> = {
+  [TokenType.AND]: SqlOperators.AND,
+  [TokenType.OR]: SqlOperators.OR,
+  [TokenType.IN]: SqlOperators.IN,
+  [TokenType.EQ]: SqlOperators.EQ,
+  [TokenType.NE]: SqlOperators.NE,
+  [TokenType.LT]: SqlOperators.LT,
+  [TokenType.LTE]: SqlOperators.LTE,
+  [TokenType.GT]: SqlOperators.GT,
+  [TokenType.GTE]: SqlOperators.GTE,
+  [TokenType.NOT]: SqlOperators.NOT,
+  [TokenType.CONTAINS]: SqlOperators.CONTAINS,
+
+  [TokenType.WHITESPACE]: SqlOperators.UNKNOWN,
+  [TokenType.STRING]: SqlOperators.UNKNOWN,
+  [TokenType.SYMBOL]: SqlOperators.UNKNOWN,
+  [TokenType.NUMBER]: SqlOperators.UNKNOWN,
+  [TokenType.TUPLE]: SqlOperators.UNKNOWN,
+  [TokenType.OPEN_PAREN]: SqlOperators.UNKNOWN,
+  [TokenType.CLOSE_PAREN]: SqlOperators.UNKNOWN,
+  [TokenType.TRUE]: SqlOperators.UNKNOWN,
+  [TokenType.FALSE]: SqlOperators.UNKNOWN,
+  [TokenType.NULL]: SqlOperators.UNKNOWN,
+  [TokenType.DATE]: SqlOperators.UNKNOWN,
+  [TokenType.DATETIME]: SqlOperators.UNKNOWN,
+  [TokenType.TIME]: SqlOperators.UNKNOWN,
+  [TokenType.DURATION]: SqlOperators.UNKNOWN,
+  [TokenType.GUID]: SqlOperators.UNKNOWN,
+  [TokenType.FUNCTION]: SqlOperators.UNKNOWN,
 };

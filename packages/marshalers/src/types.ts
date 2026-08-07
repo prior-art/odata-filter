@@ -12,3 +12,18 @@ export enum MongoOperators {
   CONTAINS = '$regex',
   UNKNOWN = 'unknown',
 }
+
+export enum SqlOperators {
+  AND = 'AND',
+  OR = 'OR',
+  IN = 'IN',
+  EQ = '=',
+  NE = '!=',
+  LT = '<',
+  LTE = '<=',
+  GT = '>',
+  GTE = '>=',
+  NOT = 'NOT',
+  CONTAINS = 'LIKE',
+  UNKNOWN = 'unknown',
+}
