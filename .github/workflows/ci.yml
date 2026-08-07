@@ -10,6 +10,8 @@ on:
 permissions:
   contents: read
   packages: read
+  pages: write
+  id-token: write
 
 jobs:
   run-diff:
@@ -20,6 +22,7 @@ jobs:
       project_root: ${{ steps.diffs.outputs.project_root_any_changed }}
       cli: ${{ steps.diffs.outputs.cli_any_changed }}
       core_wasm: ${{ steps.diffs.outputs.core_wasm_any_changed }}
+      docs: ${{ steps.diffs.outputs.docs_any_changed }}
     steps:
       - uses: actions/checkout@v4
       - uses: tj-actions/changed-files@8c4da285a3cb8b621b4a5cc251d6282b4b0a67a5
@@ -45,6 +48,8 @@ jobs:
               - 'packages/marshalers/**'
             validation:
               - 'packages/validation/**'
+            docs:
+              - 'packages/docs/**'
 
   core:
     needs: run-diff
@@ -95,3 +100,9 @@ jobs:
     secrets: inherit
     with:
       package: 'validation'
+
+  docs:
+    needs: run-diff
+    if: needs.run-diff.outputs.docs == 'true'
+    uses: prior-art/odata-filter/.github/workflows/build-docs.yml@docs/issues-64
+    secrets: inherit
