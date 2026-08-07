@@ -79,7 +79,7 @@ describe('#middleware', () => {
     app.use(expressMiddleware({ schema, format: 'sql' }));
     app.get('/', (req: Request, res: Response) => {
       expect((req.query as unknown as QueryFilter).filter).toEqual(odataStub);
-      expect((req.query as unknown as QueryFilter).filterParsed).toEqual("(country = 'US')");
+      expect((req.query as unknown as QueryFilter).filterParsed).toEqual("country = 'US'");
       res.status(200).send();
     });
 
