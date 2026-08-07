@@ -3,6 +3,7 @@ import fastifyPlugin from '.';
 import { QueryFilter } from './types';
 
 const mongoJsonStub = { country: 'US' };
+const sqlWhereStub = "country = 'US'";
 const odataStub = "country eq 'US'";
 const astStub = {
   type: 'comparison_operator',
@@ -109,6 +110,32 @@ describe('#parser', () => {
       instance.get('/', async ({ query }: FastifyRequest) => {
         expect((query as QueryFilter).filter).toEqual(odataStub);
         expect((query as QueryFilter).filterParsed).toEqual(mongoJsonStub);
+      });
+    });
+
+    const response = await fastify.inject({
+      method: 'GET',
+      url: '/',
+      query: {
+        filter: odataStub,
+      },
+    });
+
+    expect(response.statusCode).toEqual(200);
+  });
+
+  test('it supports sql-where format', async () => {
+    expect.assertions(3);
+
+    fastify.register(async (instance) => {
+      fastifyPlugin(instance, {
+        schemaId: 'qs2',
+        format: 'sql',
+      });
+
+      instance.get('/', async ({ query }: FastifyRequest) => {
+        expect((query as QueryFilter).filter).toEqual(odataStub);
+        expect((query as QueryFilter).filterParsed).toEqual(sqlWhereStub);
       });
     });
 

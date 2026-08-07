@@ -8,7 +8,7 @@ import type {
 import { tokenize, parse } from '@odata-filter/core';
 import { type JsonSchema, validate } from '@odata-filter/validation';
 import { queryHasFilter } from './predicates';
-import { toMongoJson } from '@odata-filter/marshalers';
+import { toMongoJson, toSqlWhere } from '@odata-filter/marshalers';
 
 const parser = (
   fastify: FastifyInstance,
@@ -34,10 +34,16 @@ const parser = (
         validate(results, properties as JsonSchema);
 
         switch(format) {
-          case 'mongo-json':
+          case 'mongo-json': {
             const json = toMongoJson(results);
             request.query.filterParsed = json;
             break;
+          }
+          case 'sql': {
+            const sql = toSqlWhere(results);
+            request.query.filterParsed = sql;
+            break;
+          }
           default:
             request.query.filterParsed = results;
             break;
