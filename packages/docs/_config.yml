@@ -11,8 +11,8 @@ remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
 
-nav_enabled: false
-search_enabled: false
+nav_enabled: true
+search_enabled: true
 
 color_scheme: dark
 
