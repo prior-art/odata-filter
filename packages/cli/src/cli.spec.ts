@@ -48,7 +48,7 @@ describe('cli', () => {
     expect(formatOpt.defaultValue).toEqual('ast');
     expect(formatOpt.defaultValueDescription).toEqual('output as AST');
     expect(formatOpt.description).toEqual('output format');
-    expect(formatOpt.argChoices).toEqual(['ast', 'json']);
+    expect(formatOpt.argChoices).toEqual(['ast', 'json', 'sql']);
 
     const schemaOpt = result.options.find((opt) => opt.long === '--schema');
     expect(schemaOpt.flags).toEqual('-s, --schema <string>');
@@ -132,6 +132,13 @@ describe('cli', () => {
     await expect(result()).rejects.toThrow('WASM runtime does not currently support JSON output format');
   });
 
+  test('it fails when WASM runtime is used with SQL output format', async () => {
+    const program = createCommand().exitOverride()
+    const result = async () => await program.parseAsync(['', '', "price lt 10", '-r', 'wasm', '-f', 'sql']);
+
+    await expect(result()).rejects.toThrow('WASM runtime does not currently support JSON output format');
+  });
+
   test('it fails when WASM runtime is used with schema validation', async () => {
     const program = createCommand().exitOverride()
     const result = async () => await program.parseAsync(['', '', "price lt 10", '-r', 'wasm', '-s', './schema.spec.json']);
@@ -158,6 +165,22 @@ describe('cli', () => {
     expect(console.log).toHaveBeenCalledWith(
       'JSON',
       util.inspect(jsonStub, {
+        depth: null,
+        colors: true,
+        showHidden: false,
+      }),
+      '\n',
+    );
+  });
+
+  test('it accepts a sql format parameter', async () => {
+    const sqlStub = 'price < 10';
+    const program = createCommand().exitOverride()
+    await program.parseAsync(['', '', "price lt 10", '-f', 'sql']);
+
+    expect(console.log).toHaveBeenCalledWith(
+      'SQL',
+      util.inspect(sqlStub, {
         depth: null,
         colors: true,
         showHidden: false,

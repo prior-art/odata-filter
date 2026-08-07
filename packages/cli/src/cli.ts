@@ -2,7 +2,7 @@ import { Command, Option, InvalidArgumentError } from '@commander-js/extra-typin
 import { inspect } from 'util';
 import { tokenize, parse } from '@odata-filter/core';
 import { type JsonSchema, validate } from '@odata-filter/validation';
-import { toMongoJson } from '@odata-filter/marshalers';
+import { toMongoJson, toSqlWhere } from '@odata-filter/marshalers';
 import packageJson from '../package.json' with { type: 'json' };
 
 const nodeRuntime = (filter: string) => {
@@ -25,7 +25,7 @@ const runtimeMap: Record<string, Function> = {
 const validateOptions = (runtime?: string, format?: string, schema?: string) => {
   if (runtime && runtime === 'node') return;
 
-  if (format && format === 'json') {
+  if (format && ['json', 'sql'].includes(format)) {
     throw new InvalidArgumentError('WASM runtime does not currently support JSON output format');
   }
 
@@ -48,7 +48,7 @@ export const createCommand = () => {
   .option('-s, --schema <string>', 'path to schema json file')
   .addOption(
     new Option('-f, --format <type>', 'output format')
-    .choices(['ast', 'json'])
+    .choices(['ast', 'json', 'sql'])
     .default('ast', 'output as AST')
   )
   .action(async (filter, { schema, format, runtime }) => {
@@ -60,7 +60,7 @@ export const createCommand = () => {
     if (schemaSpec) {
       validate(ast, schemaSpec as unknown as JsonSchema);
     }
-    const formatting = format === "json" ? toMongoJson(ast) : ast;
+    const formatting = format === "json" ? toMongoJson(ast) : format === "sql" ? toSqlWhere(ast) : ast;
 
     console.log(
       format.toString().toUpperCase(),
