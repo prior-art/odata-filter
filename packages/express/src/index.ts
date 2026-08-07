@@ -21,18 +21,25 @@ const middleware = (
     const results = parse(tokens);
     validate(results, schema);
 
-    const query = req.query as Record<string, unknown>;
+    let filterParsed: unknown;
     switch (format) {
       case 'mongo-json':
-        query.filterParsed = toMongoJson(results);
+        filterParsed = toMongoJson(results);
         break;
       case 'sql':
-        query.filterParsed = toSqlWhere(results);
+        filterParsed = toSqlWhere(results);
         break;
       default:
-        query.filterParsed = results;
+        filterParsed = results;
         break;
     }
+
+    Object.defineProperty(req, 'query', {
+      value: Object.assign({}, req.query, { filterParsed }),
+      writable: true,
+      configurable: true,
+      enumerable: true,
+    });
 
     return next();
   } catch (err) {
