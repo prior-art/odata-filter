@@ -3,28 +3,25 @@ import { patterns, reservedKeywordLookup } from './lookups';
 import { Match } from '@prior-art/assemblyscript-regex/assembly/regexp';
 import { format } from './formatter';
 
-function handleContainsFunction(raw: string, tokenPos: i32, tokens: Array<Token>): void {
-  const openParen = raw.indexOf('(');
-  const inner = raw.substring(openParen + 1, raw.length - 1).trim();
-  const commaIdx = inner.indexOf(',');
-  const fieldName = inner.substring(0, commaIdx).trim();
-  const stringValue = inner.substring(commaIdx + 1).trim();
+function functionHandler(raw: string, tokenPos: i32, tokens: Array<Token>): void {
+  const functionName = raw.substring(0, raw.indexOf('('));
 
-  tokens.push({
-    type: TokenType.SYMBOL,
-    value: format(TokenType.SYMBOL, fieldName),
-    position: tokenPos,
-  } as Token);
-  tokens.push({
-    type: TokenType.CONTAINS,
-    value: format(TokenType.CONTAINS, 'contains'),
-    position: tokenPos + fieldName.length,
-  } as Token);
-  tokens.push({
-    type: TokenType.STRING,
-    value: format(TokenType.STRING, stringValue),
-    position: tokenPos + fieldName.length + 'contains'.length,
-  } as Token);
+  switch (functionName) {
+    case 'contains': {
+      const inner = raw.substring(functionName.length + 1, raw.length - 1).trim();
+      const commaIdx = inner.indexOf(',');
+      const fieldName = inner.substring(0, commaIdx).trim();
+      const stringValue = inner.substring(commaIdx + 1).trim();
+
+      tokens.push({ type: TokenType.SYMBOL, value: format(TokenType.SYMBOL, fieldName), position: tokenPos } as Token);
+      tokens.push({ type: TokenType.CONTAINS, value: format(TokenType.CONTAINS, 'contains'), position: tokenPos + fieldName.length } as Token);
+      tokens.push({ type: TokenType.STRING, value: format(TokenType.STRING, stringValue), position: tokenPos + fieldName.length + functionName.length } as Token);
+      return;
+    }
+    default: {
+      tokens.push({ type: reservedKeywordLookup.has(raw) ? reservedKeywordLookup.get(raw) : TokenType.FUNCTION, value: format(TokenType.FUNCTION, raw), position: tokenPos } as Token);
+    }
+  }
 }
 
 export function tokenize(input: string): Array<Token> {
@@ -43,27 +40,13 @@ export function tokenize(input: string): Array<Token> {
         const firstMatch = match.matches[0];
 
         if (pattern.type === TokenType.FUNCTION) {
-          const functionName = firstMatch.substring(0, firstMatch.indexOf('('));
-
-          if (functionName === 'contains') {
-            handleContainsFunction(firstMatch, tokenPos, tokens);
-          } else {
-            const formattedValue = format(pattern.type, firstMatch);
-            const token = {
-              type: reservedKeywordLookup.has(firstMatch) ? reservedKeywordLookup.get(firstMatch) : pattern.type,
-              value: formattedValue,
-              position: tokenPos,
-            } as Token;
-            tokens.push(token);
-          }
+          functionHandler(firstMatch, tokenPos, tokens);
         } else {
-          const formattedValue = format(pattern.type, firstMatch);
-          const token = {
+          tokens.push({
             type: reservedKeywordLookup.has(firstMatch) ? reservedKeywordLookup.get(firstMatch) : pattern.type,
-            value: formattedValue,
+            value: format(pattern.type, firstMatch),
             position: tokenPos,
-          } as Token;
-          tokens.push(token);
+          } as Token);
         }
 
         tokenPos += firstMatch.length;
