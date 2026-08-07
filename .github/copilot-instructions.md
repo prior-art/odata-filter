@@ -38,16 +38,26 @@ other package depends on its AST shape:
 
 Requires Node >= 24.11.1 / npm >= 11.6.2 (see `.nvmrc` for the exact version via `nvm use`).
 
-Run these from the repo root, or scope to one package with `--workspace=packages/<name>`:
+A `justfile` at the repo root wraps all common npm scripts. Prefer `just` for local development:
+
+```sh
+just build                  # tsc across all workspaces
+just lint                   # eslint across all workspaces
+just lint-fix               # eslint --fix, then pre-commit run -a
+just test                   # vitest run across all workspaces
+just test-mutation          # stryker (mutation testing) across all workspaces
+
+just build core             # scope build/lint/test/etc. to one package
+just test core
+just test-watch core        # vitest watch mode for a single package
+just audit core             # npm audit --omit=dev for a single package
+```
+
+The underlying npm scripts remain unchanged and can still be used directly:
 
 ```sh
 npm run build                              # tsc across all workspaces
-npm run lint                                # eslint across all workspaces
-npm run lint:fix                            # eslint --fix, then pre-commit run -a
-npm test                                    # vitest run across all workspaces
-npm run test:mutation                       # stryker (mutation testing) across all workspaces
-
-npm test --workspace=packages/core          # scope any script to one package
+npm test --workspace=packages/core         # scope any script to one package
 ```
 
 - Each TS package's `test` script is `vitest -c ../../vitest.config.ts run` — the shared config
@@ -79,3 +89,7 @@ npm test --workspace=packages/core          # scope any script to one package
   duplicating that content — follow this pattern if adding a new package.
 - Branches follow `feat/DP-12345_brief_description`; PRs are squash-merged into `main`
   (see `CONTRIBUTING.md`).
+- Commit messages and branch names must follow **Conventional Commits** conventions and reference
+  the linked issue. Branch format: `<type>/issues-<number>` (e.g. `chore/issues-39`). Commit
+  format: `<type>: [Issues: <number>] <description>` (e.g.
+  `chore: [Issues: 39] add justfile with npm script wrappers`).
