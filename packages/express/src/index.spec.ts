@@ -71,4 +71,19 @@ describe('#middleware', () => {
     const { statusCode } = await request(app).get('/').query({ filter: odataStub });
     expect(statusCode).toEqual(200);
   });
+
+  test('it supports the sql format', async () => {
+    expect.assertions(3);
+
+    const app = express();
+    app.use(expressMiddleware({ schema, format: 'sql' }));
+    app.get('/', (req: Request, res: Response) => {
+      expect((req.query as unknown as QueryFilter).filter).toEqual(odataStub);
+      expect((req.query as unknown as QueryFilter).filterParsed).toEqual("(country = 'US')");
+      res.status(200).send();
+    });
+
+    const { statusCode } = await request(app).get('/').query({ filter: odataStub });
+    expect(statusCode).toEqual(200);
+  });
 });

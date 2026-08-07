@@ -52,6 +52,8 @@ app.get('/', (req, res) => {
 
 ### Format Options
 
+Pass `format: 'mongo-json'` to receive a MongoDB query object:
+
 ```ts
 app.use(expressMiddleware({ schema, format: 'mongo-json' }));
 
@@ -66,6 +68,24 @@ app.get('/', (req, res) => {
 
 // Raw: "country eq 'US'"
 /* Parsed: { country: 'US' } */
+```
+
+Pass `format: 'sql'` to receive a SQL `WHERE` clause string:
+
+```ts
+app.use(expressMiddleware({ schema, format: 'sql' }));
+
+// HTTP GET /?filter=country+eq+%27US%27
+
+app.get('/', (req, res) => {
+  const { filter, filterParsed } = req.query;
+  console.log('Raw:', filter);
+  console.log('Parsed:', filterParsed);
+  res.send();
+});
+
+// Raw: "country eq 'US'"
+// Parsed: "(country = 'US')"
 ```
 
 ## Contributing

@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from 'express';
 import { tokenize, parse } from '@odata-filter/core';
 import { type JsonSchema, validate } from '@odata-filter/validation';
 import { queryHasFilter } from './predicates';
-import { toMongoJson } from '@odata-filter/marshalers';
+import { toMongoJson, toSqlWhere } from '@odata-filter/marshalers';
 
 export type ExpressPluginOptions = {
   schema: JsonSchema;
@@ -21,14 +21,16 @@ const middleware = (
     const results = parse(tokens);
     validate(results, schema);
 
+    const query = req.query as Record<string, unknown>;
     switch (format) {
-      case 'mongo-json': {
-        const json = toMongoJson(results);
-        req.query.filterParsed = json as unknown as string;
+      case 'mongo-json':
+        query.filterParsed = toMongoJson(results);
         break;
-      }
+      case 'sql':
+        query.filterParsed = toSqlWhere(results);
+        break;
       default:
-        req.query.filterParsed = results as unknown as string;
+        query.filterParsed = results;
         break;
     }
 

@@ -210,6 +210,22 @@ app.get('/', (req, res) => {
 });
 ```
 
+### With SQL Marshaling
+
+Pass `format: 'sql'` to receive a SQL `WHERE` clause string instead of the raw AST.
+
+```ts
+app.use(expressMiddleware({ schema, format: 'sql' }));
+
+// GET /?filter=country+eq+%27US%27
+app.get('/', (req, res) => {
+  const { filter, filterParsed } = req.query;
+  console.log('Raw:', filter);       // "country eq 'US'"
+  console.log('Parsed:', filterParsed); // "(country = 'US')"
+  res.send();
+});
+```
+
 ## Use the CLI for Local Testing
 
 The CLI lets you test filter expressions against a local `schema.json` without writing any code.
