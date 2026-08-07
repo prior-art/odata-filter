@@ -3,5 +3,5 @@ import type { Filter } from 'mongodb';
 
 export type QueryFilter = {
   filter: string;
-  filterParsed: Node|Filter<unknown>;
+  filterParsed: Node|Filter<unknown>|string;
 };
