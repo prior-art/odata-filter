@@ -27,24 +27,27 @@ jobs:
           scope: '@prior-art'
           cache: 'npm'
 
+      - name: Install just
+        uses: extractions/setup-just@v3
+
       - name: Install NPM Dependencies
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Audit
-        run: npm audit --workspace=packages/${{ inputs.package }} --omit=dev
+        run: just audit ${{ inputs.package }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Lint
-        run: npm run lint --workspace=packages/${{ inputs.package }}
+        run: just lint ${{ inputs.package }}
 
       - name: Build
-        run: npm run build
+        run: just build
 
       - name: Test
-        run: npm test --workspace=packages/${{ inputs.package }}
+        run: just test ${{ inputs.package }}
 
       - name: Create Mutation Test Cache Key
         if: ${{ inputs.mutation }}
@@ -62,7 +65,7 @@ jobs:
 
       - name: Mutation Test
         if: ${{ inputs.mutation }}
-        run: npm run test:mutation --workspace=packages/${{ inputs.package }}
+        run: just test-mutation ${{ inputs.package }}
 
       - name: Cache Mutation Test Results
         if: ${{ inputs.mutation }}

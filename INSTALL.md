@@ -19,6 +19,7 @@ This project is a NodeJS-based backend library. It can be used to build middlewa
 
 * NVM -> to manage node versions
 * Node.js -> review last version on [package.json](/package.json) on `engines` object.
+* `just` (optional) -> a command runner that wraps the npm scripts; see [casey/just](https://github.com/casey/just) for installation instructions.
 
 ## Installation Steps
 
@@ -36,6 +37,8 @@ Run tests to ensure dependencies are installed correctly.
 
 ```sh
 npm test
+# or with just
+just test
 ```
 
 ## Build
@@ -44,6 +47,8 @@ Transpile the source code to ensure types resolve and CommonJS is emitted.
 
 ```sh
 npm run build
+# or with just
+just build
 ```
 
 ## Local Dev Testing
@@ -52,6 +57,8 @@ A CLI tool is included to aid in testing changes locally.
 
 ```sh
 npm run dev "country eq 'US' and age gte 21"
+# or with just
+just dev "country eq 'US' and age gte 21"
 ```
 
 Note: a `schema.json` file must be created at the root of the project, containing the schema to test against.
