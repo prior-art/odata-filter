@@ -41,13 +41,16 @@ export function tokenize(input: string): Array<Token> {
 
         if (pattern.type === TokenType.FUNCTION) {
           functionHandler(firstMatch, tokenPos, tokens);
-        } else {
-          tokens.push({
-            type: reservedKeywordLookup.has(firstMatch) ? reservedKeywordLookup.get(firstMatch) : pattern.type,
-            value: format(pattern.type, firstMatch),
-            position: tokenPos,
-          } as Token);
+          tokenPos += firstMatch.length;
+          matched = true;
+          break;
         }
+
+        tokens.push({
+          type: reservedKeywordLookup.has(firstMatch) ? reservedKeywordLookup.get(firstMatch) : pattern.type,
+          value: format(pattern.type, firstMatch),
+          position: tokenPos,
+        } as Token);
 
         tokenPos += firstMatch.length;
         matched = true;
