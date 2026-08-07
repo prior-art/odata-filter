@@ -2,7 +2,7 @@ title: OData Filter Library
 description: >-
   An OData standards based parser for building better REST APIs using
   the filter query parameter.
-baseurl: "/odata-filter/packages/docs/"
+baseurl: "/odata-filter/"
 url: "https://prior-art.github.io"
 domain: "prior-art.github.io"
 github_username:  prior-art
