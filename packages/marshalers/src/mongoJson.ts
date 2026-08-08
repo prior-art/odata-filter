@@ -1,7 +1,12 @@
 import { NodeType, TokenType } from '@odata-filter/core';
-import type { Node } from '@odata-filter/core';
+import type { Node, TokenValue } from '@odata-filter/core';
 import { mongoOperatorLookup } from './lookups';
 import { Filter } from 'mongodb';
+
+const toStringValue = (value: TokenValue | null | undefined): string =>
+  typeof value === 'string' ? value : String(value ?? '');
+
+const escapeRegExp = (value: string): string => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 export const toMongoJson = (
   ast?: Node,
@@ -40,7 +45,7 @@ export const toMongoJson = (
     }
 
     if (tokenType === TokenType.STARTSWITH) {
-      json[field.toString()] = { $regex: `^${value}` };
+      json[field.toString()] = { $regex: `^${escapeRegExp(toStringValue(value))}` };
       return json;
     }
 

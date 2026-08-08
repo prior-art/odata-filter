@@ -10,6 +10,9 @@ const formatSqlValue = (value: TokenValue): string => {
   return String(value);
 };
 
+const toStringValue = (value: TokenValue | null | undefined): string =>
+  typeof value === 'string' ? value : String(value ?? '');
+
 export const toSqlWhere = (ast?: Node): string => {
   if (!ast) return '';
 
@@ -32,11 +35,11 @@ export const toSqlWhere = (ast?: Node): string => {
     const operator = sqlOperatorLookup[tokenType as TokenType];
 
     if (tokenType === TokenType.CONTAINS) {
-      return `${field} ${operator} '%${value}%'`;
+      return `${field} ${operator} ${formatSqlValue(`%${toStringValue(value)}%`)}`;
     }
 
     if (tokenType === TokenType.STARTSWITH) {
-      return `${field} ${operator} '${value}%'`;
+      return `${field} ${operator} ${formatSqlValue(`${toStringValue(value)}%`)}`;
     }
 
     return `${field} ${operator} ${formatSqlValue(value ?? null)}`;
