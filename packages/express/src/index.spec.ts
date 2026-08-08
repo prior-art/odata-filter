@@ -16,9 +16,13 @@ const schema = {
   country: { type: 'string' },
 };
 
+beforeEach(() => {
+  vi.spyOn(Object, 'defineProperty');
+});
+
 describe('#middleware', () => {
   test('it validates and parses the filter query parameter', async () => {
-    expect.assertions(3);
+    expect.assertions(4);
 
     const app = express();
     app.use(expressMiddleware({ schema }));
@@ -30,6 +34,14 @@ describe('#middleware', () => {
 
     const { statusCode } = await request(app).get('/').query({ filter: odataStub });
     expect(statusCode).toEqual(200);
+    expect(Object.defineProperty).toHaveBeenCalledWith(expect.any(Object), 'query', expect.objectContaining({
+      value: expect.objectContaining({
+        filterParsed: astStub,
+      }),
+      writable: true,
+      configurable: true,
+      enumerable: true,
+    }));
   });
 
   test('it throws a 400 error when validation fails', async () => {
@@ -39,8 +51,17 @@ describe('#middleware', () => {
       res.status(200).send({ hello: 'world' });
     });
 
-    const { statusCode } = await request(app).get('/').query({ filter: 'country eq 2' });
+    const { statusCode, body: { message } } = await request(app).get('/').query({ filter: 'country eq 2' });
+    expect(message).toMatch('Invalid type for field country, expected string, received number');
     expect(statusCode).toEqual(400);
+    expect(Object.defineProperty).toHaveBeenCalledWith(expect.any(Object), 'query', expect.objectContaining({
+      value: expect.objectContaining({
+        filterParsed: astStub,
+      }),
+      writable: true,
+      configurable: true,
+      enumerable: true,
+    }));
   });
 
   test('it skips if the filter parameter is not present', async () => {
