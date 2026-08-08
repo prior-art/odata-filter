@@ -1,0 +1,50 @@
+{
+  "name": "@odata-filter/nestjs",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "keywords": [
+    "odata",
+    "rest-api",
+    "nodejs",
+    "typescript",
+    "nestjs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prior-art/odata-filter.git",
+    "directory": "packages/nestjs"
+  },
+  "bugs": {
+    "url": "https://github.com/prior-art/odata-filter/issues"
+  },
+  "description": "NestJS interceptor for parsing and validating OData filter expressions for comprehensive OData support in NestJS applications.",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist node_modules reports coverage",
+    "lint": "eslint -c ../../eslint.config.js",
+    "lint:fix": "eslint -c ../../eslint.config.js --fix",
+    "test": "vitest -c ../../vitest.config.ts run",
+    "test:mutation": "stryker run ../../stryker.config.json",
+    "test:watch": "vitest -c ../../vitest.config.ts"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^11.1.28",
+    "@nestjs/core": "^11.1.28",
+    "@odata-filter/core": "^1.0.0",
+    "@odata-filter/marshalers": "^1.0.0",
+    "@odata-filter/validation": "^1.0.0",
+    "@vitest/coverage-v8": "^4.1.10",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "vitest": "^4.1.10"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@odata-filter/core": "^1.0.0",
+    "@odata-filter/marshalers": "^1.0.0",
+    "@odata-filter/validation": "^1.0.0"
+  }
+}
