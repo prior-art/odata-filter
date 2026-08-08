@@ -15,6 +15,7 @@ This project supports the following OData v4 primitive data types:
 - Boolean
 - Decimal
 - Double
+- Guid
 - Int16
 - Int32
 - Int64
@@ -51,6 +52,8 @@ For more information, please refer to the package documentation below.
 [Core](./packages/core/README.md)
 [WASM-Based Core](./packages/core-wasm/README.md)
 [Fastify Plugin](./packages/fastify/README.md)
+[Express Middleware](./packages/express/README.md)
+[NestJS Interceptor](./packages/nestjs/README.md)
 [CLI](./packages/cli/README.md)
 [Marshalers](./packages/marshalers/README.md)
 [Validation](./packages/validation/README.md)

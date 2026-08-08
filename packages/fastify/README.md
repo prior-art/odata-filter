@@ -79,6 +79,27 @@ fastify.register(async (instance) => {
 /* Parsed: { country: 'US' } */
 ```
 
+Pass `format: 'sql'` to receive a SQL `WHERE` clause string:
+
+```ts
+fastify.register(async (instance) => {
+    fastifyPlugin(instance, {
+        schemaId: 'qs',
+        format: 'sql',
+    });
+
+    // HTTP GET /?filter=country+eq+%27US%27
+
+    instance.get('/', async ({ query: { filter, filterParsed } }: FastifyRequest) => {
+      console.log("Raw: ", filter);
+      console.log("Parsed: ", filterParsed);
+    });
+});
+
+// Raw: "country eq 'US'"
+// Parsed: "country = 'US'"
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](https://github.com/prior-art/odata-filter/blob/main/CONTRIBUTING.md) for full instructions.

@@ -16,8 +16,8 @@ a data store.
 
 ### Which OData v4 features are supported?
 
-The following data types are supported: Boolean, Decimal, Double, Int16, Int32, Int64, Single,
-String, Date, DateTimeOffset, TimeOfDay, Duration.
+The following data types are supported: Boolean, Decimal, Double, Guid, Int16, Int32, Int64,
+Single, String, Date, DateTimeOffset, TimeOfDay, Duration.
 
 The following functions are supported: `now()`, `contains(fieldName, 'value')`.
 
@@ -35,9 +35,11 @@ preferred. The WASM package has a slightly different AST shape — see
 
 ### Can I use the Fastify plugin with other HTTP frameworks?
 
-The `@odata-filter/fastify` package is specifically a Fastify plugin. For other frameworks
-(Express, Hapi, etc.), use `@odata-filter/core` and `@odata-filter/validation` directly to parse
-and validate the filter string from the query parameter.
+The `@odata-filter/fastify` package is specifically a Fastify plugin. Use `@odata-filter/express`
+for Express applications or `@odata-filter/nestjs` for NestJS applications — both offer the same
+`format` options (`mongo-json`, `sql`) as the Fastify plugin. For any other framework, use
+`@odata-filter/core` and `@odata-filter/validation` directly to parse and validate the filter
+string from the query parameter.
 
 ## Parsing
 
@@ -77,7 +79,8 @@ No. `validate` is a read-only check and never mutates the AST.
 
 ### Which output formats are supported?
 
-Currently `toMongoJson` (MongoDB query object format compatible with MikroORM) is provided.
+Currently `toMongoJson` (MongoDB query object format compatible with MikroORM) and `toSqlWhere`
+(SQL `WHERE` clause string) are provided.
 
 ### Can I add a custom marshaler?
 
