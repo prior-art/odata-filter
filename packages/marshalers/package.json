@@ -1,6 +1,6 @@
 {
   "name": "@odata-filter/marshalers",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "keywords": [
     "odata",
     "rest-api",
@@ -17,6 +17,7 @@
   "bugs": {
     "url": "https://github.com/prior-art/odata-filter/issues"
   },
+  "homepage": "https://prior-art.github.io/odata-filter/",
   "description": "Marshaler utilities for OData filter expressions, including a MongoDB query generator for MikroORM usage.",
   "license": "MIT",
   "main": "dist/index.js",

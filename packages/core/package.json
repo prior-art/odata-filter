@@ -1,6 +1,6 @@
 {
   "name": "@odata-filter/core",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "license": "MIT",
   "keywords": [
     "odata",
@@ -17,6 +17,7 @@
   "bugs": {
     "url": "https://github.com/prior-art/odata-filter/issues"
   },
+  "homepage": "https://prior-art.github.io/odata-filter/",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
