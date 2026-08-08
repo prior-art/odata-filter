@@ -1,0 +1,17 @@
+<button id="theme-toggle" class="btn btn-primary" onclick="(function() {
+  var current = jtd.getTheme();
+  var isDark = current === 'dark' || current === 'default';
+  var next = isDark ? 'light' : 'dark';
+  jtd.setTheme(next);
+  localStorage.setItem('jtd-color-scheme', next);
+  document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀ Light mode' : '🌙 Dark mode';
+})()">☀ Light mode</button>
+<script>
+  (function () {
+    var saved = localStorage.getItem('jtd-color-scheme');
+    var btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.textContent = (saved === 'light') ? '🌙 Dark mode' : '☀ Light mode';
+    }
+  })();
+</script>
