@@ -27,6 +27,7 @@ export enum TokenType {
   GUID,
   FUNCTION,
   CONTAINS,
+  STARTSWITH,
 }
 
 export class TokenPattern {

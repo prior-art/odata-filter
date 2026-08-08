@@ -18,6 +18,17 @@ function functionHandler(raw: string, tokenPos: i32, tokens: Array<Token>): void
       tokens.push({ type: TokenType.STRING, value: format(TokenType.STRING, stringValue), position: tokenPos + fieldName.length + functionName.length } as Token);
       return;
     }
+    case 'startswith': {
+      const inner = raw.substring(functionName.length + 1, raw.length - 1).trim();
+      const commaIdx = inner.indexOf(',');
+      const fieldName = inner.substring(0, commaIdx).trim();
+      const stringValue = inner.substring(commaIdx + 1).trim();
+
+      tokens.push({ type: TokenType.SYMBOL, value: format(TokenType.SYMBOL, fieldName), position: tokenPos } as Token);
+      tokens.push({ type: TokenType.STARTSWITH, value: format(TokenType.STARTSWITH, 'startswith'), position: tokenPos + fieldName.length } as Token);
+      tokens.push({ type: TokenType.STRING, value: format(TokenType.STRING, stringValue), position: tokenPos + fieldName.length + functionName.length } as Token);
+      return;
+    }
     default: {
       tokens.push({ type: reservedKeywordLookup.has(raw) ? reservedKeywordLookup.get(raw) : TokenType.FUNCTION, value: format(TokenType.FUNCTION, raw), position: tokenPos } as Token);
     }

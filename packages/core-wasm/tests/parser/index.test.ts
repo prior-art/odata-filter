@@ -210,3 +210,18 @@ test('should parse a contains() expression', () => {
   expect(ast.right!.value.raw).equal("'Alice'");
   expect(ast.right!.value.stringValue).equal("Alice");
 });
+
+test('should parse a startswith() expression', () => {
+  const tokens = app.tokenize("startswith(name, 'Eliz')");
+  const ast = app.parse(tokens);
+
+  expect(ast.type).equal(app.NodeType.COMPARISON_OPERATOR);
+  expect(ast.value.raw).equal("startswith");
+  expect(ast.left).not.isNull();
+  expect(ast.left!.type).equal(app.NodeType.FIELD);
+  expect(ast.left!.value.raw).equal("name");
+  expect(ast.right).not.isNull();
+  expect(ast.right!.type).equal(app.NodeType.STRING_LITERAL);
+  expect(ast.right!.value.raw).equal("'Eliz'");
+  expect(ast.right!.value.stringValue).equal("Eliz");
+});
