@@ -1,0 +1,8 @@
+<script>
+  (function () {
+    var saved = localStorage.getItem('jtd-color-scheme');
+    if (saved && typeof jtd !== 'undefined') {
+      jtd.setTheme(saved);
+    }
+  })();
+</script>
