@@ -40,6 +40,7 @@ export const valueFormatterLookup: Record<TokenType, Function> = {
   [TokenType.GUID]: defaultFormatter,
   [TokenType.FUNCTION]: defaultFormatter,
   [TokenType.CONTAINS]: defaultFormatter,
+  [TokenType.STARTSWITH]: defaultFormatter,
 };
 
 export const reservedKeywordLookup: Record<string, TokenType> = {

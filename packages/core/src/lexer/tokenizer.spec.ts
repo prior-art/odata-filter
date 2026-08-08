@@ -427,6 +427,34 @@ describe('#tokenizer', () => {
     ]);
   });
 
+  it('supports startswith function format', () => {
+    const result = tokenize(`time lt now() and startswith(timezone, 'Europe/')`);
+
+    expect(result).toEqual([
+      { value: 'time', type: 'symbol', pos: 0 },
+      { value: 'lt', type: 'lt_operator', pos: 5 },
+      { value: expect.any(Temporal.Instant), type: 'datetime', pos: 8 },
+      { value: 'and', type: 'and_operator', pos: 14 },
+      { value: 'timezone', type: 'symbol', pos: 18 },
+      { value: 'startswith', type: 'startswith_operator', pos: 26 },
+      { value: 'Europe/', type: 'string', pos: 36 },
+    ]);
+  });
+
+  it('supports startswith function format with spaces', () => {
+    const result = tokenize(`time lt now( ) and startswith ( timezone , 'Europe/' )`);
+
+    expect(result).toEqual([
+      { value: 'time', type: 'symbol', pos: 0 },
+      { value: 'lt', type: 'lt_operator', pos: 5 },
+      { value: expect.any(Temporal.Instant), type: 'datetime', pos: 8 },
+      { value: 'and', type: 'and_operator', pos: 15 },
+      { value: 'timezone', type: 'symbol', pos: 19 },
+      { value: 'startswith', type: 'startswith_operator', pos: 27 },
+      { value: 'Europe/', type: 'string', pos: 37 },
+    ]);
+  });
+
   it('throws an error for invalid function format', () => {
     expect.assertions(4);
 

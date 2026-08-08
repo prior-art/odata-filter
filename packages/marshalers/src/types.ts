@@ -10,6 +10,7 @@ export enum MongoOperators {
   GTE = '$gte',
   NOT = '$not',
   CONTAINS = '$regex',
+  STARTSWITH = '$regex',
   UNKNOWN = 'unknown',
 }
 
@@ -25,5 +26,6 @@ export enum SqlOperators {
   GTE = '>=',
   NOT = 'NOT',
   CONTAINS = 'LIKE',
+  STARTSWITH = 'LIKE',
   UNKNOWN = 'unknown',
 }

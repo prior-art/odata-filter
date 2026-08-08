@@ -1,6 +1,7 @@
 import { NodeType, TokenType } from '@odata-filter/core';
 import type { Node } from '@odata-filter/core';
 import { mongoOperatorLookup } from './lookups';
+import { toStringValue, escapeRegExp } from './utils';
 import { Filter } from 'mongodb';
 
 export const toMongoJson = (
@@ -36,6 +37,16 @@ export const toMongoJson = (
 
     if ([TokenType.EQ, TokenType.IN].includes(tokenType as TokenType)) {
       json[field.toString()] = value;
+      return json;
+    }
+
+    if (tokenType === TokenType.STARTSWITH) {
+      json[field.toString()] = { $regex: `^${escapeRegExp(toStringValue(value))}` };
+      return json;
+    }
+
+    if (tokenType === TokenType.CONTAINS) {
+      json[field.toString()] = { $regex: escapeRegExp(toStringValue(value)) };
       return json;
     }
 

@@ -19,7 +19,8 @@ a data store.
 The following data types are supported: Boolean, Decimal, Double, Guid, Int16, Int32, Int64,
 Single, String, Date, DateTimeOffset, TimeOfDay, Duration.
 
-The following functions are supported: `now()`, `contains(fieldName, 'value')`.
+The following functions are supported: `now()`, `contains(fieldName, 'value')`,
+`startswith(fieldName, 'value')`.
 
 The following features are **not** currently supported:
 - the `has` operator
@@ -105,3 +106,17 @@ Verify that the operators and functions you are using are in the
 [supported feature list](#which-odata-v4-features-are-supported). If you believe the expression
 is valid OData v4 and should be supported, please
 [open an issue](https://github.com/prior-art/odata-filter/issues/new).
+
+### A `$` in my filter string produces an empty or unexpected value
+
+If you're testing a filter string from a shell (e.g. bash) and it contains a `$`, such as
+`startswith(name, '$hi')`, check your quoting. Shells expand `$word` as a variable reference
+inside **double-quoted** strings, silently substituting an empty string if the variable is
+undefined — turning `startswith(name, '$hi')` into `startswith(name, '')` before the library ever
+sees it. For example, `echo "startswith(name, '$hi')"` prints `startswith(name, '')`.
+
+To pass a literal `$` through the shell safely, either escape it inside double quotes
+(`"startswith(name, '\$hi')"`) or wrap the whole argument in single quotes and escape the embedded
+OData quote (`'startswith(name, '\''$hi'\'')'`). Also remember that OData v4 string literals must
+use **single quotes** (`'value'`) — double-quoted strings (`"value"`) are never valid syntax and
+will throw a `LexerException`, regardless of quoting.

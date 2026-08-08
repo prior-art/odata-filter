@@ -1,6 +1,7 @@
 import { NodeType, TokenType } from '@odata-filter/core';
 import type { Node, TokenValue } from '@odata-filter/core';
 import { sqlOperatorLookup } from './lookups';
+import { toStringValue } from './utils';
 
 const formatSqlValue = (value: TokenValue): string => {
   if (value === null) return 'NULL';
@@ -32,7 +33,11 @@ export const toSqlWhere = (ast?: Node): string => {
     const operator = sqlOperatorLookup[tokenType as TokenType];
 
     if (tokenType === TokenType.CONTAINS) {
-      return `${field} ${operator} '%${value}%'`;
+      return `${field} ${operator} ${formatSqlValue(`%${toStringValue(value)}%`)}`;
+    }
+
+    if (tokenType === TokenType.STARTSWITH) {
+      return `${field} ${operator} ${formatSqlValue(`${toStringValue(value)}%`)}`;
     }
 
     return `${field} ${operator} ${formatSqlValue(value ?? null)}`;

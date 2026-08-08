@@ -143,6 +143,77 @@ describe('sql', () => {
     expect(result).toEqual("name LIKE '%Smith%'");
   });
 
+  test('it escapes single quotes in the contains operator value', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'contains',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: "O'Brien" },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("name LIKE '%O''Brien%'");
+  });
+
+  test('it formats startswith operator as LIKE with a trailing % wildcard', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'startswith',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: 'Smith' },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("name LIKE 'Smith%'");
+  });
+
+  test('it escapes single quotes in the startswith operator value', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'startswith',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: "O'Brien" },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("name LIKE 'O''Brien%'");
+  });
+
+  test('it coerces a non-string value to a string for the contains operator', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'contains',
+      left: { type: 'field', value: 'code' },
+      right: { type: 'number_value', value: 42 },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("code LIKE '%42%'");
+  });
+
+  test('it coerces a non-string value to a string for the startswith operator', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'startswith',
+      left: { type: 'field', value: 'code' },
+      right: { type: 'number_value', value: 42 },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("code LIKE '42%'");
+  });
+
+  test('it coerces a missing value to an empty string for the contains operator', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'contains',
+      left: { type: 'field', value: 'name' },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("name LIKE '%%'");
+  });
+
   test('it formats unary NOT operator', () => {
     const astStub: Node = {
       type: 'unary_operator',

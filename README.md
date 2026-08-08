@@ -36,6 +36,7 @@ The following functions are supported by this project:
 
 - `now()`
 - `contains(fieldName, 'value')`
+- `startswith(fieldName, 'value')`
 
 ## Unsupported Features
 
