@@ -3,30 +3,28 @@ import { patterns, reservedKeywordLookup } from './lookups';
 import { Match } from '@prior-art/assemblyscript-regex/assembly/regexp';
 import { format } from './formatter';
 
+function pushStringFunction(raw: string, tokenPos: i32, tokens: Array<Token>, operatorType: TokenType, operatorRaw: string): void {
+  const functionName = raw.substring(0, raw.indexOf('('));
+  const inner = raw.substring(functionName.length + 1, raw.length - 1).trim();
+  const commaIdx = inner.indexOf(',');
+  const fieldName = inner.substring(0, commaIdx).trim();
+  const stringValue = inner.substring(commaIdx + 1).trim();
+
+  tokens.push({ type: TokenType.SYMBOL, value: format(TokenType.SYMBOL, fieldName), position: tokenPos } as Token);
+  tokens.push({ type: operatorType, value: format(operatorType, operatorRaw), position: tokenPos + fieldName.length } as Token);
+  tokens.push({ type: TokenType.STRING, value: format(TokenType.STRING, stringValue), position: tokenPos + fieldName.length + functionName.length } as Token);
+}
+
 function functionHandler(raw: string, tokenPos: i32, tokens: Array<Token>): void {
   const functionName = raw.substring(0, raw.indexOf('('));
 
   switch (functionName) {
     case 'contains': {
-      const inner = raw.substring(functionName.length + 1, raw.length - 1).trim();
-      const commaIdx = inner.indexOf(',');
-      const fieldName = inner.substring(0, commaIdx).trim();
-      const stringValue = inner.substring(commaIdx + 1).trim();
-
-      tokens.push({ type: TokenType.SYMBOL, value: format(TokenType.SYMBOL, fieldName), position: tokenPos } as Token);
-      tokens.push({ type: TokenType.CONTAINS, value: format(TokenType.CONTAINS, 'contains'), position: tokenPos + fieldName.length } as Token);
-      tokens.push({ type: TokenType.STRING, value: format(TokenType.STRING, stringValue), position: tokenPos + fieldName.length + functionName.length } as Token);
+      pushStringFunction(raw, tokenPos, tokens, TokenType.CONTAINS, 'contains');
       return;
     }
     case 'startswith': {
-      const inner = raw.substring(functionName.length + 1, raw.length - 1).trim();
-      const commaIdx = inner.indexOf(',');
-      const fieldName = inner.substring(0, commaIdx).trim();
-      const stringValue = inner.substring(commaIdx + 1).trim();
-
-      tokens.push({ type: TokenType.SYMBOL, value: format(TokenType.SYMBOL, fieldName), position: tokenPos } as Token);
-      tokens.push({ type: TokenType.STARTSWITH, value: format(TokenType.STARTSWITH, 'startswith'), position: tokenPos + fieldName.length } as Token);
-      tokens.push({ type: TokenType.STRING, value: format(TokenType.STRING, stringValue), position: tokenPos + fieldName.length + functionName.length } as Token);
+      pushStringFunction(raw, tokenPos, tokens, TokenType.STARTSWITH, 'startswith');
       return;
     }
     default: {
