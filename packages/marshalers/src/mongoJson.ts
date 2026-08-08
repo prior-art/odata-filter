@@ -49,6 +49,11 @@ export const toMongoJson = (
       return json;
     }
 
+    if (tokenType === TokenType.CONTAINS) {
+      json[field.toString()] = { $regex: escapeRegExp(toStringValue(value)) };
+      return json;
+    }
+
     const operator = mongoOperatorLookup[tokenType as TokenType];
     json[field.toString()] = { [operator]: value };
     return json;
