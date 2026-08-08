@@ -377,3 +377,27 @@ test("should tokenize contains() as part of larger expression", () => {
   expect(actual[2].type).equal(app.TokenType.STRING);
   expect(actual[2].value.raw).equal("'Alice'");
 });
+
+test("should tokenize startswith() function", () => {
+  const actual = app.tokenize("startswith(name, 'Eliz')");
+  expect(actual.length).equal(3);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("name");
+  expect(actual[0].value.stringValue).equal("name");
+  expect(actual[1].type).equal(app.TokenType.STARTSWITH);
+  expect(actual[1].value.raw).equal("startswith");
+  expect(actual[2].type).equal(app.TokenType.STRING);
+  expect(actual[2].value.raw).equal("'Eliz'");
+  expect(actual[2].value.stringValue).equal("Eliz");
+});
+
+test("should tokenize startswith() as part of larger expression", () => {
+  const actual = app.tokenize("startswith(name, 'Eliz') and active eq true");
+  expect(actual.length).equal(11);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("name");
+  expect(actual[1].type).equal(app.TokenType.STARTSWITH);
+  expect(actual[1].value.raw).equal("startswith");
+  expect(actual[2].type).equal(app.TokenType.STRING);
+  expect(actual[2].value.raw).equal("'Eliz'");
+});

@@ -28,6 +28,7 @@ export class Parser {
     lookup.set(TokenType.GTE, NodeType.COMPARISON_OPERATOR);
     lookup.set(TokenType.IN, NodeType.COMPARISON_OPERATOR);
     lookup.set(TokenType.CONTAINS, NodeType.COMPARISON_OPERATOR);
+    lookup.set(TokenType.STARTSWITH, NodeType.COMPARISON_OPERATOR);
 
     lookup.set(TokenType.NOT, NodeType.UNARY_OPERATOR);
 
@@ -66,6 +67,7 @@ export class Parser {
     lookup.set(TokenType.LTE, ParseStrategy.LED);
     lookup.set(TokenType.IN, ParseStrategy.LED);
     lookup.set(TokenType.CONTAINS, ParseStrategy.LED);
+    lookup.set(TokenType.STARTSWITH, ParseStrategy.LED);
 
     lookup.set(TokenType.NOT, ParseStrategy.NUD);
     lookup.set(TokenType.STRING, ParseStrategy.NUD);
@@ -104,6 +106,7 @@ export class Parser {
     lookup.set(TokenType.NE, BindingPower.COMPARISON);
     lookup.set(TokenType.IN, BindingPower.COMPARISON);
     lookup.set(TokenType.CONTAINS, BindingPower.COMPARISON);
+    lookup.set(TokenType.STARTSWITH, BindingPower.COMPARISON);
 
     lookup.set(TokenType.SYMBOL, BindingPower.FIELD);
 

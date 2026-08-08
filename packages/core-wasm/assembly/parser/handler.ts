@@ -108,7 +108,8 @@ function ledHandler(parser: Parser, left: AST): AST {
       };
     }
 
-    case TokenType.CONTAINS: {
+    case TokenType.CONTAINS:
+    case TokenType.STARTSWITH: {
       if (right.type !== NodeType.STRING_LITERAL) {
         throw new Error(
           `Operator of type ${token.value.raw} expects ${NodeType.STRING_LITERAL}, received ${right.type}.`,
