@@ -2,6 +2,11 @@
   "name": "@prior-art/odata-filter",
   "private": true,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prior-art/odata-filter.git"
+  },
+  "homepage": "https://prior-art.github.io/odata-filter/",
   "scripts": {
     "dev": "npm run --workspace=packages/cli dev",
     "clean": "npm run --workspaces clean && rimraf node_modules",

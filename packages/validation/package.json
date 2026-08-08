@@ -1,6 +1,6 @@
 {
   "name": "@odata-filter/validation",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": [
     "odata",
     "rest-api",
@@ -16,6 +16,7 @@
   "bugs": {
     "url": "https://github.com/prior-art/odata-filter/issues"
   },
+  "homepage": "https://prior-art.github.io/odata-filter/",
   "description": "JSON Schema based validation utilities for OData filter expressions.",
   "license": "MIT",
   "main": "dist/index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@odata-filter/cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "keywords": [
     "odata",
@@ -16,6 +16,7 @@
   "bugs": {
     "url": "https://github.com/prior-art/odata-filter/issues"
   },
+  "homepage": "https://prior-art.github.io/odata-filter/",
   "description": "Command-line interface for parsing, validating, and transforming OData filter expressions, providing a convenient tool for developers to work with OData filters in various formats.",
   "license": "MIT",
   "main": "dist/index.js",
