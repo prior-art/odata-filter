@@ -32,10 +32,10 @@
     "test:watch": "vitest -c ../../vitest.config.ts"
   },
   "devDependencies": {
-    "@odata-filter/core": "^1.4.0",
+    "@odata-filter/core": "^1.6.0",
     "@types/mongodb": "^4.0.7"
   },
   "peerDependencies": {
-    "@odata-filter/core": "^1.4.0"
+    "@odata-filter/core": "^1.6.0"
   }
 }
