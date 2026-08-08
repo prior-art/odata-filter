@@ -45,6 +45,25 @@ npm i @odata-filter/marshalers --save
 npm i @odata-filter/core @odata-filter/validation @odata-filter/fastify --save
 ```
 
+### Express middleware
+
+```sh
+npm i @odata-filter/core @odata-filter/validation @odata-filter/express --save
+```
+
+### NestJS interceptor
+
+```sh
+npm i @odata-filter/core @odata-filter/validation @odata-filter/nestjs --save
+```
+
+### CLI
+
+```sh
+npm i @odata-filter/core --save
+npm i @odata-filter/cli --save-dev
+```
+
 ## Verify the Installation
 
 After installing, import and call `tokenize` to confirm the package resolves correctly.

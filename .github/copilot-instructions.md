@@ -17,6 +17,11 @@ other package depends on its AST shape:
 - **`packages/validation`** — Validates a `core` AST's field types/operators against a JSON Schema.
 - **`packages/fastify`** — Fastify plugin wiring `core` + `validation` + `marshalers` together to
   parse a `filter` query-string parameter into `request.query.filterParsed`.
+- **`packages/express`** — Express middleware wiring `core` + `validation` + `marshalers` together
+  to parse a `filter` query-string parameter into `req.query.filterParsed`.
+- **`packages/nestjs`** — `ODataFilterInterceptor` (NestJS `NestInterceptor`) wiring `core` +
+  `validation` + `marshalers` together to parse a `filter` query-string parameter into
+  `request.query.filterParsed`.
 - **`packages/cli`** — Commander-based CLI (`odata-filter-cli`) exposing tokenize/parse/validate/
   marshal behavior, usable against a local `schema.json` for manual testing (`npm run dev`).
 - **`packages/docs`** — Jekyll site deployed to GitHub Pages.
