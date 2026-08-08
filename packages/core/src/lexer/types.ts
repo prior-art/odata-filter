@@ -28,6 +28,7 @@ export enum TokenType {
   GUID = 'guid',
   FUNCTION = 'function',
   CONTAINS = 'contains_operator',
+  STARTSWITH = 'startswith_operator',
 }
 
 export type TokenValue =

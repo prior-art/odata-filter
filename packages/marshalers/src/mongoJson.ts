@@ -39,6 +39,11 @@ export const toMongoJson = (
       return json;
     }
 
+    if (tokenType === TokenType.STARTSWITH) {
+      json[field.toString()] = { $regex: `^${value}` };
+      return json;
+    }
+
     const operator = mongoOperatorLookup[tokenType as TokenType];
     json[field.toString()] = { [operator]: value };
     return json;

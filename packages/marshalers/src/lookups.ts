@@ -13,6 +13,7 @@ export const mongoOperatorLookup: Record<TokenType, MongoOperators> = {
   [TokenType.GTE]: MongoOperators.GTE,
   [TokenType.NOT]: MongoOperators.NOT,
   [TokenType.CONTAINS]: MongoOperators.CONTAINS,
+  [TokenType.STARTSWITH]: MongoOperators.STARTSWITH,
 
   [TokenType.WHITESPACE]: MongoOperators.UNKNOWN,
   [TokenType.STRING]: MongoOperators.UNKNOWN,
@@ -44,6 +45,7 @@ export const sqlOperatorLookup: Record<TokenType, SqlOperators> = {
   [TokenType.GTE]: SqlOperators.GTE,
   [TokenType.NOT]: SqlOperators.NOT,
   [TokenType.CONTAINS]: SqlOperators.CONTAINS,
+  [TokenType.STARTSWITH]: SqlOperators.STARTSWITH,
 
   [TokenType.WHITESPACE]: SqlOperators.UNKNOWN,
   [TokenType.STRING]: SqlOperators.UNKNOWN,

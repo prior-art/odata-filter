@@ -146,4 +146,16 @@ describe('#parse', () => {
       right: { type: 'string_value', value: 'Sally' },
     });
   });
+
+  test('it supports the "startswith" function', () => {
+    const tokens = tokenize("startswith(name, 'Eliz')");
+    const result = parse(tokens);
+
+    expect(result).toEqual({
+      type: 'comparison_operator',
+      value: 'startswith',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: 'Eliz' },
+    });
+  });
 });

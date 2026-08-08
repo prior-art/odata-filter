@@ -29,6 +29,7 @@ export const nodeTypeLookup: Record<TokenType, NodeType> = {
   [TokenType.GUID]: NodeType.STRING_LITERAL,
   [TokenType.FUNCTION]: NodeType.DEFAULT,
   [TokenType.CONTAINS]: NodeType.COMPARISON_OPERATOR,
+  [TokenType.STARTSWITH]: NodeType.COMPARISON_OPERATOR,
 };
 
 export const bindingPowerLookup: Record<TokenType, BindingPower> = {
@@ -59,6 +60,7 @@ export const bindingPowerLookup: Record<TokenType, BindingPower> = {
   [TokenType.GUID]: BindingPower.LITERAL,
   [TokenType.FUNCTION]: BindingPower.DEFAULT,
   [TokenType.CONTAINS]: BindingPower.COMPARISON,
+  [TokenType.STARTSWITH]: BindingPower.COMPARISON,
 };
 
 export const parseStrategyLookup: Record<TokenType, ParseStrategy> = {
@@ -89,4 +91,5 @@ export const parseStrategyLookup: Record<TokenType, ParseStrategy> = {
   [TokenType.GUID]: ParseStrategy.NUD,
   [TokenType.FUNCTION]: ParseStrategy.DEFAULT,
   [TokenType.CONTAINS]: ParseStrategy.LED,
+  [TokenType.STARTSWITH]: ParseStrategy.LED,
 };

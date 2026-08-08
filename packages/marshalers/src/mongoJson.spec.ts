@@ -118,6 +118,18 @@ describe('mongoJson', () => {
     expect(result).toEqual({});
   });
 
+  test('it formats startswith operator as an anchored $regex', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'startswith',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: 'Smith' },
+    } as Node;
+
+    const result = toMongoJson(astStub);
+    expect(result).toEqual({ name: { $regex: '^Smith' } });
+  });
+
   test('it does not assess a comparison operator if the "left" or "right" field is missing', () => {
     let astStub: Node = {
       type: 'comparison_operator',

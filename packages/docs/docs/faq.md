@@ -19,7 +19,8 @@ a data store.
 The following data types are supported: Boolean, Decimal, Double, Guid, Int16, Int32, Int64,
 Single, String, Date, DateTimeOffset, TimeOfDay, Duration.
 
-The following functions are supported: `now()`, `contains(fieldName, 'value')`.
+The following functions are supported: `now()`, `contains(fieldName, 'value')`,
+`startswith(fieldName, 'value')`.
 
 The following features are **not** currently supported:
 - the `has` operator

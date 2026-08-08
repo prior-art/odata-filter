@@ -15,7 +15,7 @@ const functionHandler = (lexer: Lexer, value: string): Token[] => {
         type: TokenType.DATETIME,
         pos: lexer.pos,
       }]
-    case 'contains':
+    case 'contains': {
       const operator = "contains";
       return [{
         value: doubleArg1,
@@ -30,6 +30,23 @@ const functionHandler = (lexer: Lexer, value: string): Token[] => {
         type: TokenType.STRING,
         pos: lexer.pos + doubleArg1.length + operator.length,
       }];
+    }
+    case 'startswith': {
+      const operator = "startswith";
+      return [{
+        value: doubleArg1,
+        type: TokenType.SYMBOL,
+        pos: lexer.pos,
+      }, {
+        value: operator,
+        type: TokenType.STARTSWITH,
+        pos: lexer.pos + doubleArg1.length,
+      }, {
+        value: stringFormatter(doubleArg2),
+        type: TokenType.STRING,
+        pos: lexer.pos + doubleArg1.length + operator.length,
+      }];
+    }
     default:
       throw new LexerException(`Unsupported function: ${value}`);
   }

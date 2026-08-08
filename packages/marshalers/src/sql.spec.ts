@@ -143,6 +143,18 @@ describe('sql', () => {
     expect(result).toEqual("name LIKE '%Smith%'");
   });
 
+  test('it formats startswith operator as LIKE with a trailing % wildcard', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'startswith',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: 'Smith' },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("name LIKE 'Smith%'");
+  });
+
   test('it formats unary NOT operator', () => {
     const astStub: Node = {
       type: 'unary_operator',

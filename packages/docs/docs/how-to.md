@@ -83,7 +83,8 @@ console.log(toSqlWhere(ast));
 ```
 
 String values are automatically escaped (single quotes are doubled), `null` is rendered as `NULL`,
-booleans become `1`/`0`, and `contains()` is translated to `LIKE '%value%'`.
+booleans become `1`/`0`, `contains()` is translated to `LIKE '%value%'`, and `startswith()` is
+translated to `LIKE 'value%'`.
 
 ```ts
 const ast2 = parse(tokenize("contains(description, 'free') and active eq true"));
@@ -332,6 +333,15 @@ substring.
 
 ```ts
 const ast = parse(tokenize("contains(description, 'free')"));
+```
+
+## Use `startswith()` to Filter on Prefixes
+
+The `startswith(field, 'value')` function checks whether a field's value begins with the given
+prefix.
+
+```ts
+const ast = parse(tokenize("startswith(name, 'Eliz')"));
 ```
 
 ## Filter on Date and Time Values
