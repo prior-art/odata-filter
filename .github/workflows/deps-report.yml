@@ -1,0 +1,35 @@
+name: Dependency Stability Report
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  deps-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@prior-art'
+          cache: 'npm'
+
+      - name: Install just
+        uses: extractions/setup-just@v3
+
+      - name: Install NPM Dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Dependency Stability Report
+        run: just deps-report >> "$GITHUB_STEP_SUMMARY"

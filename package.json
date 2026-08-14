@@ -15,7 +15,8 @@
     "lint:fix": "npm run --workspaces lint:fix",
     "postlint:fix": "pre-commit run -a",
     "test": "npm run --workspaces test",
-    "test:mutation": "npm run --workspaces test:mutation"
+    "test:mutation": "npm run --workspaces test:mutation",
+    "deps:report": "node scripts/dependency-report.mjs"
   },
   "devDependencies": {
     "@stryker-mutator/core": "^9.4.0",
@@ -24,6 +25,7 @@
     "@types/node": "^26.0.0",
     "@typescript-eslint/parser": "^8.66.0",
     "@vitest/coverage-v8": "^4.1.10",
+    "dependency-cruiser": "^18.2.0",
     "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-markdownlint": "^0.10.1",
