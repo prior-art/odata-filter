@@ -10,6 +10,7 @@ export enum NodeType {
   DEFAULT = 'default',
   COMPARISON_OPERATOR = 'comparison_operator',
   UNARY_OPERATOR = 'unary_operator',
+  UNARY_FUNCTION = 'unary_function',
   LOGICAL_OPERATOR = 'logical_operator',
   FIELD = 'field',
   STRING_LITERAL = 'string_value',

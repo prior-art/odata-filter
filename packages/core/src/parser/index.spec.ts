@@ -158,4 +158,20 @@ describe('#parse', () => {
       right: { type: 'string_value', value: 'Eliz' },
     });
   });
+
+  test('it supports the "trim" function', () => {
+    const tokens = tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'");
+    const result = parse(tokens);
+
+    expect(result).toEqual({
+      type: 'comparison_operator',
+      value: 'eq',
+      left: {
+        type: 'unary_function',
+        value: 'trim',
+        left: { type: 'field', value: 'CompanyName' },
+      },
+      right: { type: 'string_value', value: 'Alfreds Futterkiste' },
+    });
+  });
 });
