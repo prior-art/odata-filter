@@ -3,10 +3,19 @@ import { NodeType, TokenValue } from '@odata-filter/core';
 export type Comparison = {
   type: NodeType.COMPARISON_OPERATOR;
   value: 'eq' | 'gt' | 'gte' | 'in' | 'lt' | 'lte';
-  left: {
-    type: NodeType.FIELD;
-    value: string;
-  };
+  left:
+    | {
+        type: NodeType.FIELD;
+        value: string;
+      }
+    | {
+        type: NodeType.UNARY_FUNCTION;
+        value: string;
+        left: {
+          type: NodeType.FIELD;
+          value: string;
+        };
+      };
   right: {
     type:
       | NodeType.STRING_LITERAL

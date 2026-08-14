@@ -229,4 +229,57 @@ describe('mongoJson', () => {
     result = toMongoJson(astStub);
     expect(result).toEqual({});
   });
+
+  test('it formats a trim eq operator using $expr with $trim', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'eq',
+      left: {
+        type: 'unary_function',
+        value: 'trim',
+        left: { type: 'field', value: 'CompanyName' },
+      },
+      right: { type: 'string_value', value: 'Alfreds Futterkiste' },
+    } as Node;
+
+    const result = toMongoJson(astStub);
+    expect(result).toEqual({
+      $expr: { $eq: [{ $trim: { input: '$CompanyName' } }, 'Alfreds Futterkiste'] },
+    });
+  });
+
+  test('it formats a trim gt operator using $expr with $trim', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'gt',
+      left: {
+        type: 'unary_function',
+        value: 'trim',
+        left: { type: 'field', value: 'code' },
+      },
+      right: { type: 'number_value', value: 42 },
+    } as Node;
+
+    const result = toMongoJson(astStub);
+    expect(result).toEqual({
+      $expr: { $gt: [{ $trim: { input: '$code' } }, 42] },
+    });
+  });
+
+  test('it ignores a duplicate trim $expr entry', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'eq',
+      left: {
+        type: 'unary_function',
+        value: 'trim',
+        left: { type: 'field', value: 'CompanyName' },
+      },
+      right: { type: 'string_value', value: 'second' },
+    } as Node;
+
+    const existing = { $expr: { $eq: [{ $trim: { input: '$CompanyName' } }, 'first'] } };
+    const result = toMongoJson(astStub, existing);
+    expect(result).toEqual({ $expr: { $eq: [{ $trim: { input: '$CompanyName' } }, 'first'] } });
+  });
 });

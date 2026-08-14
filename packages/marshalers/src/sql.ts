@@ -25,12 +25,17 @@ export const toSqlWhere = (ast?: Node): string => {
   }
 
   if (ast.type === NodeType.COMPARISON_OPERATOR) {
-    const field = ast.left?.value;
+    const isTrimFunction = ast.left?.type === NodeType.UNARY_FUNCTION;
+    const field = isTrimFunction ? ast.left?.left?.value : ast.left?.value;
     const value = ast.right?.value;
 
     if (!field) return '';
 
     const operator = sqlOperatorLookup[tokenType as TokenType];
+
+    if (isTrimFunction) {
+      return `TRIM(${field}) ${operator} ${formatSqlValue(value ?? null)}`;
+    }
 
     if (tokenType === TokenType.CONTAINS) {
       return `${field} ${operator} ${formatSqlValue(`%${toStringValue(value)}%`)}`;

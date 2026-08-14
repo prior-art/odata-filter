@@ -317,3 +317,47 @@ describe('#validate', () => {
     },
   );
 });
+
+describe('#validate with trim()', () => {
+  const trimAstStub = {
+    type: NodeType.COMPARISON_OPERATOR,
+    value: 'eq',
+    left: {
+      type: NodeType.UNARY_FUNCTION,
+      value: 'trim',
+      left: { type: NodeType.FIELD, value: 'CompanyName' },
+    },
+    right: { type: NodeType.STRING_LITERAL, value: 'Alfreds Futterkiste' },
+  };
+
+  test('it validates the inner field of a trim() expression', () => {
+    const result = () =>
+      validate(trimAstStub, { CompanyName: { type: 'string' } });
+
+    expect(result).not.toThrow();
+  });
+
+  test('it throws when the trimmed field is not in the schema', () => {
+    expect.hasAssertions();
+
+    try {
+      validate(trimAstStub, {});
+    } catch (e) {
+      expect(e).toBeInstanceOf(ValidationException);
+      expect(e.message).toEqual('Invalid field CompanyName');
+    }
+  });
+
+  test('it throws when the trimmed field has the wrong type', () => {
+    expect.hasAssertions();
+
+    try {
+      validate(trimAstStub, { CompanyName: { type: 'number' } });
+    } catch (e) {
+      expect(e).toBeInstanceOf(ValidationException);
+      expect(e.message).toEqual(
+        'Invalid type for field CompanyName, expected number, received string',
+      );
+    }
+  });
+});

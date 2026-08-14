@@ -31,6 +31,7 @@ export const mongoOperatorLookup: Record<TokenType, MongoOperators> = {
   [TokenType.DURATION]: MongoOperators.UNKNOWN,
   [TokenType.GUID]: MongoOperators.UNKNOWN,
   [TokenType.FUNCTION]: MongoOperators.UNKNOWN,
+  [TokenType.TRIM]: MongoOperators.UNKNOWN,
 };
 
 export const sqlOperatorLookup: Record<TokenType, SqlOperators> = {
@@ -63,4 +64,5 @@ export const sqlOperatorLookup: Record<TokenType, SqlOperators> = {
   [TokenType.DURATION]: SqlOperators.UNKNOWN,
   [TokenType.GUID]: SqlOperators.UNKNOWN,
   [TokenType.FUNCTION]: SqlOperators.UNKNOWN,
+  [TokenType.TRIM]: SqlOperators.UNKNOWN,
 };
