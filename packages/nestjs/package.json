@@ -31,7 +31,7 @@
     "test:watch": "vitest -c ../../vitest.config.ts"
   },
   "devDependencies": {
-    "@nestjs/common": "^11.1.28",
+    "@nestjs/common": "^11.1.29",
     "@nestjs/core": "^11.1.28",
     "@odata-filter/core": "^1.0.0",
     "@odata-filter/marshalers": "^1.0.0",
