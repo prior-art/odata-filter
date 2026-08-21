@@ -45,6 +45,15 @@ const ast = parse(tokens);
 console.log(JSON.stringify(ast, null, 2));
 ```
 
+### String Function Example
+
+```ts
+const { tokenize, parse } = await import('@odata-filter/core-wasm');
+
+const ast = parse(tokenize("endswith(email, '@example.com')"));
+console.log(ast.value.raw); // endswith
+```
+
 ### AST Shape Differences from the TypeScript Core
 
 Because AssemblyScript does not support union types, `Node.value` in the WASM output is a

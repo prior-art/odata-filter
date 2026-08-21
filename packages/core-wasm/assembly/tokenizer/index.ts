@@ -27,6 +27,10 @@ function functionHandler(raw: string, tokenPos: i32, tokens: Array<Token>): void
       pushStringFunction(raw, tokenPos, tokens, TokenType.STARTSWITH, 'startswith');
       return;
     }
+    case 'endswith': {
+      pushStringFunction(raw, tokenPos, tokens, TokenType.ENDSWITH, 'endswith');
+      return;
+    }
     default: {
       tokens.push({ type: reservedKeywordLookup.has(raw) ? reservedKeywordLookup.get(raw) : TokenType.FUNCTION, value: format(TokenType.FUNCTION, raw), position: tokenPos } as Token);
     }
