@@ -251,4 +251,52 @@ describe('sql', () => {
     const result = toSqlWhere(astStub);
     expect(result).toEqual("(country = 'US' AND active = 1)");
   });
+
+  test('it formats a trim function as TRIM(field) = value', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'eq',
+      left: {
+        type: 'unary_function',
+        value: 'trim',
+        left: { type: 'field', value: 'CompanyName' },
+      },
+      right: { type: 'string_value', value: 'Alfreds Futterkiste' },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("TRIM(CompanyName) = 'Alfreds Futterkiste'");
+  });
+
+  test('it formats a trim function with a number comparison', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'gt',
+      left: {
+        type: 'unary_function',
+        value: 'trim',
+        left: { type: 'field', value: 'code' },
+      },
+      right: { type: 'number_value', value: 42 },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual('TRIM(code) > 42');
+  });
+
+  test('it formats a trim function with a missing right value as NULL', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'eq',
+      left: {
+        type: 'unary_function',
+        value: 'trim',
+        left: { type: 'field', value: 'CompanyName' },
+      },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual('TRIM(CompanyName) = NULL');
+  });
 });
+

@@ -29,6 +29,7 @@ export enum TokenType {
   FUNCTION = 'function',
   CONTAINS = 'contains_operator',
   STARTSWITH = 'startswith_operator',
+  TRIM = 'trim',
 }
 
 export type TokenValue =

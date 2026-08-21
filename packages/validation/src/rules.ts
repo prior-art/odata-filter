@@ -1,11 +1,18 @@
 import { JsonSchema, Comparison } from './types';
 import { jsonTypeLookup } from './lookups';
 import { ValidationException } from './exceptions';
+import { NodeType } from '@odata-filter/core';
+
+const resolveFieldName = (comparison: Comparison): string =>
+  comparison.left.type === NodeType.UNARY_FUNCTION
+    ? comparison.left.left.value
+    : comparison.left.value;
 
 export const assertValidField = (
   schema: JsonSchema,
-  { left: { value: fieldName } }: Comparison,
+  comparison: Comparison,
 ): void => {
+  const fieldName = resolveFieldName(comparison);
   if (!schema[fieldName]) {
     throw new ValidationException(`Invalid field ${fieldName}`);
   }
@@ -13,8 +20,10 @@ export const assertValidField = (
 
 export const assertValidType = (
   schema: JsonSchema,
-  { left: { value: fieldName }, right: { type, value } }: Comparison,
+  comparison: Comparison,
 ): void => {
+  const fieldName = resolveFieldName(comparison);
+  const { type } = comparison.right;
   const jsonType = jsonTypeLookup[type];
   const schemaField = schema[fieldName];
 
@@ -28,8 +37,10 @@ export const assertValidType = (
 
 export const assertValidItemsType = (
   schema: JsonSchema,
-  { left: { value: fieldName }, right: { type, value } }: Comparison,
+  comparison: Comparison,
 ): void => {
+  const fieldName = resolveFieldName(comparison);
+  const { type, value } = comparison.right;
   const schemaField = schema[fieldName];
 
   if (
@@ -50,8 +61,10 @@ export const assertValidItemsType = (
 
 export const assertValidConst = (
   schema: JsonSchema,
-  { left: { value: fieldName }, right: { value: value } }: Comparison,
+  comparison: Comparison,
 ): void => {
+  const fieldName = resolveFieldName(comparison);
+  const { value } = comparison.right;
   const schemaField = schema[fieldName];
 
   const invalidConst = 'const' in schemaField && schemaField.const !== value;
@@ -64,8 +77,10 @@ export const assertValidConst = (
 
 export const assertValidItemsConst = (
   schema: JsonSchema,
-  { left: { value: fieldName }, right: { value: value } }: Comparison,
+  comparison: Comparison,
 ): void => {
+  const fieldName = resolveFieldName(comparison);
+  const { value } = comparison.right;
   const schemaField = schema[fieldName];
 
   if (
@@ -87,8 +102,10 @@ export const assertValidItemsConst = (
 
 export const assertValidEnum = (
   schema: JsonSchema,
-  { left: { value: fieldName }, right: { value } }: Comparison,
+  comparison: Comparison,
 ): void => {
+  const fieldName = resolveFieldName(comparison);
+  const { value } = comparison.right;
   const schemaField = schema[fieldName];
 
   const invalidEnum =
@@ -102,8 +119,10 @@ export const assertValidEnum = (
 
 export const assertValidItemsEnum = (
   schema: JsonSchema,
-  { left: { value: fieldName }, right: { value } }: Comparison,
+  comparison: Comparison,
 ): void => {
+  const fieldName = resolveFieldName(comparison);
+  const { value } = comparison.right;
   const schemaField = schema[fieldName];
 
   if (

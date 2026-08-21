@@ -27,13 +27,22 @@ export const toMongoJson = (
   }
 
   if (ast.type === NodeType.COMPARISON_OPERATOR) {
-    const field = ast.left?.value;
+    const isTrimFunction = ast.left?.type === NodeType.UNARY_FUNCTION;
+    const field = isTrimFunction ? ast.left?.left?.value : ast.left?.value;
     const value = ast.right?.value;
 
     if (!field) return json;
 
     // Take only the first value in the filter per parameter.
-    if (json[field.toString()] !== undefined) return json;
+    if (isTrimFunction) {
+      if (json['$expr'] !== undefined) return json;
+    } else if (json[field.toString()] !== undefined) return json;
+
+    if (isTrimFunction) {
+      const operator = mongoOperatorLookup[tokenType as TokenType];
+      json['$expr'] = { [operator]: [{ $trim: { input: `$${field}` } }, value] };
+      return json;
+    }
 
     if ([TokenType.EQ, TokenType.IN].includes(tokenType as TokenType)) {
       json[field.toString()] = value;

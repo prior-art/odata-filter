@@ -5,12 +5,13 @@ const stringPattern = `'[^'\\\\]*(?:\\\\.[^'\\\\]*)*'`;
 
 const singleParamFunctionPattern = `\\s*(${stringPattern})\\s*`;
 const doubleParamFunctionPattern = `\\s*(${symbolPattern})\\s*,\\s*(${stringPattern})\\s*`;
+const singleSymbolParamFunctionPattern = `\\s*(${symbolPattern})\\s*`;
 const noParamFunctionPattern = `\\s*`;
 
 const defaultLexer: Lexer = {
   patterns: [
     {
-      regex: new RegExp(`(${symbolPattern})\\s*\\((?:${noParamFunctionPattern}|${singleParamFunctionPattern}|${doubleParamFunctionPattern})\\)`),
+      regex: new RegExp(`(${symbolPattern})\\s*\\((?:${singleParamFunctionPattern}|${doubleParamFunctionPattern}|${singleSymbolParamFunctionPattern}|${noParamFunctionPattern})\\)`),
       type: TokenType.FUNCTION,
     },
     {

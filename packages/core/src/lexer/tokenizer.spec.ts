@@ -455,6 +455,28 @@ describe('#tokenizer', () => {
     ]);
   });
 
+  it('supports trim function format', () => {
+    const result = tokenize(`trim(CompanyName) eq 'Alfreds Futterkiste'`);
+
+    expect(result).toEqual([
+      { value: 'trim', type: 'trim', pos: 0 },
+      { value: 'CompanyName', type: 'symbol', pos: 4 },
+      { value: 'eq', type: 'eq_operator', pos: 18 },
+      { value: 'Alfreds Futterkiste', type: 'string', pos: 21 },
+    ]);
+  });
+
+  it('supports trim function format with spaces', () => {
+    const result = tokenize(`trim( CompanyName ) eq 'Alfreds Futterkiste'`);
+
+    expect(result).toEqual([
+      { value: 'trim', type: 'trim', pos: 0 },
+      { value: 'CompanyName', type: 'symbol', pos: 4 },
+      { value: 'eq', type: 'eq_operator', pos: 20 },
+      { value: 'Alfreds Futterkiste', type: 'string', pos: 23 },
+    ]);
+  });
+
   it('throws an error for invalid function format', () => {
     expect.assertions(4);
 

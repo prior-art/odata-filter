@@ -31,6 +31,15 @@ const nudHandler = (parser: Parser): Node => {
         value,
         left,
       };
+    case TokenType.TRIM: {
+      const symbolToken = parser.getCurrentToken();
+      parser.pos++;
+      return {
+        type: nodeType,
+        value,
+        left: { type: NodeType.FIELD, value: symbolToken.value },
+      };
+    }
     case TokenType.OPEN_PAREN:
       validateParens(parser);
       return handler(parser, BindingPower.DEFAULT);

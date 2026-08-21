@@ -24,3 +24,12 @@ prefix.
 ```ts
 const ast = parse(tokenize("startswith(name, 'Eliz')"));
 ```
+
+## Use `trim()` to Strip Whitespace
+
+The `trim(field)` function strips leading and trailing whitespace from a field's value before
+comparing it.
+
+```ts
+const ast = parse(tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'"));
+```

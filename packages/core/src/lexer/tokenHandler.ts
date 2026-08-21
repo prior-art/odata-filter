@@ -6,7 +6,7 @@ import { stringFormatter } from './formatters';
 
 const functionHandler = (lexer: Lexer, value: string): Token[] => {
   const functionMatcher = lexer.patterns.find((pattern) => pattern.type === TokenType.FUNCTION) as TokenPattern;
-  const [_, functionName, _singleArg, doubleArg1, doubleArg2] = value.match(functionMatcher.regex)!;
+  const [_, functionName, _singleArg, doubleArg1, doubleArg2, singleSymbolArg] = value.match(functionMatcher.regex)!;
 
   switch (functionName) {
     case 'now':
@@ -45,6 +45,17 @@ const functionHandler = (lexer: Lexer, value: string): Token[] => {
         value: stringFormatter(doubleArg2),
         type: TokenType.STRING,
         pos: lexer.pos + doubleArg1.length + operator.length,
+      }];
+    }
+    case 'trim': {
+      return [{
+        value: 'trim',
+        type: TokenType.TRIM,
+        pos: lexer.pos,
+      }, {
+        value: singleSymbolArg,
+        type: TokenType.SYMBOL,
+        pos: lexer.pos + 'trim'.length,
       }];
     }
     default:

@@ -20,7 +20,7 @@ The following data types are supported: Boolean, Decimal, Double, Guid, Int16, I
 Single, String, Date, DateTimeOffset, TimeOfDay, Duration.
 
 The following functions are supported: `now()`, `contains(fieldName, 'value')`,
-`startswith(fieldName, 'value')`.
+`startswith(fieldName, 'value')`, `trim(fieldName)`.
 
 The following features are **not** currently supported:
 - the `has` operator
