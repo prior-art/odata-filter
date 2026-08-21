@@ -5,7 +5,7 @@ parent: Examples
 nav_order: 8
 ---
 
-# Filter on Substrings and Prefixes
+# Filter on Substrings, Prefixes, and Suffixes
 
 ## Use `contains()` to Filter on Substrings
 
@@ -23,6 +23,14 @@ prefix.
 
 ```ts
 const ast = parse(tokenize("startswith(name, 'Eliz')"));
+```
+
+## Use `endswith()` to Filter on Suffixes
+
+The `endswith(field, 'value')` function checks whether a field's value ends with the given suffix.
+
+```ts
+const ast = parse(tokenize("endswith(email, '@example.com')"));
 ```
 
 ## Use `trim()` to Strip Whitespace

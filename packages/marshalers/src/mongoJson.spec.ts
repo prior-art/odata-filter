@@ -212,6 +212,41 @@ describe('mongoJson', () => {
     expect(result).toEqual({ name: { $regex: '^' } });
   });
 
+  test('it formats endswith operator as a suffix-anchored $regex', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'endswith',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: 'Smith' },
+    } as Node;
+
+    const result = toMongoJson(astStub);
+    expect(result).toEqual({ name: { $regex: 'Smith$' } });
+  });
+
+  test('it escapes regex metacharacters in the endswith operator value', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'endswith',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: 'a.b*c' },
+    } as Node;
+
+    const result = toMongoJson(astStub);
+    expect(result).toEqual({ name: { $regex: 'a\\.b\\*c$' } });
+  });
+
+  test('it coerces a missing value to an empty string for the endswith operator', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'endswith',
+      left: { type: 'field', value: 'name' },
+    } as Node;
+
+    const result = toMongoJson(astStub);
+    expect(result).toEqual({ name: { $regex: '$' } });
+  });
+
   test('it does not assess a comparison operator if the "left" or "right" field is missing', () => {
     let astStub: Node = {
       type: 'comparison_operator',

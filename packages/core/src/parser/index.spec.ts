@@ -159,6 +159,18 @@ describe('#parse', () => {
     });
   });
 
+  test('it supports the "endswith" function', () => {
+    const tokens = tokenize("endswith(email, '@example.com')");
+    const result = parse(tokens);
+
+    expect(result).toEqual({
+      type: 'comparison_operator',
+      value: 'endswith',
+      left: { type: 'field', value: 'email' },
+      right: { type: 'string_value', value: '@example.com' },
+    });
+  });
+
   test('it supports the "trim" function', () => {
     const tokens = tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'");
     const result = parse(tokens);

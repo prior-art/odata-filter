@@ -106,3 +106,5 @@ npm test --workspace=packages/core         # scope any script to one package
 - Any feature addition or enhancement must include documentation updates: update the relevant
   package `README.md` files with new usage examples and update the `packages/docs` Jekyll site
   (FAQ supported-features list, example pages, or new example pages as appropriate).
+- When adding new core lexer/parser token or operator support, also update and test downstream
+  package compatibility in `packages/marshalers` and `packages/validation`.

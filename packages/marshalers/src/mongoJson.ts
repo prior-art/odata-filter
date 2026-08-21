@@ -54,6 +54,11 @@ export const toMongoJson = (
       return json;
     }
 
+    if (tokenType === TokenType.ENDSWITH) {
+      json[field.toString()] = { $regex: `${escapeRegExp(toStringValue(value))}$` };
+      return json;
+    }
+
     if (tokenType === TokenType.CONTAINS) {
       json[field.toString()] = { $regex: escapeRegExp(toStringValue(value)) };
       return json;

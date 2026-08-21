@@ -45,6 +45,10 @@ export const toSqlWhere = (ast?: Node): string => {
       return `${field} ${operator} ${formatSqlValue(`${toStringValue(value)}%`)}`;
     }
 
+    if (tokenType === TokenType.ENDSWITH) {
+      return `${field} ${operator} ${formatSqlValue(`%${toStringValue(value)}`)}`;
+    }
+
     return `${field} ${operator} ${formatSqlValue(value ?? null)}`;
   }
 

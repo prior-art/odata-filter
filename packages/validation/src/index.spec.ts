@@ -361,3 +361,32 @@ describe('#validate with trim()', () => {
     }
   });
 });
+
+describe('#validate with endswith()', () => {
+  const endswithAstStub = {
+    type: NodeType.COMPARISON_OPERATOR,
+    value: 'endswith',
+    left: { type: NodeType.FIELD, value: 'email' },
+    right: { type: NodeType.STRING_LITERAL, value: '@example.com' },
+  };
+
+  test('it validates endswith() expressions against string fields', () => {
+    const result = () =>
+      validate(endswithAstStub, { email: { type: 'string' } });
+
+    expect(result).not.toThrow();
+  });
+
+  test('it throws when endswith() expression field type is invalid', () => {
+    expect.hasAssertions();
+
+    try {
+      validate(endswithAstStub, { email: { type: 'integer' } });
+    } catch (e) {
+      expect(e).toBeInstanceOf(ValidationException);
+      expect(e.message).toEqual(
+        'Invalid type for field email, expected integer, received string',
+      );
+    }
+  });
+});

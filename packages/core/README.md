@@ -96,19 +96,29 @@ iterate(ast);
 ```ts
 import { tokenize, parse } from '@odata-filter/core';
 
-const tokens = tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'");
+const tokens = tokenize("endswith(email, '@example.com') and trim(CompanyName) eq 'Alfreds Futterkiste'");
 
 parse(tokens);
 
 /*{
-  type: 'comparison_operator',
-  value: 'eq',
+  type: 'logical_operator',
+  value: 'and',
   left: {
-    type: 'unary_function',
-    value: 'trim',
-    left: { type: 'field', value: 'CompanyName' }
+    type: 'comparison_operator',
+    value: 'endswith',
+    left: { type: 'field', value: 'email' },
+    right: { type: 'string_value', value: '@example.com' }
   },
-  right: { type: 'string_value', value: 'Alfreds Futterkiste' }
+  right: {
+    type: 'comparison_operator',
+    value: 'eq',
+    left: {
+      type: 'unary_function',
+      value: 'trim',
+      left: { type: 'field', value: 'CompanyName' }
+    },
+    right: { type: 'string_value', value: 'Alfreds Futterkiste' }
+  }
 }*/
 ```
 
