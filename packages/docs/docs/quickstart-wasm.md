@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Quickstart (WASM)
-nav_order: 4
+nav_order: 5
 ---
 
 # Quickstart — WASM Runtime
