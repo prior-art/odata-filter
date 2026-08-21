@@ -91,6 +91,27 @@ iterate(ast);
 ]*/
 ```
 
+### String Functions
+
+```ts
+import { tokenize, parse } from '@odata-filter/core';
+
+const tokens = tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'");
+
+parse(tokens);
+
+/*{
+  type: 'comparison_operator',
+  value: 'eq',
+  left: {
+    type: 'unary_function',
+    value: 'trim',
+    left: { type: 'field', value: 'CompanyName' }
+  },
+  right: { type: 'string_value', value: 'Alfreds Futterkiste' }
+}*/
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](https://github.com/prior-art/odata-filter/blob/main/CONTRIBUTING.md) for full instructions.

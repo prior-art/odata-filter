@@ -39,6 +39,22 @@ validate(ast, {
 // Error: Operator of type gte expects number_value, received string_value
 ```
 
+### trim() Example
+
+```ts
+import { tokenize, parse } from '@odata-filter/core';
+import { validate } from '@odata-filter/validation';
+
+const ast = parse(tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'"));
+
+validate(ast, {
+  CompanyName: {
+    type: 'string'
+  }
+});
+// passes — trim() is unwrapped and CompanyName is validated as string
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](https://github.com/prior-art/odata-filter/blob/main/CONTRIBUTING.md) for full instructions.
