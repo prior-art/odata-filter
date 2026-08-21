@@ -31,6 +31,21 @@ function nudHandler(parser: Parser): AST {
         left: left,
       };
     }
+    case TokenType.TRIM: {
+      parser.nextToken();
+      const symbolToken = parser.getCurrentToken();
+      parser.nextToken();
+      parser.nextToken();
+
+      return {
+        type: nodeType,
+        value: token.value,
+        left: {
+          type: NodeType.FIELD,
+          value: symbolToken.value,
+        },
+      };
+    }
     case TokenType.OPEN_PAREN: {
       validateParens(parser);
       return handler(parser, BindingPower.DEFAULT);

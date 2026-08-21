@@ -225,3 +225,20 @@ test('should parse a startswith() expression', () => {
   expect(ast.right!.value.raw).equal("'Eliz'");
   expect(ast.right!.value.stringValue).equal("Eliz");
 });
+
+test('should parse a trim() expression', () => {
+  const tokens = app.tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'");
+  const ast = app.parse(tokens);
+
+  expect(ast.type).equal(app.NodeType.COMPARISON_OPERATOR);
+  expect(ast.value.raw).equal("eq");
+  expect(ast.left).not.isNull();
+  expect(ast.left!.type).equal(app.NodeType.UNARY_FUNCTION);
+  expect(ast.left!.value.raw).equal("trim");
+  expect(ast.left!.left).not.isNull();
+  expect(ast.left!.left!.type).equal(app.NodeType.FIELD);
+  expect(ast.left!.left!.value.raw).equal("CompanyName");
+  expect(ast.right).not.isNull();
+  expect(ast.right!.type).equal(app.NodeType.STRING_LITERAL);
+  expect(ast.right!.value.stringValue).equal("Alfreds Futterkiste");
+});

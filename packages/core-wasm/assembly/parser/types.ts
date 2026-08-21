@@ -15,6 +15,7 @@ export enum NodeType {
   DURATION_LITERAL,
   NULL,
   ARRAY,
+  UNARY_FUNCTION,
 }
 
 export enum BindingPower {

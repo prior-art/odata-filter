@@ -28,6 +28,7 @@ export enum TokenType {
   FUNCTION,
   CONTAINS,
   STARTSWITH,
+  TRIM,
 }
 
 export class TokenPattern {
