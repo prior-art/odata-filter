@@ -7,22 +7,21 @@ const createTwoParamFunctionTokens = (
   lexer: Lexer,
   field: string,
   rawValue: string,
+  operatorName: string,
   operator: TokenType.CONTAINS | TokenType.STARTSWITH | TokenType.ENDSWITH,
 ): Token[] => {
-  const operatorValue = operator.split('_')[0];
-
   return [{
     value: field,
     type: TokenType.SYMBOL,
     pos: lexer.pos,
   }, {
-    value: operatorValue,
+    value: operatorName,
     type: operator,
     pos: lexer.pos + field.length,
   }, {
     value: stringFormatter(rawValue),
     type: TokenType.STRING,
-    pos: lexer.pos + field.length + operatorValue.length,
+    pos: lexer.pos + field.length + operatorName.length,
   }];
 };
 
@@ -42,6 +41,7 @@ const functionHandler = (lexer: Lexer, value: string): Token[] => {
         lexer,
         doubleArg1,
         doubleArg2,
+        'contains',
         TokenType.CONTAINS,
       );
     case 'startswith':
@@ -49,6 +49,7 @@ const functionHandler = (lexer: Lexer, value: string): Token[] => {
         lexer,
         doubleArg1,
         doubleArg2,
+        'startswith',
         TokenType.STARTSWITH,
       );
     case 'endswith':
@@ -56,6 +57,7 @@ const functionHandler = (lexer: Lexer, value: string): Token[] => {
         lexer,
         doubleArg1,
         doubleArg2,
+        'endswith',
         TokenType.ENDSWITH,
       );
     case 'trim':
