@@ -128,3 +128,4 @@ patterns.push({
 
 export const reservedKeywordLookup = new Map<string, TokenType>();
 reservedKeywordLookup.set('now()', TokenType.DATETIME);
+reservedKeywordLookup.set('trim', TokenType.TRIM);

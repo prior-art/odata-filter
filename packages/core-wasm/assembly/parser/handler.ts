@@ -32,7 +32,9 @@ function nudHandler(parser: Parser): AST {
       };
     }
     case TokenType.TRIM: {
+      parser.nextToken();
       const symbolToken = parser.getCurrentToken();
+      parser.nextToken();
       parser.nextToken();
 
       return {

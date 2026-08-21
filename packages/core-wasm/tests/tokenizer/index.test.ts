@@ -404,22 +404,28 @@ test("should tokenize startswith() as part of larger expression", () => {
 
 test("should tokenize trim() function", () => {
   const actual = app.tokenize("trim(CompanyName)");
-  expect(actual.length).equal(2);
+  expect(actual.length).equal(4);
   expect(actual[0].type).equal(app.TokenType.TRIM);
   expect(actual[0].value.raw).equal("trim");
-  expect(actual[1].type).equal(app.TokenType.SYMBOL);
-  expect(actual[1].value.raw).equal("CompanyName");
-  expect(actual[1].value.stringValue).equal("CompanyName");
+  expect(actual[1].type).equal(app.TokenType.OPEN_PAREN);
+  expect(actual[2].type).equal(app.TokenType.SYMBOL);
+  expect(actual[2].value.raw).equal("CompanyName");
+  expect(actual[2].value.stringValue).equal("CompanyName");
+  expect(actual[3].type).equal(app.TokenType.CLOSE_PAREN);
 });
 
 test("should tokenize trim() as part of larger expression", () => {
   const actual = app.tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'");
-  expect(actual.length).equal(4);
+  expect(actual.length).equal(8);
   expect(actual[0].type).equal(app.TokenType.TRIM);
   expect(actual[0].value.raw).equal("trim");
-  expect(actual[1].type).equal(app.TokenType.SYMBOL);
-  expect(actual[1].value.raw).equal("CompanyName");
-  expect(actual[2].type).equal(app.TokenType.EQ);
-  expect(actual[3].type).equal(app.TokenType.STRING);
-  expect(actual[3].value.stringValue).equal("Alfreds Futterkiste");
+  expect(actual[1].type).equal(app.TokenType.OPEN_PAREN);
+  expect(actual[2].type).equal(app.TokenType.SYMBOL);
+  expect(actual[2].value.raw).equal("CompanyName");
+  expect(actual[3].type).equal(app.TokenType.CLOSE_PAREN);
+  expect(actual[4].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[5].type).equal(app.TokenType.EQ);
+  expect(actual[6].type).equal(app.TokenType.WHITESPACE);
+  expect(actual[7].type).equal(app.TokenType.STRING);
+  expect(actual[7].value.stringValue).equal("Alfreds Futterkiste");
 });
