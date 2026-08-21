@@ -103,6 +103,8 @@ npm test --workspace=packages/core         # scope any script to one package
 - When completing work on a package, increment the package's `version` field in its `package.json`
   using semantic versioning: patch for bug fixes, minor for new features, major for breaking
   changes.
+- After changing any `package.json` files (including version bumps), run `npm install --package-lock-only --ignore-scripts`
+  at the repository root to keep `package-lock.json` in sync.
 - Any feature addition or enhancement must include documentation updates: update the relevant
   package `README.md` files with new usage examples and update the `packages/docs` Jekyll site
   (FAQ supported-features list, example pages, or new example pages as appropriate).
