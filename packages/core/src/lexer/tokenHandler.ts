@@ -47,6 +47,22 @@ const functionHandler = (lexer: Lexer, value: string): Token[] => {
         pos: lexer.pos + doubleArg1.length + operator.length,
       }];
     }
+    case 'endswith': {
+      const operator = "endswith";
+      return [{
+        value: doubleArg1,
+        type: TokenType.SYMBOL,
+        pos: lexer.pos,
+      }, {
+        value: operator,
+        type: TokenType.ENDSWITH,
+        pos: lexer.pos + doubleArg1.length,
+      }, {
+        value: stringFormatter(doubleArg2),
+        type: TokenType.STRING,
+        pos: lexer.pos + doubleArg1.length + operator.length,
+      }];
+    }
     case 'trim': {
       return [{
         value: 'trim',

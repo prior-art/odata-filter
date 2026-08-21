@@ -41,6 +41,7 @@ export const valueFormatterLookup: Record<TokenType, Function> = {
   [TokenType.FUNCTION]: defaultFormatter,
   [TokenType.CONTAINS]: defaultFormatter,
   [TokenType.STARTSWITH]: defaultFormatter,
+  [TokenType.ENDSWITH]: defaultFormatter,
   [TokenType.TRIM]: defaultFormatter,
 };
 

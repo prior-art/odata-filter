@@ -455,6 +455,34 @@ describe('#tokenizer', () => {
     ]);
   });
 
+  it('supports endswith function format', () => {
+    const result = tokenize(`time lt now() and endswith(timezone, 'Europe/')`);
+
+    expect(result).toEqual([
+      { value: 'time', type: 'symbol', pos: 0 },
+      { value: 'lt', type: 'lt_operator', pos: 5 },
+      { value: expect.any(Temporal.Instant), type: 'datetime', pos: 8 },
+      { value: 'and', type: 'and_operator', pos: 14 },
+      { value: 'timezone', type: 'symbol', pos: 18 },
+      { value: 'endswith', type: 'endswith_operator', pos: 26 },
+      { value: 'Europe/', type: 'string', pos: 34 },
+    ]);
+  });
+
+  it('supports endswith function format with spaces', () => {
+    const result = tokenize(`time lt now( ) and endswith ( timezone , 'Europe/' )`);
+
+    expect(result).toEqual([
+      { value: 'time', type: 'symbol', pos: 0 },
+      { value: 'lt', type: 'lt_operator', pos: 5 },
+      { value: expect.any(Temporal.Instant), type: 'datetime', pos: 8 },
+      { value: 'and', type: 'and_operator', pos: 15 },
+      { value: 'timezone', type: 'symbol', pos: 19 },
+      { value: 'endswith', type: 'endswith_operator', pos: 27 },
+      { value: 'Europe/', type: 'string', pos: 35 },
+    ]);
+  });
+
   it('supports trim function format', () => {
     const result = tokenize(`trim(CompanyName) eq 'Alfreds Futterkiste'`);
 
