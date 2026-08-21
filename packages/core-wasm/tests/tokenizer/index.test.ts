@@ -401,3 +401,25 @@ test("should tokenize startswith() as part of larger expression", () => {
   expect(actual[2].type).equal(app.TokenType.STRING);
   expect(actual[2].value.raw).equal("'Eliz'");
 });
+
+test("should tokenize trim() function", () => {
+  const actual = app.tokenize("trim(CompanyName)");
+  expect(actual.length).equal(2);
+  expect(actual[0].type).equal(app.TokenType.TRIM);
+  expect(actual[0].value.raw).equal("trim");
+  expect(actual[1].type).equal(app.TokenType.SYMBOL);
+  expect(actual[1].value.raw).equal("CompanyName");
+  expect(actual[1].value.stringValue).equal("CompanyName");
+});
+
+test("should tokenize trim() as part of larger expression", () => {
+  const actual = app.tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'");
+  expect(actual.length).equal(4);
+  expect(actual[0].type).equal(app.TokenType.TRIM);
+  expect(actual[0].value.raw).equal("trim");
+  expect(actual[1].type).equal(app.TokenType.SYMBOL);
+  expect(actual[1].value.raw).equal("CompanyName");
+  expect(actual[2].type).equal(app.TokenType.EQ);
+  expect(actual[3].type).equal(app.TokenType.STRING);
+  expect(actual[3].value.stringValue).equal("Alfreds Futterkiste");
+});

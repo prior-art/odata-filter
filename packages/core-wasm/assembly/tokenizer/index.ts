@@ -27,6 +27,13 @@ function functionHandler(raw: string, tokenPos: i32, tokens: Array<Token>): void
       pushStringFunction(raw, tokenPos, tokens, TokenType.STARTSWITH, 'startswith');
       return;
     }
+    case 'trim': {
+      const inner = raw.substring(functionName.length + 1, raw.length - 1).trim();
+
+      tokens.push({ type: TokenType.TRIM, value: format(TokenType.TRIM, 'trim'), position: tokenPos } as Token);
+      tokens.push({ type: TokenType.SYMBOL, value: format(TokenType.SYMBOL, inner), position: tokenPos + functionName.length + 1 } as Token);
+      return;
+    }
     default: {
       tokens.push({ type: reservedKeywordLookup.has(raw) ? reservedKeywordLookup.get(raw) : TokenType.FUNCTION, value: format(TokenType.FUNCTION, raw), position: tokenPos } as Token);
     }
