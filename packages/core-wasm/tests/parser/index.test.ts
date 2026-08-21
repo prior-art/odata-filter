@@ -226,6 +226,21 @@ test('should parse a startswith() expression', () => {
   expect(ast.right!.value.stringValue).equal("Eliz");
 });
 
+test('should parse an endswith() expression', () => {
+  const tokens = app.tokenize("endswith(email, '@example.com')");
+  const ast = app.parse(tokens);
+
+  expect(ast.type).equal(app.NodeType.COMPARISON_OPERATOR);
+  expect(ast.value.raw).equal("endswith");
+  expect(ast.left).not.isNull();
+  expect(ast.left!.type).equal(app.NodeType.FIELD);
+  expect(ast.left!.value.raw).equal("email");
+  expect(ast.right).not.isNull();
+  expect(ast.right!.type).equal(app.NodeType.STRING_LITERAL);
+  expect(ast.right!.value.raw).equal("'@example.com'");
+  expect(ast.right!.value.stringValue).equal("@example.com");
+});
+
 test('should parse a trim() expression', () => {
   const tokens = app.tokenize("trim(CompanyName) eq 'Alfreds Futterkiste'");
   const ast = app.parse(tokens);

@@ -126,6 +126,19 @@ Note: The output of the 'parse' function differs from the [TypeScript version](.
 )();
 ```
 
+### String Function Example
+
+```ts
+(async () => {
+    const { tokenize, parse } = await import('@odata-filter/core-wasm');
+
+    const tokens = tokenize("endswith(email, '@example.com')");
+    const ast = parse(tokens);
+
+    console.log(ast.value.raw); // endswith
+})();
+```
+
 ### Traverse Results
 
 ```ts

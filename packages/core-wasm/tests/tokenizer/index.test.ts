@@ -402,6 +402,30 @@ test("should tokenize startswith() as part of larger expression", () => {
   expect(actual[2].value.raw).equal("'Eliz'");
 });
 
+test("should tokenize endswith() function", () => {
+  const actual = app.tokenize("endswith(email, '@example.com')");
+  expect(actual.length).equal(3);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("email");
+  expect(actual[0].value.stringValue).equal("email");
+  expect(actual[1].type).equal(app.TokenType.ENDSWITH);
+  expect(actual[1].value.raw).equal("endswith");
+  expect(actual[2].type).equal(app.TokenType.STRING);
+  expect(actual[2].value.raw).equal("'@example.com'");
+  expect(actual[2].value.stringValue).equal("@example.com");
+});
+
+test("should tokenize endswith() as part of larger expression", () => {
+  const actual = app.tokenize("endswith(email, '@example.com') and active eq true");
+  expect(actual.length).equal(11);
+  expect(actual[0].type).equal(app.TokenType.SYMBOL);
+  expect(actual[0].value.raw).equal("email");
+  expect(actual[1].type).equal(app.TokenType.ENDSWITH);
+  expect(actual[1].value.raw).equal("endswith");
+  expect(actual[2].type).equal(app.TokenType.STRING);
+  expect(actual[2].value.raw).equal("'@example.com'");
+});
+
 test("should tokenize trim() function", () => {
   const actual = app.tokenize("trim(CompanyName)");
   expect(actual.length).equal(4);
