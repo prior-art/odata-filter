@@ -14,6 +14,7 @@ export const mongoOperatorLookup: Record<TokenType, MongoOperators> = {
   [TokenType.NOT]: MongoOperators.NOT,
   [TokenType.CONTAINS]: MongoOperators.CONTAINS,
   [TokenType.STARTSWITH]: MongoOperators.STARTSWITH,
+  [TokenType.ENDSWITH]: MongoOperators.ENDSWITH,
 
   [TokenType.WHITESPACE]: MongoOperators.UNKNOWN,
   [TokenType.STRING]: MongoOperators.UNKNOWN,
@@ -47,6 +48,7 @@ export const sqlOperatorLookup: Record<TokenType, SqlOperators> = {
   [TokenType.NOT]: SqlOperators.NOT,
   [TokenType.CONTAINS]: SqlOperators.CONTAINS,
   [TokenType.STARTSWITH]: SqlOperators.STARTSWITH,
+  [TokenType.ENDSWITH]: SqlOperators.ENDSWITH,
 
   [TokenType.WHITESPACE]: SqlOperators.UNKNOWN,
   [TokenType.STRING]: SqlOperators.UNKNOWN,

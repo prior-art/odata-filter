@@ -89,6 +89,22 @@ toSqlWhere(ast);
 // "(TRIM(CompanyName) = 'Alfreds Futterkiste')"
 ```
 
+### endswith() Example
+
+```ts
+import { tokenize, parse } from '@odata-filter/core';
+import { toMongoJson, toSqlWhere } from '@odata-filter/marshalers';
+
+const tokens = tokenize("endswith(email, '@example.com')");
+const ast = parse(tokens);
+
+toMongoJson(ast);
+// { email: { $regex: '@example\\.com$' } }
+
+toSqlWhere(ast);
+// "email LIKE '%@example.com'"
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](https://github.com/prior-art/odata-filter/blob/main/CONTRIBUTING.md) for full instructions.

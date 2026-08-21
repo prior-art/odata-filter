@@ -11,6 +11,7 @@ export enum MongoOperators {
   NOT = '$not',
   CONTAINS = '$regex',
   STARTSWITH = '$regex',
+  ENDSWITH = '$regex',
   UNKNOWN = 'unknown',
 }
 
@@ -27,5 +28,6 @@ export enum SqlOperators {
   NOT = 'NOT',
   CONTAINS = 'LIKE',
   STARTSWITH = 'LIKE',
+  ENDSWITH = 'LIKE',
   UNKNOWN = 'unknown',
 }

@@ -203,6 +203,41 @@ describe('sql', () => {
     expect(result).toEqual("code LIKE '42%'");
   });
 
+  test('it formats endswith operator as LIKE with a leading % wildcard', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'endswith',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: 'Smith' },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("name LIKE '%Smith'");
+  });
+
+  test('it escapes single quotes in the endswith operator value', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'endswith',
+      left: { type: 'field', value: 'name' },
+      right: { type: 'string_value', value: "O'Brien" },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("name LIKE '%O''Brien'");
+  });
+
+  test('it coerces a missing value to an empty string for the endswith operator', () => {
+    const astStub: Node = {
+      type: 'comparison_operator',
+      value: 'endswith',
+      left: { type: 'field', value: 'name' },
+    } as Node;
+
+    const result = toSqlWhere(astStub);
+    expect(result).toEqual("name LIKE '%'");
+  });
+
   test('it coerces a missing value to an empty string for the contains operator', () => {
     const astStub: Node = {
       type: 'comparison_operator',
@@ -299,4 +334,3 @@ describe('sql', () => {
     expect(result).toEqual('TRIM(CompanyName) = NULL');
   });
 });
-
