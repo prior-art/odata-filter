@@ -43,7 +43,7 @@
     "@odata-filter/core-wasm": "^1.2.0",
     "@odata-filter/marshalers": "^1.0.0",
     "@odata-filter/validation": "^1.0.0",
-    "tsx": "^4.23.11"
+    "tsx": "^4.23.15"
   },
   "peerDependencies": {
     "@odata-filter/core": "^1.0.0",
