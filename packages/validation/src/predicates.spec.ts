@@ -1,6 +1,7 @@
 import { isComparison } from './predicates';
 import { NodeType } from '@odata-filter/core';
 import { ValidationException } from './exceptions';
+import { describe, expect, test } from 'vitest';
 
 describe('#isComparison', () => {
   test('it returns true when an ast node is a comparison', () => {

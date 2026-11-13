@@ -1,5 +1,6 @@
 import { toSqlWhere } from './index';
 import type { Node } from '@odata-filter/core';
+import { describe, expect, test } from 'vitest';
 
 describe('sql', () => {
   test('it transforms an AST node into a SQL WHERE clause string', () => {

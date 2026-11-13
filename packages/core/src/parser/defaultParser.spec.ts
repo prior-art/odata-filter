@@ -2,6 +2,7 @@ import { TokenType } from '../lexer/types';
 import defaultParser from './defaultParser';
 import { ParserException } from './exceptions';
 import { FilterQueryParserException } from '../exceptions';
+import { describe, test, expect } from 'vitest';
 
 describe('#defaultParser', () => {
   test('it fetches the current token', () => {

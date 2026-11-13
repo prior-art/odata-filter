@@ -1,4 +1,4 @@
-import { describe, test, vi } from 'vitest';
+import { describe, test, vi, expect } from 'vitest';
 import { createCommand } from './cli.js';
 
 vi.mock('./cli.js');

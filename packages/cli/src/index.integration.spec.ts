@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 describe('index', () => {
   test('it executes the command', async () => {
     process.argv = ['', '', "price lt 10"];

@@ -1,6 +1,7 @@
 import functionHandler from './functionHandler';
 import defaultLexer from './defaultLexer';
 import { TokenType } from './types';
+import { describe, test, expect } from 'vitest';
 
 const createLexer = () => ({
   ...defaultLexer,

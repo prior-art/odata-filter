@@ -1,6 +1,7 @@
 import { validateParens } from './validation';
 import defaultParser from './defaultParser';
 import { TokenType } from '../lexer/types';
+import { describe, test, expect } from 'vitest';
 
 describe('#validateParens', () => {
   test('it throws an exception when paren groupings are not closed', () => {

@@ -36,10 +36,8 @@
     "@odata-filter/core": "^1.0.0",
     "@odata-filter/marshalers": "^1.0.0",
     "@odata-filter/validation": "^1.0.0",
-    "@vitest/coverage-v8": "^4.1.10",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2",
-    "vitest": "^4.1.11"
+    "rxjs": "^7.8.2"
   },
   "peerDependencies": {
     "@nestjs/common": "^11.0.0",

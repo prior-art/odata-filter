@@ -3,6 +3,7 @@ import defaultParser from './defaultParser';
 import { TokenType } from '../lexer/types';
 import { ParserException } from './exceptions';
 import { FilterQueryParserException } from '../exceptions';
+import { describe, test, expect } from 'vitest';
 
 describe('#handler', () => {
   test('it processes nud tokens', () => {

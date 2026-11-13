@@ -3,6 +3,7 @@ import { LexerException } from './exceptions';
 import { FilterQueryParserException } from '../exceptions';
 import { Temporal } from '@js-temporal/polyfill';
 import { randomUUID } from 'crypto';
+import { describe, test, expect, it } from 'vitest';
 
 describe('#tokenizer', () => {
   test('it transforms a string of syntax into tokens', () => {

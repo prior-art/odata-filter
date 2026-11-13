@@ -2,6 +2,7 @@ import { validate } from '.';
 import { NodeType, FilterQueryParserException } from '@odata-filter/core';
 import { JsonSchema } from './types';
 import { ValidationException } from './exceptions';
+import { describe, expect, test } from 'vitest';
 
 const astStub = {
   type: NodeType.LOGICAL_OPERATOR,

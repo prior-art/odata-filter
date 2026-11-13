@@ -1,4 +1,5 @@
 import { FilterQueryParserException } from '.';
+import { describe, it, expect } from 'vitest';
 
 describe('index', () => {
   describe('FilterQueryParserException', () => {

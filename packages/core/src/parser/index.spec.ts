@@ -2,6 +2,7 @@ import { TokenType } from '../lexer/types';
 import { parse } from '.';
 import { tokenize } from '..';
 import { Temporal } from '@js-temporal/polyfill';
+import { describe, test, expect } from 'vitest';
 
 describe('#parse', () => {
   test('it transforms tokens into an abstract syntax tree', () => {
@@ -133,6 +134,12 @@ describe('#parse', () => {
     const result = () => parse(tokenStub);
 
     expect(result).toThrow('NUD handler expected for token )');
+  });
+
+  test('it rejects unclosed groupings', () => {
+    const tokens = tokenize('(country eq US');
+
+    expect(() => parse(tokens)).toThrow('Expected ) but received US instead');
   });
 
   test('it supports the "contains" function', () => {
