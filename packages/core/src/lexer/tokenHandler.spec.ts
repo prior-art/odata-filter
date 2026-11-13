@@ -1,6 +1,7 @@
 import tokenHandler from './tokenHandler';
 import defaultLexer from './defaultLexer';
 import { TokenType } from './types';
+import { describe, test, expect } from 'vitest';
 
 describe('#tokenHandler', () => {
   test('it tracks token position during processing', () => {

@@ -1,5 +1,6 @@
 import { toMongoJson } from './index';
 import type { Node } from '@odata-filter/core';
+import { describe, expect, test } from 'vitest';
 
 describe('mongoJson', () => {
   test('it transforms an AST node into a JSON object', () => {

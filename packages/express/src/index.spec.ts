@@ -1,7 +1,8 @@
-import express, { type Request, type Response } from 'express';
+import express, { type NextFunction, type Request, type Response } from 'express';
 import request from 'supertest';
 import expressMiddleware from '.';
 import { QueryFilter } from './types';
+import { describe, expect, test, beforeEach, vi } from 'vitest';
 
 const mongoJsonStub = { country: 'US' };
 const odataStub = "country eq 'US'";
@@ -45,23 +46,24 @@ describe('#middleware', () => {
   });
 
   test('it throws a 400 error when validation fails', async () => {
+    const errorHandler = vi.fn((_err: Error, _req: Request, _res: Response, _next: NextFunction) => undefined);
     const app = express();
     app.use(expressMiddleware({ schema }));
     app.get('/', (_req: Request, res: Response) => {
       res.status(200).send({ hello: 'world' });
     });
+    app.use(errorHandler);
 
     const { statusCode, body: { message } } = await request(app).get('/').query({ filter: 'country eq 2' });
     expect(message).toMatch('Invalid type for field country, expected string, received number');
     expect(statusCode).toEqual(400);
-    expect(Object.defineProperty).toHaveBeenCalledWith(expect.any(Object), 'query', expect.objectContaining({
-      value: expect.objectContaining({
-        filterParsed: astStub,
-      }),
-      writable: true,
-      configurable: true,
-      enumerable: true,
-    }));
+    expect(Object.defineProperty).not.toHaveBeenCalledWith(expect.any(Object), 'query', expect.anything());
+    expect(errorHandler).toHaveBeenCalledWith(
+      expect.objectContaining({ message: 'Invalid type for field country, expected string, received number' }),
+      expect.anything(),
+      expect.anything(),
+      expect.anything(),
+    );
   });
 
   test('it skips if the filter parameter is not present', async () => {

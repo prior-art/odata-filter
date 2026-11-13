@@ -1,6 +1,7 @@
 import Fastify, { FastifyRequest, FastifyInstance } from 'fastify';
 import fastifyPlugin from '.';
 import { QueryFilter } from './types';
+import { describe, test, expect, beforeEach } from 'vitest';
 
 const mongoJsonStub = { country: 'US' };
 const sqlWhereStub = "country = 'US'";

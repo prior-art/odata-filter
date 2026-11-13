@@ -1,5 +1,6 @@
 import { iterate } from '..';
 import { NodeType } from '../parser/types';
+import { describe, test, expect } from 'vitest';
 
 describe('#iterate', () => {
   test('it transforms the abstract syntax tree (AST) into an Array collection of nodes', () => {
