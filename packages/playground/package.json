@@ -1,0 +1,37 @@
+{
+  "name": "odata-filter-playground",
+  "version": "0.1.2",
+  "private": true,
+  "description": "Electron playground for building and validating OData filter expressions.",
+  "license": "MIT",
+  "author": "Prior Art <14024239+elizabethclouser@users.noreply.github.com>",
+  "homepage": "https://prior-art.github.io/odata-filter/",
+  "type": "module",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "build": "npm run copy:preload && tsc -p tsconfig.main.json && vite build --config vite.config.ts",
+    "clean": "rimraf dist dist-renderer out node_modules reports coverage",
+    "copy:preload": "copyfiles -u 1 src/preload/preload.js dist/",
+    "dev": "npm run copy:preload && tsx ./scripts/dev.ts",
+    "lint": "eslint -c ../../eslint.config.js",
+    "lint:fix": "eslint -c ../../eslint.config.js --fix",
+    "package": "electron-builder --config electron-builder.yml",
+    "test": "vitest -c ../../vitest.config.ts run",
+    "test:mutation": "stryker run stryker.config.json",
+    "test:watch": "vitest -c ../../vitest.config.ts"
+  },
+  "dependencies": {
+    "@odata-filter/core": "^1.8.0",
+    "@odata-filter/validation": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.0",
+    "copyfiles": "^2.4.1",
+    "electron": "39.8.10",
+    "electron-builder": "^26.0.12",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.0",
+    "vitest": "^5.1.0"
+  }
+}

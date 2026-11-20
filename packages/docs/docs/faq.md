@@ -34,6 +34,9 @@ need to run the parser in a browser, an edge runtime, or any environment where W
 preferred. The WASM package has a slightly different AST shape — see
 [Quickstart (WASM)]({% link docs/quickstart-wasm.md %}) for details.
 
+Use `@odata-filter/playground` to open the Electron desktop playground for composing, parsing,
+and validating OData filter expressions through clickable controls.
+
 ### Can I use the Fastify plugin with other HTTP frameworks?
 
 The `@odata-filter/fastify` package is specifically a Fastify plugin. Use `@odata-filter/express`

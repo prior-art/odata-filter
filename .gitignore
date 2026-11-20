@@ -6,3 +6,4 @@ coverage/
 packages/*/coverage/
 packages/*/.stryker-tmp/
 packages/*/reports/
+packages/*/out/

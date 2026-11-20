@@ -1,0 +1,18 @@
+appId: io.github.prior-art.odata-filter.playground
+productName: OData Filter Playground
+directories:
+  output: out
+files:
+  - dist/**/*
+  - package.json
+linux:
+  target:
+    - AppImage
+    - deb
+mac:
+  target:
+    - dmg
+  category: public.app-category.developer-tools
+win:
+  target:
+    - nsis
