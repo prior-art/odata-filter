@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OData Filter Playground</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <div>
+          <p class="eyebrow">OData v4</p>
+          <h1>Filter Playground</h1>
+        </div>
+        <div class="toolbar">
+          <button id="undo" type="button">Undo</button>
+          <button id="reset" type="button">Reset</button>
+          <button id="save" type="button">Save</button>
+          <button id="load" type="button">Load</button>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <aside class="builder">
+          <h2>Build</h2>
+          <div class="control-group">
+            <label for="field">Field</label>
+            <div class="inline">
+              <input id="field" list="field-options" placeholder="country/name" />
+              <datalist id="field-options">
+                <option value="name"></option>
+                <option value="age"></option>
+                <option value="country"></option>
+                <option value="active"></option>
+                <option value="email"></option>
+              </datalist>
+              <button id="add-field" type="button">Add</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h3>Comparison</h3>
+            <div id="comparison-buttons" class="button-grid"></div>
+          </div>
+
+          <div class="control-group">
+            <h3>Logical</h3>
+            <div class="button-grid">
+              <button data-fragment="logical" data-value="and" type="button">and</button>
+              <button data-fragment="logical" data-value="or" type="button">or</button>
+              <button data-fragment="logical" data-value="not" type="button">not</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h3>Functions</h3>
+            <div class="button-grid">
+              <button data-fragment="function" data-value="contains" type="button">contains</button>
+              <button data-fragment="function" data-value="startswith" type="button">startswith</button>
+              <button data-fragment="function" data-value="endswith" type="button">endswith</button>
+              <button data-fragment="function" data-value="trim" type="button">trim</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h3>Literal</h3>
+            <div class="inline">
+              <select id="literal-type">
+                <option value="string">String</option>
+                <option value="number">Number</option>
+                <option value="boolean">Boolean</option>
+                <option value="null">Null</option>
+                <option value="tuple">Tuple</option>
+              </select>
+              <input id="literal-value" value="" placeholder="Value" />
+              <button id="add-literal" type="button">Add</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h3>Structure</h3>
+            <div class="button-grid">
+              <button data-fragment="open" data-value="(" type="button">(</button>
+              <button data-fragment="close" data-value=")" type="button">)</button>
+              <button id="remove-last" type="button">Remove last</button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="content">
+          <section class="panel expression-panel">
+            <div class="panel-heading">
+              <h2>Expression</h2>
+              <button id="copy" type="button">Copy</button>
+            </div>
+            <textarea id="expression" rows="3" spellcheck="false"></textarea>
+          </section>
+
+          <div class="panels">
+            <section class="panel">
+              <h2>Tokens</h2>
+              <pre id="tokens"></pre>
+            </section>
+            <section class="panel">
+              <h2>AST</h2>
+              <pre id="ast"></pre>
+            </section>
+          </div>
+
+          <section class="panel validation-panel">
+            <h2>Validation</h2>
+            <p id="validation-status">Valid</p>
+          </section>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="./renderer.ts"></script>
+  </body>
+</html>
