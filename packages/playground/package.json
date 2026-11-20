@@ -27,7 +27,7 @@
   "devDependencies": {
     "@types/node": "^26.5.0",
     "copyfiles": "^2.4.1",
-    "electron": "39.8.10",
+    "electron": "42.11.16",
     "electron-builder": "^26.0.12",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
