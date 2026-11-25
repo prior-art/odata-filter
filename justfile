@@ -32,3 +32,6 @@ audit package:
 
 deps-report:
     npm run deps:report
+
+build-playground:
+    npm run --workspace=packages/playground package
