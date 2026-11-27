@@ -30,7 +30,7 @@
     "electron": "42.11.16",
     "electron-builder": "^26.0.12",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vite": "^8.0.0",
     "vitest": "^5.1.0"
   }
